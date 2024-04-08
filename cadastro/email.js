@@ -4,7 +4,7 @@ $(document).ready(function() {
         var email = $('#email').val();
         $.ajax({
             type: 'POST',
-            url: 'verificar_email.php',
+            url: 'email.php',
             data: { email: email },
             success: function(response) {
                 $('#resultado').text(response);
