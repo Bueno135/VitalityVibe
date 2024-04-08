@@ -10,19 +10,41 @@
     <script src="../js/login-form.js" defer></script>
     <script src="../js/header.js" defer></script>
     <script src="../js/inicio.js" defer></script>
+    <script src="/js/cep.js" defer></script>
+    <script src="/js/cpf.js" defer></script>
+    <script>
+        function logarUser() {
+            let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
+            let todosPreenchidos = true;
+
+            campos.forEach(function(campo) {
+                if (!campo.value) {
+                    todosPreenchidos = false;
+                }
+            });
+
+            if (todosPreenchidos == false) {
+                alert("Por favor, preencha todos os campos do formulário.");
+            } else {
+                console.log('Formulário enviado');
+                window.location.href = "/Projeto/cadastro/confirmarcadastro.php";
+            } 
+           alert("ENTREI!");
+        }
+    </script>
+
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
 
     <style>
     .mb-6{
         margin-bottom: 1.5rem;
     }
-</style>
+    </style>
 
 
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
-
-    <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">
+        <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">
         <nav class="container mx-auto flex justify-between items-center">
             <a href="/Projeto/index.php" class="text-xl font-bold text-blue-600">VitalityVibe</a>
             <div>
@@ -52,8 +74,7 @@
                             <label for="emailLogin" class="block text-sm font-medium text-gray-700">E-mail</label>
                             <input type="email" id="emailLogin" name="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
-                        <script src="email.js"></script>
-                        <div class="mb-6">
+                         <div class="mb-6">
                             <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Senha</label>
                             <input type="password" id="password" name="Senha" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
@@ -64,28 +85,7 @@
                         <div class="mb-6">
                             <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
                             <input id="cpf" name="cpf" inputmode="numeric" maxlength="11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                            <script>
-                                function formatarCPF(cpf) {
-                                    cpf = cpf.replace(/\D/g, '');
-                                    
-                                    cpf = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
-                                    
-                                    return cpf;
-                                }
-                        
-                                const campoCPF = document.getElementById('cpf');
-                        
-                                campoCPF.addEventListener('input', function() {
-                                    let cpf = this.value;
-                        
-                                    cpf = formatarCPF(cpf);
-                        
-                                    this.value = cpf;
-                                });
-                            </script>
-                        
-
-                        <div class="mb-6">
+                         <div class="mb-6">
                             <label for="telefone" class="block text-sm font-medium text-gray-700">Telefone</label>
                             <input inputmode="numeric" id="telefone" name="telefone" maxlength="11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
@@ -114,15 +114,15 @@
 
                         <script>
                             function verificarIdade() {
-                                var dataNascimento = new Date(document.getElementById('dataNascimento').value);
+                                var dataNascimento = new Date(document.getElementById('dt_nasc').value);
                                 var hoje = new Date();
                                 var idade = hoje.getFullYear() - dataNascimento.getFullYear();
                                 var mes = hoje.getMonth() - dataNascimento.getMonth();
-                
+
                                 if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
                                     idade--;
                                 }
-                
+
                                 if (idade < 16) {
                                     document.getElementById('idadeAviso').classList.remove('hidden');
                                     return false;
@@ -131,7 +131,7 @@
                                     return true;
                                 }
                             }
-                
+
                             document.getElementById('form-login').addEventListener('submit', function(event) {
                                 if (!verificarIdade()) {
                                     event.preventDefault();
@@ -152,26 +152,7 @@
                         <div class="mb-6">
                             <label for="cep" class="block text-sm font-medium text-gray-700">CEP</label>
                             <input type="text" id="cep" name="cep" inputmode="numeric" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                        </div>
-
-                        <script>
-                            const campoCEP = document.getElementById('cep');
-
-                            campoCEP.addEventListener('input', function() {
-                                let cep = this.value;
-
-                                // Remove todos os caracteres que não são números
-                                cep = cep.replace(/\D/g, '');
-
-                                // Formata o CEP adicionando o hífen
-                                if (cep.length > 5) {
-                                    cep = cep.substring(0, 5) + '-' + cep.substring(5);
-                                }
-
-                                this.value = cep;
-                            });
-                        </script>
-                        
+                        </div> 
                         <div class="mb-6">
                             <label for="obj" class="block text-sm font-medium text-gray-700">Objetivo</label>
                             <select id="obj" name="objetivo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -207,37 +188,13 @@
                             <input type="text" id="Altura" name="altura" inputmode="numeric" pattern="[0-9]*" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="text-center">
-                            <button type="submit" id="resultado" onclick="logarUser()" value="Enviar"
-                            class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm f
-                            ont-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
+                            <button type="submit" id="resultado" onclick="logarUser()" value="Enviar">Concluir Cadastro</button>
                         </div>
                         <input type="hidden" id="senha-hash" name="senhaHash">
                     </form>
                 </div>
-                <script>
-                    function logarUser() {
-                        let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
-                        let todosPreenchidos = true;
-
-                        campos.forEach(function(campo) {
-                            if (!campo.value) {
-                                todosPreenchidos = false;
-                            }
-                        });
-
-                        if (todosPreenchidos == false) {
-                            alert("Por favor, preencha todos os campos do formulário.");
-                        } else {
-                            console.log('Formulário enviado');
-                            window.location.href = "/Projeto/cadastro/confirmarcadastro.php";
-                        }
-                    }
-                </script>
-
-
-                <div class="flex justify-center mb-6 mt-4">
-                    
-                    <a href="cadastrocliente.php" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-1">Limpar Informações</a>
+                 <div class="flex justify-center mb-6 mt-4">
+                     <a href="cadastrocliente.php" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-1">Limpar Informações</a>
                 </div>
                 
             </div>
@@ -245,7 +202,5 @@
     </main> 
 
 
-    <footer class="bg-gray-800 text-white text-center md:text-left">
-    </footer>
-</body>
+ </body>
 </html>
