@@ -11,7 +11,33 @@
     <script src="../js/login-form.js" defer></script>
     <script src="../js/header.js" defer></script>
     <script src="../js/inicio.js" defer></script>
+    <script src="../js/cpf.js" defer></script>
+    <script src="../js/cep.js" defer></script>
+    <script src="../js/validarCPF.js" defer></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
+    <script>
+        function logarUser(){
+            let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
+            let todosPreenchidos = true;
+
+            campos.forEach(function(campo) {
+                if (!campo.value) {
+                    todosPreenchidos = false;
+                }
+            });
+
+            if (todosPreenchidos == false) {
+                alert("Por favor, preencha todos os campos do formulário.");
+            } else {
+                console.log('Formulário enviado');
+                window.location.href = "/Projeto/cadastro/confirmarcadastro.php";
+                alert("ENTREI!");
+            } 
+            
+        }
+        
+
+    </script>
 
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
@@ -58,46 +84,7 @@
                         </div>
                         <div class="mb-6">
                             <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
-                            <input type="text" id="cpf" name="cpf" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                            <script>
-                                function formatarCPF(cpf) {
-                                    cpf = cpf.replace(/\D/g, '');
-                                    
-                                    cpf = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
-                                    
-                                    return cpf;
-                                }
-                        
-                                const campoCPF = document.getElementById('cpf');
-                        
-                                campoCPF.addEventListener('input', function() {
-                                    let cpf = this.value;
-                        
-                                    cpf = formatarCPF(cpf);
-                        
-                                    this.value = cpf;
-                                });
-                            </script>
-                            <script>
-                                function validarCPF() {
-                                    var cpf = document.getElementById('cpf').value;
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.onreadystatechange = function() {
-                                        if (this.readyState == 4 && this.status == 200) {
-                                            if (this.responseText === 'exists') {
-                                                alert('CPF já cadastrado');
-                                                return false;
-                                            } else {
-                                                return true;
-                                            }
-                                        }
-                                    };
-                                    xhr.open("POST", "cpfexistente.php", true);
-                                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                                    xhr.send("cpf=" + cpf);
-                                    return false; // Impede o envio do formulário antes da resposta do servidor
-                                }
-                            </script>
+                            <input type="cpf" id="cpf" name="cpf" maxlength="11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         
                         <div class="mb-6">
@@ -136,41 +123,6 @@
                         <input type="hidden" id="senha-hash" name="senhaHash">
                     </form>
                 </div>
-                <script>
-                    function logarUser() {
-                       
-                        let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
-                        
-                   
-                        let todosPreenchidos = true;
-                        campos.forEach(function(campo) {
-                            if (!campo.value) {
-                                todosPreenchidos = false;
-                            }
-                        });
-                        if (todosPreenchidos == false) {
-                            alert("Por favor, preencha todos os campos do formulário.");
-                            
-                        } else {
-                            window.location.href = "/Projeto/cadastro/confimar_nutri.php";
-                            
-                        }
-                        console.log('Formulário enviado');
-                        var senha = document.getElementById('senha').value;
-                        var confirmarSenha = document.getElementById('confirmarSenha').value;
-
-                        if (senha !== confirmarSenha) {
-                            alert("As senhas não coincidem. Por favor, verifique.");
-                            return false;
-                        }
-                        
-                        document.getElementById('form-login').submit();
-                    }
-
-                </script>
-
-                
-            
                 <div class="flex justify-center mb-6 mt-4">
                     
                     <a href="cadastronutri.php" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-1">Limpar Informações</a>
