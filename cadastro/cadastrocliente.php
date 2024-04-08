@@ -52,6 +52,7 @@
                             <label for="emailLogin" class="block text-sm font-medium text-gray-700">E-mail</label>
                             <input type="email" id="emailLogin" name="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
+                        <script src="email.js"></script>
                         <div class="mb-6">
                             <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Senha</label>
                             <input type="password" id="password" name="Senha" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
