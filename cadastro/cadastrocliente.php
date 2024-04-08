@@ -59,7 +59,7 @@
                         </div>
                         <div class="mb-6">
                             <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Confirmar Senha</label>
-                            <input type="password" id="emailLogin" name="" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="password" id="password" name="" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
@@ -207,7 +207,7 @@
                             <input type="text" id="Altura" name="altura" inputmode="numeric" pattern="[0-9]*" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="text-center">
-                            <button type="submit" onclick="logarUser()" value="Enviar"
+                            <button type="submit" id="resultado" onclick="logarUser()" value="Enviar"
                             class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm f
                             ont-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
                         </div>
@@ -242,7 +242,7 @@
                 
             </div>
         </section>
-    </main>
+    </main> 
 
 
     <footer class="bg-gray-800 text-white text-center md:text-left">
