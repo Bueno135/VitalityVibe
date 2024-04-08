@@ -10,10 +10,10 @@
     <script src="../js/login-form.js" defer></script>
     <script src="../js/header.js" defer></script>
     <script src="../js/inicio.js" defer></script>
-    <script src="/js/cep.js" defer></script>
-    <script src="/js/telefone.js" defer></script>
-    <script src="/js/cpf.js" defer></script>
-    <script src="/js/validarCPF.js" defer></script>
+    <script src="../js/cep.js" defer></script>
+    <script src="../js/telefone.js" defer></script>
+    <script src="../js/cpf.js" defer></script>
+    <script src="../js/validarCPF.js" defer></script>
     <script>
         function logarUser() {
             let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
@@ -34,32 +34,6 @@
            alert("ENTREI!");
         }
     </script>
-    <script>
-        function verificarIdade() {
-            var dataNascimento = new Date(document.getElementById('dt_nasc').value);
-            var hoje = new Date();
-            var idade = hoje.getFullYear() - dataNascimento.getFullYear();
-            var mes = hoje.getMonth() - dataNascimento.getMonth();
-
-            if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
-                idade--;
-            }
-
-            if (idade < 16) {
-                document.getElementById('idadeAviso').classList.remove('hidden');
-                return false;
-            } else {
-                document.getElementById('idadeAviso').classList.add('hidden');
-                return true;
-            }
-        }
-
-        document.getElementById('form-login').addEventListener('submit', function(event) {
-            if (!verificarIdade()) {
-                event.preventDefault();
-            }
-        });
-    </script>
 
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
 
@@ -68,6 +42,7 @@
         margin-bottom: 1.5rem;
     }
     </style>
+    
 
 
 </head>
@@ -173,7 +148,7 @@
                         </div>
                         <div class="mb-6">
                             <label for="altura" class="block text-sm font-medium text-gray-700">Qual a sua altura?(Em Metros/M)</label>
-                            <input type="text" id="Altura" name="altura" inputmode="numeric" pattern="[0-9]*" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="text" id="Altura" name="altura" placeholder="Digite sua altura em metros (Ex: 1.75)" maxlength="3" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="text-center">
                             <button type="submit" id="resultado" onclick="logarUser()" value="Enviar">Concluir Cadastro</button>
@@ -189,6 +164,76 @@
         </section>
     </main> 
 
+    <script>
+        function verificarIdade() {
+            var dataNascimento = new Date(document.getElementById('dt_nasc').value);
+            var hoje = new Date();
+            var idade = hoje.getFullYear() - dataNascimento.getFullYear();
+            var mes = hoje.getMonth() - dataNascimento.getMonth();
 
+            if (mes < 0 || (mes === 0 && hoje.getDate() < dataNascimento.getDate())) {
+                idade--;
+            }
+
+            if (idade < 16) {
+                document.getElementById('idadeAviso').classList.remove('hidden');
+                return false;
+            } else {
+                document.getElementById('idadeAviso').classList.add('hidden');
+                return true;
+            }
+        }
+
+        document.getElementById('form-login').addEventListener('submit', function(event) {
+            if (!verificarIdade()) {
+                event.preventDefault();
+            }
+        });
+    </script>
+    <script>
+        const campoAltura = document.getElementById('Altura');
+
+        campoAltura.addEventListener('input', function() {
+            let altura = this.value;
+
+            // Remove todos os caracteres que não são números
+            altura = altura.replace(/\D/g, '');
+
+            // Formata a altura adicionando o ponto de separação
+            if (altura.length >= 3) {
+                altura = altura.substring(0, altura.length - 2) + '.' + altura.substring(altura.length - 2);
+            }
+
+            this.value = altura;
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('form-cadastro');
+            const inputs = form.querySelectorAll('input');
+
+            // Carrega os valores dos campos do formulário do localStorage, se existirem
+            inputs.forEach(input => {
+                const value = localStorage.getItem(input.id);
+                if (value) {    
+                    input.value = value;
+                }
+            });
+
+            // Salva os valores dos campos do formulário no localStorage quando houver alterações
+            form.addEventListener('input', () => {
+                inputs.forEach(input => {
+                    localStorage.setItem(input.id, input.value);
+                });
+            });
+
+            // Limpa os valores do localStorage quando o formulário é enviado
+            form.addEventListener('submit', () => {
+                inputs.forEach(input => {
+                    localStorage.removeItem(input.id);
+                });
+            });
+        });
+    </script>
  </body>
 </html>

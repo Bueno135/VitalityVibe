@@ -30,6 +30,22 @@
             padding: 1rem;
         }
     </style>
+    <script>
+        function confirmarUser() {
+            window.location.href = "/Projeto/login/entrarcliente.php";
+        }
+        function editarUser(){
+            // Armazena os valores do formulário no localStorage antes de redirecionar
+            const formValues = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value
+                // Adicione outros campos conforme necessário
+            };
+            localStorage.setItem('formValues', JSON.stringify(formValues));
+
+            window.location.href = "/Projeto/cadastro/cadastrocliente.php";
+        }
+    </script>
 </head>
 <body class="bg-gray-100">
 
@@ -96,6 +112,15 @@ if ($result->num_rows > 0) {
 // Fechar conexão
 $conn->close();
 ?>
+<?php
+    // Se houver dados no localStorage, exiba-os no formulário
+    if (localStorage.getItem('formValues')) {
+        const formValues = JSON.parse(localStorage.getItem('formValues'));
+        document.getElementById('name').value = formValues.name;
+        document.getElementById('email').value = formValues.email;
+        // Preencha outros campos conforme necessário
+    }
+?>
             <div class="mt-4 flex justify-between">
                 <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmarUser()">Confirmar</button>
                 <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="editarUser()">Editar</button>
@@ -110,6 +135,24 @@ $conn->close();
             window.location.href = "/Projeto/cadastro/cadastrocliente.php"
         }
     </script>
+    <script>
+        function editarUser(){
+        // Armazena os valores do formulário no localStorage antes de redirecionar
+        var formValues = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value
+            // Adicione outros campos conforme necessário
+        };
+        localStorage.setItem('formValues', JSON.stringify(formValues));
+
+        window.location.href = "/Projeto/cadastro/cadastrocliente.php";
+    }
+    </script>
+
+
+
 </body>
+
+
 </html>
 
