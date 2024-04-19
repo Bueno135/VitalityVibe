@@ -1,7 +1,7 @@
 /* Lógico_1: */
 
 CREATE TABLE Cliente (
-    ID_Cliente INT PRIMARY KEY,
+    ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
     telefone INT,
     dt_nasc DATE,
@@ -19,7 +19,7 @@ CREATE TABLE Cliente (
 );
 
 CREATE TABLE Nutricionista (
-    id_nutricionista INT PRIMARY KEY,
+    id_nutricionista INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
     cpf INT,
     email VARCHAR(100),
@@ -32,13 +32,13 @@ CREATE TABLE Nutricionista (
 );
 
 CREATE TABLE Prato (
-    id_prato INT PRIMARY KEY,
+    id_prato INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
     modo_preparo VARCHAR(100)
 );
 
 CREATE TABLE Ingredientes (
-    id_ingrediente INT PRIMARY KEY,
+    id_ingrediente INT AUTO_INCREMENT PRIMARY KEY,
     gordura FLOAT,
     proteina FLOAT,
     carboidratos FLOAT,
@@ -48,12 +48,12 @@ CREATE TABLE Ingredientes (
 );
 
 CREATE TABLE Especialidade (
-    id_especialidade INT PRIMARY KEY,
+    id_especialidade INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100)
 );
 
 CREATE TABLE CategoriaAlimentar (
-    id_categoria INT PRIMARY KEY,
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100)
 );
 
@@ -72,12 +72,12 @@ CREATE TABLE PlanoAlimentar (
 );
 
 CREATE TABLE Formacao (
-    id_formacao INT PRIMARY KEY,
+    id_formacao INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100)
 );
 
 CREATE TABLE Objetivo (
-    id_obj INT PRIMARY KEY,
+    id_obj INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100)
 );
 
