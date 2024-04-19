@@ -134,7 +134,7 @@ $conn->close();
     </div>
     <script>
     function confirmarUser() {
-        window.location.href = "/Projeto/login/entrarcliente.php";
+        window.location.href = "/Projeto/login/entrarnutri.php";
     }
 
     function editarUser() {
@@ -162,10 +162,7 @@ $conn->close();
         cpf: cpf,
         telefone: telefone,
         cep: cep,
-        problema_saude: problema_saude,
-        alergias: alergias,
-        peso: peso,
-        altura: altura
+       
         
     };
 

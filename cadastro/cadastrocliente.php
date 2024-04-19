@@ -241,13 +241,13 @@
             var formValues = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
-                cpf = document.getElementById('cpf').value;
-                telefone = document.getElementById('telefone').value;
-                cep = document.getElementById('CEP').value;
-                problema_saude = document.getElementById('problema_saude').value;
-                alergias = document.getElementById('alergias').value;
-                peso = document.getElementById('peso').value;
-                altura = document.getElementById('altura').value;
+                cpf: document.getElementById('cpf').value,
+                telefone: document.getElementById('telefone').value,
+                cep: document.getElementById('CEP').value,
+                problema_saude: document.getElementById('problema_saude').value,
+                alergias: document.getElementById('alergias').value,
+                peso: document.getElementById('peso').value,
+                altura: document.getElementById('altura').value
             };
             localStorage.setItem('formValues', JSON.stringify(formValues));
 
