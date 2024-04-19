@@ -80,7 +80,7 @@ if ($result->num_rows > 0) {
     echo "<table class='styled-table'
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>CPF</th>
                 <th>Data de Nascimento</th>
@@ -94,7 +94,7 @@ if ($result->num_rows > 0) {
         // Exibir dados de cada cliente em uma linha da tabela
         echo "<tr>";
         echo "<td>" . $row["ID_Cliente"] . "</td>";
-        echo "<td>" . $row["Nome"] . "</td>";
+        echo "<td>" . $row["name"] . "</td>";
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["cpf"] . "</td>";
         echo "<td>" . $row["dt_nasc"] . "</td>";
@@ -112,20 +112,6 @@ if ($result->num_rows > 0) {
 // Fechar conexão
 $conn->close();
 ?>
-<?php
-    // Se houver dados no localStorage, exiba-os no formulário
-    session_start();
-
-    if (!empty($_SESSION['formValues'])) {
-        $formValues = json_decode($_SESSION['formValues'], true);
-        echo '<script>';
-        echo 'document.getElementById("name").value = "' . $formValues['name'] . '";';
-        echo 'document.getElementById("email").value = "' . $formValues['email'] . '";';
-        // Adicione mais campos conforme necessário
-        echo '</script>';
-    }
-
-?>
             <div class="mt-4 flex justify-between">
                 <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmarUser()">Confirmar</button>
                 <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="editarUser()">Editar</button>
@@ -138,23 +124,44 @@ $conn->close();
     }
 
     function editarUser() {
-        // Armazena os valores do formulário no localStorage antes de redirecionar
-        var formValues = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            cpf: document.getElementById('cpf').value,
-            telefone: document.getElementById('telefone').value,
-            cep: document.getElementById('CEP').value,
-            problema_saude: document.getElementById('problema_saude').value,
-            alergias: document.getElementById('alergias').value,
-            peso: document.getElementById('peso').value,
-            altura: document.getElementById('altura').value
-            // Adicione outros campos conforme necessário
-        };
-        localStorage.setItem('formValues', JSON.stringify(formValues));
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var cpf = document.getElementById('cpf').value;
+    var telefone = document.getElementById('telefone').value;
+    var cep = document.getElementById('CEP').value;
+    var problema_saude = document.getElementById('problema_saude').value;
+    var alergias = document.getElementById('alergias').value;
+    var peso = document.getElementById('peso').value;
+    var altura = document.getElementById('altura').value;
 
-        window.location.href = "/Projeto/cadastro/cadastrocliente.php";
+    
+    if (!name || !email || !cpf || !telefone || !cep) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;
     }
+
+    
+
+    var formValues = {
+        name: name,
+        email: email,
+        cpf: cpf,
+        telefone: telefone,
+        cep: cep,
+        problema_saude: problema_saude,
+        alergias: alergias,
+        peso: peso,
+        altura: altura
+        
+    };
+
+    
+    localStorage.setItem('formValues', JSON.stringify(formValues));
+
+    
+    window.location.href = "/Projeto/cadastro/cadastrocliente.php";
+}
+
 </script>
 </body>
 </html>

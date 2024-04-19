@@ -30,6 +30,22 @@
             padding: 1rem;
         }
     </style>
+    <script>
+        function confirmarUser() {
+            window.location.href = "/Projeto/login/entrarcliente.php";
+        }
+        function editarUser(){
+            // Armazena os valores do formulário no localStorage antes de redirecionar
+            const formValues = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value
+                // Adicione outros campos conforme necessário
+            };
+            localStorage.setItem('formValues', JSON.stringify(formValues));
+
+            window.location.href = "/Projeto/cadastro/cadastrocliente.php";
+        }
+    </script>
 </head>
 <body class="bg-gray-100">
 
@@ -55,7 +71,7 @@
 include '/xampp/htdocs/Projeto/bd/connection.php';
 
 // Query para obter os dados dos clientes
-$sql = "SELECT * FROM nutricionista ORDER BY ID_Cliente DESC LIMIT 1";
+$sql = "SELECT * FROM cliente ORDER BY ID_Cliente DESC LIMIT 1";
 $result = $conn->query($sql);
 
 // Verifica se a consulta retornou resultados
@@ -64,27 +80,26 @@ if ($result->num_rows > 0) {
     echo "<table class='styled-table'
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>CPF</th>
                 <th>Data de Nascimento</th>
                 <th>Sexo</th>
                 <th>CEP</th>
-                <th>Especialidade</th>
+                
             </tr>";
 
     // Loop através dos resultados
     while ($row = $result->fetch_assoc()) {
         // Exibir dados de cada cliente em uma linha da tabela
         echo "<tr>";
-        echo "<td>" . $row["id_nutri"] . "</td>";
-        echo "<td>" . $row["nome"] . "</td>";
+        echo "<td>" . $row["ID_Cliente"] . "</td>";
+        echo "<td>" . $row["name"] . "</td>";
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["cpf"] . "</td>";
         echo "<td>" . $row["dt_nasc"] . "</td>";
         echo "<td>" . $row["sexo"] . "</td>";
         echo "<td>" . $row["CEP"] . "</td>";
-        echo "<td>" . $row["espec"] . "</td>";
         echo "</tr>";
     }
 
@@ -97,6 +112,20 @@ if ($result->num_rows > 0) {
 // Fechar conexão
 $conn->close();
 ?>
+<?php
+    // Se houver dados no localStorage, exiba-os no formulário
+    session_start();
+
+    if (!empty($_SESSION['formValues'])) {
+        $formValues = json_decode($_SESSION['formValues'], true);
+        echo '<script>';
+        echo 'document.getElementById("name").value = "' . $formValues['name'] . '";';
+        echo 'document.getElementById("email").value = "' . $formValues['email'] . '";';
+        // Adicione mais campos conforme necessário
+        echo '</script>';
+    }
+
+?>
             <div class="mt-4 flex justify-between">
                 <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmarUser()">Confirmar</button>
                 <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="editarUser()">Editar</button>
@@ -104,14 +133,50 @@ $conn->close();
         </div>
     </div>
     <script>
-        function confirmarUser() {
-            window.location.href = "/Projeto/login/entrarnutri.php";
-        }
-        function editarUser(){
-            window.location.href = "Projeto/cadastro/cadastronutri.php"
-        }
+    function confirmarUser() {
+        window.location.href = "/Projeto/login/entrarcliente.php";
+    }
+
+    function editarUser() {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var cpf = document.getElementById('cpf').value;
+    var telefone = document.getElementById('telefone').value;
+    var cep = document.getElementById('CEP').value;
+    var problema_saude = document.getElementById('problema_saude').value;
+    var alergias = document.getElementById('alergias').value;
+    var peso = document.getElementById('peso').value;
+    var altura = document.getElementById('altura').value;
+
+    
+    if (!name || !email || !cpf || !telefone || !cep) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;
+    }
+
+    
+
+    var formValues = {
+        name: name,
+        email: email,
+        cpf: cpf,
+        telefone: telefone,
+        cep: cep,
+        problema_saude: problema_saude,
+        alergias: alergias,
+        peso: peso,
+        altura: altura
         
-    </script>
+    };
+
+    
+    localStorage.setItem('formValues', JSON.stringify(formValues));
+
+    
+    window.location.href = "/Projeto/cadastro/cadastronutri.php";
+}
+
+</script>
 </body>
 </html>
 

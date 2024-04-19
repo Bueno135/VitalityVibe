@@ -151,7 +151,7 @@
                             <input type="text" id="Altura" name="altura" placeholder="Digite sua altura em metros (Ex: 1.75)" maxlength="3" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="text-center">
-                            <button type="submit" id="resultado" onclick="logarUser()" value="Enviar">Concluir Cadastro</button>
+                            <button type="submit" id="resultado" onclick="logarUser()" onclick="editarUser()" value="Enviar">Concluir Cadastro</button>
                         </div>
                         <input type="hidden" id="senha-hash" name="senhaHash">
                     </form>
@@ -235,5 +235,25 @@
             });
         });
     </script>
- </body>
+    <script>
+        function editarUser() {
+            // Armazena os valores do formulário no localStorage antes de redirecionar
+            var formValues = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                cpf = document.getElementById('cpf').value;
+                telefone = document.getElementById('telefone').value;
+                cep = document.getElementById('CEP').value;
+                problema_saude = document.getElementById('problema_saude').value;
+                alergias = document.getElementById('alergias').value;
+                peso = document.getElementById('peso').value;
+                altura = document.getElementById('altura').value;
+            };
+            localStorage.setItem('formValues', JSON.stringify(formValues));
+
+            // Redireciona para a página de cadastro
+            window.location.href = "/Projeto/cadastro/cadastrocliente.php"
+            }
+</script>
+</body>
 </html>
