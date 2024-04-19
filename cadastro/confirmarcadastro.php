@@ -30,22 +30,7 @@
             padding: 1rem;
         }
     </style>
-    <script>
-        function confirmarUser() {
-            window.location.href = "/Projeto/login/entrarcliente.php";
-        }
-        function editarUser(){
-            // Armazena os valores do formulário no localStorage antes de redirecionar
-            const formValues = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value
-                // Adicione outros campos conforme necessário
-            };
-            localStorage.setItem('formValues', JSON.stringify(formValues));
-
-            window.location.href = "/Projeto/cadastro/cadastrocliente.php";
-        }
-    </script>
+    
 </head>
 <body class="bg-gray-100">
 
@@ -121,6 +106,23 @@ $conn->close();
         // Preencha outros campos conforme necessário
     }
 ?>
+
+<script>
+        function confirmarUser() {
+            window.location.href = "/Projeto/login/entrarcliente.php";
+        }
+        function editarUser(){
+            // Armazena os valores do formulário no localStorage antes de redirecionar
+            const formValues = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value
+                // Adicione outros campos conforme necessário
+            };
+            localStorage.setItem('formValues', JSON.stringify(formValues));
+
+            window.location.href = "/Projeto/cadastro/cadastrocliente.php";
+        }
+    </script>
             <div class="mt-4 flex justify-between">
                 <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmarUser()">Confirmar</button>
                 <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="editarUser()">Editar</button>
