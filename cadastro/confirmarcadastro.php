@@ -114,12 +114,17 @@ $conn->close();
 ?>
 <?php
     // Se houver dados no localStorage, exiba-os no formulário
-    if (localStorage.getItem('formValues')) {
-        const formValues = JSON.parse(localStorage.getItem('formValues'));
-        document.getElementById('name').value = formValues.name;
-        document.getElementById('email').value = formValues.email;
-        // Preencha outros campos conforme necessário
+    session_start();
+
+    if (!empty($_SESSION['formValues'])) {
+        $formValues = json_decode($_SESSION['formValues'], true);
+        echo '<script>';
+        echo 'document.getElementById("name").value = "' . $formValues['name'] . '";';
+        echo 'document.getElementById("email").value = "' . $formValues['email'] . '";';
+        // Adicione mais campos conforme necessário
+        echo '</script>';
     }
+
 ?>
             <div class="mt-4 flex justify-between">
                 <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmarUser()">Confirmar</button>
@@ -128,26 +133,30 @@ $conn->close();
         </div>
     </div>
     <script>
-        function confirmarUser() {
-            window.location.href = "/Projeto/login/entrarcliente.php";
-        }
-        function editarUser(){
-            window.location.href = "/Projeto/cadastro/cadastrocliente.php"
-        }
-    </script>
-    <script>
-        function editarUser(){
+    function confirmarUser() {
+        window.location.href = "/Projeto/login/entrarcliente.php";
+    }
+
+    function editarUser() {
         // Armazena os valores do formulário no localStorage antes de redirecionar
         var formValues = {
             name: document.getElementById('name').value,
-            email: document.getElementById('email').value
+            email: document.getElementById('email').value,
+            cpf: document.getElementById('cpf').value,
+            telefone: document.getElementById('telefone').value,
+            cep: document.getElementById('CEP').value,
+            problema_saude: document.getElementById('problema_saude').value,
+            alergias: document.getElementById('alergias').value,
+            peso: document.getElementById('peso').value,
+            altura: document.getElementById('altura').value
             // Adicione outros campos conforme necessário
         };
         localStorage.setItem('formValues', JSON.stringify(formValues));
 
         window.location.href = "/Projeto/cadastro/cadastrocliente.php";
     }
-    </script>
+</script>
+
 
 
 
