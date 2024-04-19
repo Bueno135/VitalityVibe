@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-    $sql = "INSERT INTO cliente (nome, email, senha, cpf, 
+    $sql = "INSERT INTO nutricionista (nome, email, senha, cpf, 
     dt_nasc, sexo, cep, formacao) VALUES ('$Nome', '$email', '$senhaHash', '$cpf', '$dt_nasc', 
     '$sexo', '$CEP', '$formacao')";
 

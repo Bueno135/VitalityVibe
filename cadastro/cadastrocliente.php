@@ -15,7 +15,7 @@
     <script src="../js/cpf.js" defer></script>
     <script src="../js/validarCPF.js" defer></script>
     <script>
-        function logarUser() {
+        function concluirCadastro() {
             let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
             let todosPreenchidos = true;
 
@@ -25,25 +25,28 @@
                 }
             });
 
-            if (todosPreenchidos == false) {
+            if (!todosPreenchidos) {
                 alert("Por favor, preencha todos os campos do formulário.");
             } else {
-                console.log('Formulário enviado');
-                window.location.href = "/Projeto/cadastro/confirmarcadastro.php";
-            } 
-           alert("ENTREI!");
+                var senha = document.getElementById('senha').value;
+                var confirmarSenha = document.getElementById('confirmarSenha').value;
+
+                if (senha === confirmarSenha) {
+                    console.log('Formulário enviado');
+                    window.location.href = "/Projeto/cadastro/cpfexistente.php";
+                } else {
+                    alert('As senhas não são iguais. Por favor, verifique.');
+                }
+            }
         }
+
     </script>
-
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-
     <style>
     .mb-6{
         margin-bottom: 1.5rem;
     }
     </style>
-    
-
 
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
@@ -70,8 +73,8 @@
                     <h2 class="text-3xl font-bold text-center mb-6">Cadastro de Cliente</h2>
                     <form id="form-cadastro" method="POST" action="processa_cadastro.php" onsubmit="return validarCPF()">
                     <div class="mb-6">
-                            <label for="name" class="block text-sm font-medium text-gray-700">Nome</label>
-                            <input type="text" id="name" name="Nome" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
+                            <input type="text" id="nome" name="Nome" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="emailLogin" class="block text-sm font-medium text-gray-700">E-mail</label>
@@ -83,7 +86,7 @@
                         </div>
                         <div class="mb-6">
                             <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Confirmar Senha</label>
-                            <input type="password" id="password" name="" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="password" id="confirmarSenha" name="" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
@@ -151,7 +154,7 @@
                             <input type="text" id="Altura" name="altura" placeholder="Digite sua altura em metros (Ex: 1.75)" maxlength="3" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="text-center">
-                            <button type="submit" id="resultado" onclick="logarUser()" onclick="editarUser()" value="Enviar">Concluir Cadastro</button>
+                            <button type="submit" id="resultado" onclick="concluirCadastro()" onclick="armazenar()"  value="Enviar">Concluir Cadastro</button>
                         </div>
                         <input type="hidden" id="senha-hash" name="senhaHash">
                     </form>
@@ -236,23 +239,20 @@
         });
     </script>
     <script>
-        function editarUser() {
+        function armazenar() {
             // Armazena os valores do formulário no localStorage antes de redirecionar
             var formValues = {
-                name: document.getElementById('name').value,
+                nome: document.getElementById('nome').value,
                 email: document.getElementById('email').value,
                 cpf: document.getElementById('cpf').value,
                 telefone: document.getElementById('telefone').value,
-                cep: document.getElementById('CEP').value,
+                cep: document.getElementById('cep').value,
                 problema_saude: document.getElementById('problema_saude').value,
                 alergias: document.getElementById('alergias').value,
                 peso: document.getElementById('peso').value,
                 altura: document.getElementById('altura').value
             };
             localStorage.setItem('formValues', JSON.stringify(formValues));
-
-            // Redireciona para a página de cadastro
-            window.location.href = "/Projeto/cadastro/cadastrocliente.php"
             }
 </script>
 </body>

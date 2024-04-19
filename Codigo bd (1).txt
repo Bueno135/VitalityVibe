@@ -2,10 +2,9 @@
 
 CREATE TABLE Cliente (
     ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
+    nome VARCHAR(100),
     telefone INT,
     dt_nasc DATE,
-
     altura INT,
     cpf VARCHAR(21),
     senha VARCHAR(100),

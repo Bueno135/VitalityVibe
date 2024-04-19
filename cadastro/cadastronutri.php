@@ -132,6 +132,54 @@
         </section>
     </main>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('form-cadastro');
+            const inputs = form.querySelectorAll('input');
+
+            // Carrega os valores dos campos do formulário do localStorage, se existirem
+            inputs.forEach(input => {
+                const value = localStorage.getItem(input.id);
+                if (value) {    
+                    input.value = value;
+                }
+            });
+
+            // Salva os valores dos campos do formulário no localStorage quando houver alterações
+            form.addEventListener('input', () => {
+                inputs.forEach(input => {
+                    localStorage.setItem(input.id, input.value);
+                });
+            });
+
+            // Limpa os valores do localStorage quando o formulário é enviado
+            form.addEventListener('submit', () => {
+                inputs.forEach(input => {
+                    localStorage.removeItem(input.id);
+                });
+            });
+        });
+    </script>
+
+    <script>
+        function editarUser() {
+            // Armazena os valores do formulário no localStorage antes de redirecionar
+            var formValues = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                cpf: document.getElementById('cpf').value,
+                telefone: document.getElementById('telefone').value,
+                cep: document.getElementById('CEP').value,
+                var: formacao = document.getElementById('formação').value,
+                var: espec = document.getElementById('especialidade').value
+            };
+            localStorage.setItem('formValues', JSON.stringify(formValues));
+
+            // Redireciona para a página de cadastro
+            window.location.href = "/Projeto/cadastro/cadastronutri.php"
+            }
+    </script>
+
     <footer class="bg-gray-800 text-white text-center md:text-left">
         <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
            

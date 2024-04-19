@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->connect_error) {
         die("Conexão falhou: " . $conn->connect_error);
     }
-    $Nome = $_POST['name'];
+    $nome = $_POST['Nome'];
     $email = $_POST['email'];
     $senha = $_POST['Senha'];
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
@@ -23,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "INSERT INTO grafico (peso) VALUES ('$peso')";
 
-    $sql = "INSERT INTO cliente (name, email, senha, cpf, dt_nasc, sexo, CEP, problema_saude, alergias, altura) 
-    VALUES ('$Nome', '$email', '$senhaHash', '$cpf', '$dt_nasc', '$sexo', '$CEP',  '$problema_saude', 
+    $sql = "INSERT INTO cliente (Nome, email, senha, cpf, dt_nasc, sexo, CEP, problema_saude, alergias, altura) 
+    VALUES ('$nome', '$email', '$senhaHash', '$cpf', '$dt_nasc', '$sexo', '$CEP',  '$problema_saude', 
     '$alergias', '$altura')";
 
 

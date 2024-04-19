@@ -1,11 +1,11 @@
 
 <?php
-    $servername = "localhost:3306";
-    $username = "vb";
+    $servernome = "localhost:3306";
+    $usernome = "vb";
     $password = "1234";
-    $dbname = "vitalityvibe";
+    $dbnome = "vitalityvibe";
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servernome, $usernome, $password, $dbnome);
     if ($conn->connect_error) {
         die("Connection failed: ". $conn->connect_error);
     }
