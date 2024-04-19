@@ -156,12 +156,5 @@ $conn->close();
         window.location.href = "/Projeto/cadastro/cadastrocliente.php";
     }
 </script>
-
-
-
-
 </body>
-
-
 </html>
-
