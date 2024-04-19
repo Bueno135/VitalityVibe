@@ -30,22 +30,6 @@
             padding: 1rem;
         }
     </style>
-    <script>
-        function confirmarUser() {
-            window.location.href = "/Projeto/login/entrarcliente.php";
-        }
-        function editarUser(){
-            // Armazena os valores do formulário no localStorage antes de redirecionar
-            const formValues = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value
-                // Adicione outros campos conforme necessário
-            };
-            localStorage.setItem('formValues', JSON.stringify(formValues));
-
-            window.location.href = "/Projeto/cadastro/cadastrocliente.php";
-        }
-    </script>
 </head>
 <body class="bg-gray-100">
 
@@ -66,7 +50,7 @@
         <div class="container mx-auto">
             <h1 class="text-2xl font-bold">Confirmação de Login</h1>
             <p class="mt-4">Por favor, confirme seus dados:</p>
-            <?php
+<?php
 // Conexão com o banco de dados
 include '/xampp/htdocs/Projeto/bd/connection.php';
 

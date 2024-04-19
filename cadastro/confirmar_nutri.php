@@ -32,7 +32,7 @@
     </style>
     <script>
         function confirmarUser() {
-            window.location.href = "/Projeto/login/entrarcliente.php";
+            window.location.href = "/Projeto/login/entrarnutri.php";
         }
         function editarUser(){
             // Armazena os valores do formulário no localStorage antes de redirecionar
@@ -43,7 +43,7 @@
             };
             localStorage.setItem('formValues', JSON.stringify(formValues));
 
-            window.location.href = "/Projeto/cadastro/cadastrocliente.php";
+            window.location.href = "/Projeto/cadastro/cadastronutri.php";
         }
     </script>
 </head>
@@ -56,8 +56,8 @@
                 <a href="#sobre" class="mx-2 hover:text-blue-500">Sobre</a>
                 <a href="#features" class="mx-2 hover:text-blue-500">Recursos</a>
                 <a href="#contato" class="mx-2 hover:text-blue-500">Contato</a>
-                <a href="/Projeto/cadastro/entrarcliente.php" class="mx-2 hover:text-blue-500">Login</a>
-                <a href="/Projeto/cadastro/cadastrocliente.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
+                <a href="/Projeto/cadastro/entrarnutri.php" class="mx-2 hover:text-blue-500">Login</a>
+                <a href="/Projeto/cadastro/cadastronutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
             </div>
         </nav>
     </header>
@@ -71,7 +71,7 @@
 include '/xampp/htdocs/Projeto/bd/connection.php';
 
 // Query para obter os dados dos clientes
-$sql = "SELECT * FROM cliente ORDER BY ID_Cliente DESC LIMIT 1";
+$sql = "SELECT * FROM nutricionista ORDER BY id_nutricionista DESC LIMIT 1";
 $result = $conn->query($sql);
 
 // Verifica se a consulta retornou resultados
@@ -93,7 +93,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // Exibir dados de cada cliente em uma linha da tabela
         echo "<tr>";
-        echo "<td>" . $row["ID_Cliente"] . "</td>";
+        echo "<td>" . $row["id_nutricionista"] . "</td>";
         echo "<td>" . $row["name"] . "</td>";
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["cpf"] . "</td>";
@@ -106,7 +106,7 @@ if ($result->num_rows > 0) {
     // Fechar tabela
     echo "</table>";
 } else {
-    echo "Nenhum cliente encontrado";
+    echo "Nenhum nutricionista encontrado";
 }
 
 // Fechar conexão
@@ -143,18 +143,15 @@ $conn->close();
     var cpf = document.getElementById('cpf').value;
     var telefone = document.getElementById('telefone').value;
     var cep = document.getElementById('CEP').value;
-    var problema_saude = document.getElementById('problema_saude').value;
-    var alergias = document.getElementById('alergias').value;
-    var peso = document.getElementById('peso').value;
-    var altura = document.getElementById('altura').value;
+    var formacao = document.getElementById('formação').value;
+    var espec = document.getElementById('especialidade').value;
 
-    
+   
     if (!name || !email || !cpf || !telefone || !cep) {
         alert('Por favor, preencha todos os campos obrigatórios.');
         return;
     }
 
-    
 
     var formValues = {
         name: name,
@@ -162,7 +159,8 @@ $conn->close();
         cpf: cpf,
         telefone: telefone,
         cep: cep,
-       
+        formacao: formacao,
+        espec: especialidade
         
     };
 
