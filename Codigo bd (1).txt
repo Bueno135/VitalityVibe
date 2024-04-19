@@ -168,4 +168,174 @@ ALTER TABLE Possui ADD CONSTRAINT FK_Possui_1
 ALTER TABLE Possui ADD CONSTRAINT FK_Possui_2
     FOREIGN KEY (fk_Formacao_id_formacao)
     REFERENCES Formacao (id_formacao)
+    ON DELETE R/* Lógico_1: */
+
+CREATE TABLE Cliente (
+    ID_Cliente INT PRIMARY KEY,
+    name VARCHAR(100),
+    telefone INT,
+    dt_nasc DATE,
+
+    altura INT,
+    cpf VARCHAR(21),
+    senha VARCHAR(100),
+    freq_atv_fisica CHAR,
+    email VARCHAR(50),
+    CEP INT,
+    alergias VARCHAR(100),
+    problema_saude CHAR,
+    sexo CHAR,
+    fk_Objetivo_id_obj INT
+);
+
+CREATE TABLE Nutricionista (
+    id_nutricionista INT PRIMARY KEY,
+    nome VARCHAR(100),
+    cpf INT,
+    email VARCHAR(100),
+    telefone INT,
+    senha VARCHAR(100),
+    sexo CHAR,
+    CEP INT,
+    dt_nasc DATE,
+    fk_Especialidade_id_especialidade INT
+);
+
+CREATE TABLE Prato (
+    id_prato INT PRIMARY KEY,
+    nome VARCHAR(100),
+    modo_preparo VARCHAR(100)
+);
+
+CREATE TABLE Ingredientes (
+    id_ingrediente INT PRIMARY KEY,
+    gordura FLOAT,
+    proteina FLOAT,
+    carboidratos FLOAT,
+    unidade_medida INT,
+    calorias FLOAT,
+    fk_CategoriaAlimentar_id_categoria INT
+);
+
+CREATE TABLE Especialidade (
+    id_especialidade INT PRIMARY KEY,
+    nome VARCHAR(100)
+);
+
+CREATE TABLE CategoriaAlimentar (
+    id_categoria INT PRIMARY KEY,
+    nome VARCHAR(100)
+);
+
+CREATE TABLE Grafico (
+    IMC INT,
+    peso INT,
+    massa_magra INT,
+    BF INT,
+    fk_Cliente_ID_Cliente INT
+);
+
+CREATE TABLE PlanoAlimentar (
+    refeicao VARCHAR(100) PRIMARY KEY,
+    dia_semana CHAR,
+    horario TIME
+);
+
+CREATE TABLE Formacao (
+    id_formacao INT PRIMARY KEY,
+    nome VARCHAR(100)
+);
+
+CREATE TABLE Objetivo (
+    id_obj INT PRIMARY KEY,
+    nome VARCHAR(100)
+);
+
+CREATE TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar (
+    fk_Cliente_ID_Cliente INT,
+    fk_Nutricionista_id_nutricionista INT,
+    fk_PlanoAlimentar_refeicao VARCHAR(100),
+    dt_inicio DATE,
+    dt_fim DATE
+);
+
+CREATE TABLE Composicao (
+    fk_Prato_id_prato INT,
+    fk_Ingredientes_id_ingrediente INT,
+    Quantidade FLOAT
+);
+
+CREATE TABLE Possuir (
+    fk_PlanoAlimentar_refeicao VARCHAR(100),
+    fk_Prato_id_prato INT
+);
+
+CREATE TABLE Possui (
+    fk_Nutricionista_id_nutricionista INT,
+    fk_Formacao_id_formacao INT
+);
+ 
+ALTER TABLE Cliente ADD CONSTRAINT FK_Cliente_2
+    FOREIGN KEY (fk_Objetivo_id_obj)
+    REFERENCES Objetivo (id_obj)
     ON DELETE RESTRICT;
+ 
+ALTER TABLE Nutricionista ADD CONSTRAINT FK_Nutricionista_2
+    FOREIGN KEY (fk_Especialidade_id_especialidade)
+    REFERENCES Especialidade (id_especialidade)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Ingredientes ADD CONSTRAINT FK_Ingredientes_2
+    FOREIGN KEY (fk_CategoriaAlimentar_id_categoria)
+    REFERENCES CategoriaAlimentar (id_categoria)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Grafico ADD CONSTRAINT FK_Grafico_1
+    FOREIGN KEY (fk_Cliente_ID_Cliente)
+    REFERENCES Cliente (ID_Cliente)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Dieta_Cliente_Nutricionista_PlanoAlimentar_1
+    FOREIGN KEY (fk_Cliente_ID_Cliente)
+    REFERENCES Cliente (ID_Cliente)
+    ON DELETE NO ACTION;
+ 
+ALTER TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Dieta_Cliente_Nutricionista_PlanoAlimentar_2
+    FOREIGN KEY (fk_Nutricionista_id_nutricionista)
+    REFERENCES Nutricionista (id_nutricionista)
+    ON DELETE NO ACTION;
+ 
+ALTER TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Dieta_Cliente_Nutricionista_PlanoAlimentar_3
+    FOREIGN KEY (fk_PlanoAlimentar_refeicao)
+    REFERENCES PlanoAlimentar (refeicao)
+    ON DELETE NO ACTION;
+ 
+ALTER TABLE Composicao ADD CONSTRAINT FK_Composicao_1
+    FOREIGN KEY (fk_Prato_id_prato)
+    REFERENCES Prato (id_prato)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Composicao ADD CONSTRAINT FK_Composicao_2
+    FOREIGN KEY (fk_Ingredientes_id_ingrediente)
+    REFERENCES Ingredientes (id_ingrediente)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_1
+    FOREIGN KEY (fk_PlanoAlimentar_refeicao)
+    REFERENCES PlanoAlimentar (refeicao)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_2
+    FOREIGN KEY (fk_Prato_id_prato)
+    REFERENCES Prato (id_prato)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Possui ADD CONSTRAINT FK_Possui_1
+    FOREIGN KEY (fk_Nutricionista_id_nutricionista)
+    REFERENCES Nutricionista (id_nutricionista)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possui ADD CONSTRAINT FK_Possui_2
+    FOREIGN KEY (fk_Formacao_id_formacao)
+    REFERENCES Formacao (id_formacao)
+    ON DELETE R
