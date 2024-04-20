@@ -11,47 +11,6 @@
     <script src="../js/telefone.js" defer></script>
     <script src="../js/cpf.js" defer></script>
     <script src="../js/validarCPF.js" defer></script>
-    <script>
-        function concluirCadastro() {
-            function concluirCadastro() {
-                let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
-                let todosPreenchidos = true;
-
-                campos.forEach(function(campo) {
-                    if (!campo.value) {
-                        todosPreenchidos = false;
-                    }
-                });
-
-                if (!todosPreenchidos) {
-                    alert("Por favor, preencha todos os campos do formulário.");
-                } else {
-                    let formData = new FormData(document.getElementById('form-cadastro'));
-
-                    fetch('/Projeto/cadastro/processa_cadastro.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Erro ao processar o formulário');
-                        }
-                        return response.text();
-                    })
-                    .then(data => {
-                        console.log(data);
-                        // Faça algo com a resposta do servidor, se necessário
-                        // Por exemplo, redirecionar o usuário para outra página
-                        window.location.href = "/Projeto/cadastro/sucesso.php";
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        // Lidar com erros de solicitação, se necessário
-                    });
-                }
-            }
-        }
-    </script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
     .mb-6{
@@ -68,8 +27,8 @@
                 <a href="#sobre" class="mx-2 hover:text-blue-500">Sobre</a>
                 <a href="#features" class="mx-2 hover:text-blue-500">Recursos</a>
                 <a href="#contato" class="mx-2 hover:text-blue-500">Contato</a>
-                <a href="/Projeto/login/entrarcliente.php" class="mx-2 hover:text-blue-500">Login</a>
-                <a href="/Projeto/cadastro/cadastrocliente.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
+                <a href="/Projeto/login/entrarnutri.php" class="mx-2 hover:text-blue-500">Login</a>
+                <a href="/Projeto/cadastro/cadastro_nutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
             </div>
         </nav>
     </header>
@@ -81,8 +40,8 @@
             <div class="max-w-lg mx-auto bg-white p-8 rounded shadow">
                 
                 <div id="cadastroForm">
-                    <h2 class="text-3xl font-bold text-center mb-6">Cadastro de Cliente</h2>
-                    <form id="form-cadastro" method="POST" action="processa_cadastro.php">
+                    <h2 class="text-3xl font-bold text-center mb-6">Cadastro de Nutricionista</h2>
+                    <form id="form-cadastro" method="POST" action="processa_nutri.php">
                     <div class="mb-6">
                             <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
                             <input type="text" id="nome" name="nome" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -107,15 +66,6 @@
                             <input inputmode="numeric" id="telefone" name="telefone" maxlength="11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                 
-                        </div>
-                        <div class="mb-6">
-                            <label for="dt_nasc" class="block text-sm font-medium text-gray-700">Data de nascimento</label>
-                            <input type="date" id="dt_nasc" name="dt_nasc" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                        </div>
-                        <div id="idadeAviso" class="hidden text-red-500 mb-4">Site Proibido Para Menores de 16 Anos.</div>
-
-                        
-                        
                         <div class="mb-6">
                             <label for="sexo" class="block text-sm font-medium text-gray-700">Sexo</label>
                             <select id="sexo" name="sexo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -131,7 +81,7 @@
                             <input type="text" id="cep" name="cep" inputmode="numeric" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div> 
                         <div class="mb-6">
-                            <label for="problem" class="block text-sm font-medium text-gray-700">Formação?</label>
+                            <label for="problem" class="block text-sm font-medium text-gray-700">Formação</label>
                             <input type="text" id="problem" name="problema_saude" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
@@ -146,7 +96,7 @@
                     </form>
                 </div>
                  <div class="flex justify-center mb-6 mt-4">
-                     <a href="cadastrocliente.php" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-1">Limpar Informações</a>
+                     <a href="cadastronutri.php" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-1">Limpar Informações</a>
                 </div>
                 
             </div>
@@ -173,7 +123,7 @@
             }
         }
 
-        document.getElementById('form-login').addEventListener('submit', function(event) {
+        document.getElementById('form-cadastro').addEventListener('submit', function(event) {
             if (!verificarIdade()) {
                 event.preventDefault();
             }
@@ -217,9 +167,7 @@
                 telefone: document.getElementById('telefone').value,
                 cep: document.getElementById('cep').value,
                 problema_saude: document.getElementById('problema_saude').value,
-                alergias: document.getElementById('alergias').value,
-                peso: document.getElementById('peso').value,
-                altura: document.getElementById('altura').value
+                
             };
             localStorage.setItem('formValues', JSON.stringify(formValues));
             }

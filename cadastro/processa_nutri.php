@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql2 = "SELECT email FROM nutricionista WHERE email= '$email'";
     $retorno2 = mysqli_query($conn, $sql2);
     $retorno = mysqli_query($conn, $sql);
-    
+
     if(mysqli_num_rows($retorno) > 0) {
         echo"CPF Já cadastrado<BR>";
         echo"<a href=cadastronutri.php>Voltar</a>";
@@ -32,14 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cpf = $_POST['cpf'];
         $dt_nasc = $_POST['dt_nasc'];
         $sexo = $_POST['sexo'];
-        $CEP = $_POST['cep'];
+        $cep = $_POST['cep'];
         $formação = $_POST['formação'];
         $especicilidade = $_POST['especialidade'];
 
         
 
-        $sql = "INSERT INTO nutricionista (nome, email, senha, cpf, dt_nasc, sexo, CEP,formação, especicilidade ) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$CEP', '$formação','$especialidade')";
+        $sql = "INSERT INTO nutricionista (nome, email, senha, cpf, dt_nasc, sexo, cep,formação, especicilidade ) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep', '$formação','$especialidade')";
         }
         $resultado = mysqli_query($conn, $sql);
         echo"Usuario cadastrado!!<BR>";

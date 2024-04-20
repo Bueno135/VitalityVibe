@@ -99,7 +99,7 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row["cpf"] . "</td>";
         echo "<td>" . $row["dt_nasc"] . "</td>";
         echo "<td>" . $row["sexo"] . "</td>";
-        echo "<td>" . $row["CEP"] . "</td>";
+        echo "<td>" . $row["cep"] . "</td>";
         echo "</tr>";
     }
 

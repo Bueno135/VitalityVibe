@@ -11,47 +11,6 @@
     <script src="../js/telefone.js" defer></script>
     <script src="../js/cpf.js" defer></script>
     <script src="../js/validarCPF.js" defer></script>
-    <script>
-        function concluirCadastro() {
-            function concluirCadastro() {
-                let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
-                let todosPreenchidos = true;
-
-                campos.forEach(function(campo) {
-                    if (!campo.value) {
-                        todosPreenchidos = false;
-                    }
-                });
-
-                if (!todosPreenchidos) {
-                    alert("Por favor, preencha todos os campos do formulário.");
-                } else {
-                    let formData = new FormData(document.getElementById('form-cadastro'));
-
-                    fetch('/Projeto/cadastro/processa_cadastro.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Erro ao processar o formulário');
-                        }
-                        return response.text();
-                    })
-                    .then(data => {
-                        console.log(data);
-                        // Faça algo com a resposta do servidor, se necessário
-                        // Por exemplo, redirecionar o usuário para outra página
-                        window.location.href = "/Projeto/cadastro/sucesso.php";
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        // Lidar com erros de solicitação, se necessário
-                    });
-                }
-            }
-        }
-    </script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
     .mb-6{
@@ -198,7 +157,7 @@
             }
         }
 
-        document.getElementById('form-login').addEventListener('submit', function(event) {
+        document.getElementById('form-cadastro').addEventListener('submit', function(event) {
             if (!verificarIdade()) {
                 event.preventDefault();
             }

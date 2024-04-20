@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $senha = $_POST['senha'];
         $dt_nasc = $_POST['dt_nasc'];
         $sexo = $_POST['sexo'];
-        $CEP = $_POST['cep'];
+        $cep = $_POST['cep'];
         $problema_saude = $_POST['problema_saude'];
         $alergias = $_POST['alergias'];
         $peso = $_POST['peso'];
@@ -45,8 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql3 = "INSERT INTO grafico (peso) VALUES ('$peso')";
         $resultado1 = mysqli_query($conn, $sql3);
 
-        $sql4 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, CEP, problema_saude, alergias, altura) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$CEP',  '$problema_saude', '$alergias', '$altura')";
+        $sql4 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, problema_saude, alergias, altura) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$problema_saude', '$alergias', '$altura')";
         $resultado2 = mysqli_query($conn, $sql4);
 
         if($resultado1 && $resultado2) {
