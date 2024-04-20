@@ -1,26 +1,24 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 
-if(isset($_POST['submit'])){
-    $email = mysqli_real_escape_string($conn,$_POST['email']);
-    $password = mysqli_real_escape_string($conn,$_POST['senha']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $senha = mysqli_real_escape_string($conn, $_POST['senha']);
 
-    $result = mysqli_query($conn,"SELECT * FROM cliente WHERE email='$email' AND password='password'") or die("Select Error");
-    $row = mysqli_fetch_array($result);
+    $result = mysqli_query($conn, "SELECT * FROM cliente WHERE email='$email' AND senha='$senha'");
 
-    if(is_array($row) && empty($row)){
-        $_SESSION['valid'] = $row['email'];
-        $_SESSION['valid'] = $row['nome'];
-
+    if (mysqli_num_rows($result) > 0) {
+        session_start();
+        $_SESSION['email'] = $email;
+        $_SESSION['nome'] = $row['nome'];
+        echo'login bem sucedido';
+        header('Location: /Projeto/index.php');
+        exit();
     } else {
-        echo "<div class ='message'>
+        echo "<div class='message'>
         <p>Email ou senha incorretas</p>
         </div> <BR>";
-        echo "<a href='entrarcliente.php'";
-    }
-
-    if(isset($_SESSION['valid'])){
-        header('location:index.php');
+        echo "<a href='entrarcliente.php'>Voltar</a>";
     }
 }
 ?>

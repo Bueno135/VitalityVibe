@@ -85,7 +85,7 @@
                     <form id="form-cadastro" method="POST" action="processa_cadastro.php">
                     <div class="mb-6">
                             <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
-                            <input type="text" id="nome" name="Nome" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="text" id="nome" name="nome" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="emailLogin" class="block text-sm font-medium text-gray-700">E-mail</label>
@@ -93,7 +93,7 @@
                         </div>
                          <div class="mb-6">
                             <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Senha</label>
-                            <input type="password" id="senha" name="Senha" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="password" id="senha" name="senha" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Confirmar Senha</label>

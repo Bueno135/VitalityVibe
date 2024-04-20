@@ -35,17 +35,18 @@
                 
                 <div id="loginForm">
                     <h2 class="text-3xl font-bold text-center mb-6">Login no VitalityVibe</h2>
-                    <form action="/Projeto/login/logincliente.php" id="submit">
+                    <form action="/Projeto/login/logincliente.php"  method="POST" id="submit">
                         <div id="mensagem" class="mb-4">
                             <label for="emailLogin" class="block text-sm font-medium text-gray-700">E-mail</label>
-                            <input type="email" id="emailLogin" name="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="email" id="emailLogin" name="email" autocomplete="off" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Senha</label>
                             <input type="password" id="passwordLogin" name="senha" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="text-center">
-                            <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Entrar</button>
+                            <button type="submit" name="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-s
+                            m text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Entrar</button>
                         </div>
                         <input type="hidden" id="senha-hash" name="senhaHash">
                     </form>
@@ -104,5 +105,6 @@
             <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
         </div>
     </footer>
+    
 </body>
 </html>

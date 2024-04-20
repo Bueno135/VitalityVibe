@@ -1,4 +1,11 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar cadastro</title>
+</head>
+<body>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include '/xampp/htdocs/Projeto/bd/connection.php';
@@ -25,30 +32,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo"<a href=cadastrocliente.php>Voltar</a>";
         exit();
     } else {
-        
-    $nome = $_POST['Nome'];
-    $email = $_POST['email'];
-    $senha = $_POST['Senha'];
-    $cpf = $_POST['cpf'];
-    $dt_nasc = $_POST['dt_nasc'];
-    $sexo = $_POST['sexo'];
-    $CEP = $_POST['cep'];
-    $problema_saude = $_POST['problema_saude'];
-    $alergias = $_POST['alergias'];
-    $peso = $_POST['peso'];
-    $altura = $_POST['altura'];
+        $nome = $_POST['nome'];
+        $senha = $_POST['senha'];
+        $dt_nasc = $_POST['dt_nasc'];
+        $sexo = $_POST['sexo'];
+        $CEP = $_POST['cep'];
+        $problema_saude = $_POST['problema_saude'];
+        $alergias = $_POST['alergias'];
+        $peso = $_POST['peso'];
+        $altura = $_POST['altura'];
 
-    $sql = "INSERT INTO grafico (peso) VALUES ('$peso')";
+        $sql3 = "INSERT INTO grafico (peso) VALUES ('$peso')";
+        $resultado1 = mysqli_query($conn, $sql3);
 
-    $sql = "INSERT INTO cliente (Nome, email, senha, cpf, dt_nasc, sexo, CEP, problema_saude, alergias, altura) 
-    VALUES ('$nome', '$email', '$cpf', '$dt_nasc', '$sexo', '$CEP',  '$problema_saude', 
-    '$alergias', '$altura')";
+        $sql4 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, CEP, problema_saude, alergias, altura) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$CEP',  '$problema_saude', '$alergias', '$altura')";
+        $resultado2 = mysqli_query($conn, $sql4);
+
+        if($resultado1 && $resultado2) {
+            echo"Usuario cadastrado!!<BR>";
+            echo"<a href=confirmarcadastro.php>Avançar</a>";
+        } else {
+            echo "Erro ao cadastrar usuário.";
+        }
     }
-    $resultado = mysqli_query($conn, $sql);
-    echo"Usuario cadastrado!!<BR>";
-    echo"<a href=confirmarcadastro.php>Avançar</a>";
     $conn->close();
-}else{
+} else {
     echo "não foi por POST";
 }
 ?>
+
+</body>
+</html>

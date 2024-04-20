@@ -106,10 +106,7 @@ $conn->close();
     function confirmarUser() {
         window.location.href = "/Projeto/login/entrarcliente.php";
     }
-
     function editarUser() {
-        
-        
         window.location.href = "/Projeto/cadastro/cadastrocliente.php";
 }
 
