@@ -13,23 +13,44 @@
     <script src="../js/validarCPF.js" defer></script>
     <script>
         function concluirCadastro() {
-            let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
-            let todosPreenchidos = true;
+            function concluirCadastro() {
+                let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
+                let todosPreenchidos = true;
 
-            campos.forEach(function(campo) {
-                if (!campo.value) {
-                    todosPreenchidos = false;
+                campos.forEach(function(campo) {
+                    if (!campo.value) {
+                        todosPreenchidos = false;
+                    }
+                });
+
+                if (!todosPreenchidos) {
+                    alert("Por favor, preencha todos os campos do formulário.");
+                } else {
+                    let formData = new FormData(document.getElementById('form-cadastro'));
+
+                    fetch('/Projeto/cadastro/processa_cadastro.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro ao processar o formulário');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        console.log(data);
+                        // Faça algo com a resposta do servidor, se necessário
+                        // Por exemplo, redirecionar o usuário para outra página
+                        window.location.href = "/Projeto/cadastro/sucesso.php";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        // Lidar com erros de solicitação, se necessário
+                    });
                 }
-            });
-
-            if (!todosPreenchidos) {
-                alert("Por favor, preencha todos os campos do formulário.");
-            } else {
-                    console.log('Formulário enviado');
-                    window.location.href = "/Projeto/cadastro/cpfexistente.php";
             }
         }
-
     </script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
@@ -61,7 +82,7 @@
                 
                 <div id="cadastroForm">
                     <h2 class="text-3xl font-bold text-center mb-6">Cadastro de Cliente</h2>
-                    <form id="form-cadastro" method="POST" action="cpfexistente.php" onsubmit="return validarCPF()">
+                    <form id="form-cadastro" method="POST" action="processa_cadastro.php">
                     <div class="mb-6">
                             <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
                             <input type="text" id="nome" name="Nome" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -144,7 +165,7 @@
                             <input type="text" id="Altura" name="altura" placeholder="Digite sua altura em metros (Ex: 1.75)" maxlength="3" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="text-center">
-                            <button type="submit" id="resultado" onclick="concluirCadastro()" onclick="armazenar()"  value="Enviar" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
+                            <button type="submit" id="resultado" onclick="armazenar()"  value="Enviar" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
                         </div>
                         <input type="hidden" id="senha-hash" name="senhaHash">
                     </form>

@@ -1,40 +1,46 @@
-
 <?php
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include '/xampp/htdocs/Projeto/bd/connection.php';
-    if ($conn->connect_error) {
+
+    if (!$conn) {
         die("Conexão falhou: " . $conn->connect_error);
     }
-    $Nome = $_POST['name'];
+    echo"conectado ao banco<BR>";
+    $cpf = $_POST['cpf'];
+    $cpf = mysqli_real_escape_string($conn, $cpf);
+
+    $sql = "SELECT cpf FROM nutricionista WHERE cpf= '$cpf'";
+    $retorno = mysqli_query($conn, $sql);
+
+    if(mysqli_num_rows($retorno) > 0) {
+        echo"CPF Já cadastrado<BR>";
+        echo"<a href=cadastronutri.php>Voltar</a>";
+        exit();
+        
+    } else {
+        
+    $nome = $_POST['nome'];
     $email = $_POST['email'];
-    $senha = $_POST['password'];
-    $telefone = $_POST['telefone'];
+    $senha = $_POST['Senha'];
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
     $cpf = $_POST['cpf'];
     $dt_nasc = $_POST['dt_nasc'];
     $sexo = $_POST['sexo'];
     $CEP = $_POST['cep'];
-    $especialidade = $_POST['especialidade'];
-    $formacao = $_POST['formacao'];
+    $formação = $_POST['formação'];
+    $especicilidade = $_POST['especialidade'];
 
+    
 
-
-    $sql = "INSERT INTO nutricionista (nome, email, senha, cpf, 
-    dt_nasc, sexo, cep, formacao, especialidade) VALUES ('$Nome', '$email', '$senhaHash', '$cpf', '$dt_nasc', 
-    '$sexo', '$CEP', '$formacao', '$especialidade')";
-
-    $sql = "INSERT INTO especialidade (espec) VALUES ('$espec')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Cadastro realizado com sucesso";
-        header("Location: confirmar_nutri.php");
-    } else {
-        echo "Erro ao cadastrar: " . $conn->error;
+    $sql = "INSERT INTO nutricionista (nome, email, senha, cpf, dt_nasc, sexo, CEP,formação, especicilidade ) 
+    VALUES ('$nome', '$email', '$senhaHash', '$cpf', '$dt_nasc', '$sexo', '$CEP', '$formação','$especialidade')";
     }
-
+    $resultado = mysqli_query($conn, $sql);
+    echo"Usuario cadastrado!!<BR>";
+    echo"<a href=confirmarnutri.php>Avançar</a>";
     $conn->close();
-} else {
-    echo "O formulário não foi submetido";
+}else{
+    echo "não foi por POST";
 }
 ?>
+

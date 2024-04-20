@@ -40,7 +40,7 @@
                 <a href="#sobre" class="mx-2 hover:text-blue-500">Sobre</a>
                 <a href="#features" class="mx-2 hover:text-blue-500">Recursos</a>
                 <a href="#contato" class="mx-2 hover:text-blue-500">Contato</a>
-                <a href="/Projeto/cadastro/entrarcliente.php" class="mx-2 hover:text-blue-500">Login</a>
+                <a href="/Projeto/login/entrarcliente.php" class="mx-2 hover:text-blue-500">Login</a>
                 <a href="/Projeto/cadastro/cadastrocliente.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
             </div>
         </nav>
@@ -78,7 +78,7 @@ if ($result->num_rows > 0) {
         // Exibir dados de cada cliente em uma linha da tabela
         echo "<tr>";
         echo "<td>" . $row["ID_Cliente"] . "</td>";
-        echo "<td>" . $row["name"] . "</td>";
+        echo "<td>" . $row["nome"] . "</td>";
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["cpf"] . "</td>";
         echo "<td>" . $row["dt_nasc"] . "</td>";
@@ -108,42 +108,9 @@ $conn->close();
     }
 
     function editarUser() {
-    var name = document.getElementById('name').value;
-    var email = document.getElementById('email').value;
-    var cpf = document.getElementById('cpf').value;
-    var telefone = document.getElementById('telefone').value;
-    var cep = document.getElementById('CEP').value;
-    var problema_saude = document.getElementById('problema_saude').value;
-    var alergias = document.getElementById('alergias').value;
-    var peso = document.getElementById('peso').value;
-    var altura = document.getElementById('altura').value;
-
-    
-    if (!name || !email || !cpf || !telefone || !cep) {
-        alert('Por favor, preencha todos os campos obrigatórios.');
-        return;
-    }
-
-    
-
-    var formValues = {
-        name: name,
-        email: email,
-        cpf: cpf,
-        telefone: telefone,
-        cep: cep,
-        problema_saude: problema_saude,
-        alergias: alergias,
-        peso: peso,
-        altura: altura
         
-    };
-
-    
-    localStorage.setItem('formValues', JSON.stringify(formValues));
-
-    
-    window.location.href = "/Projeto/cadastro/cadastrocliente.php";
+        
+        window.location.href = "/Projeto/cadastro/cadastrocliente.php";
 }
 
 </script>
