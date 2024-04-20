@@ -29,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST['Nome'];
     $email = $_POST['email'];
     $senha = $_POST['Senha'];
-    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
     $cpf = $_POST['cpf'];
     $dt_nasc = $_POST['dt_nasc'];
     $sexo = $_POST['sexo'];
@@ -42,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO grafico (peso) VALUES ('$peso')";
 
     $sql = "INSERT INTO cliente (Nome, email, senha, cpf, dt_nasc, sexo, CEP, problema_saude, alergias, altura) 
-    VALUES ('$nome', '$email', '$senhaHash', '$cpf', '$dt_nasc', '$sexo', '$CEP',  '$problema_saude', 
+    VALUES ('$nome', '$email', '$cpf', '$dt_nasc', '$sexo', '$CEP',  '$problema_saude', 
     '$alergias', '$altura')";
     }
     $resultado = mysqli_query($conn, $sql);

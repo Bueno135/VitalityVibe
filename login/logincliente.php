@@ -1,35 +1,26 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 
-$senha = "Senha";
-$hash_armazenado_no_banco = "senhaHash";
+if(isset($_POST['submit'])){
+    $email = mysqli_real_escape_string($conn,$_POST['email']);
+    $password = mysqli_real_escape_string($conn,$_POST['senha']);
 
-if (password_verify($senha, $hash_armazenado_no_banco)) {
-    echo "As senhas coincidem!";
-} else {
-    echo "As senhas não coincidem.";
-}
+    $result = mysqli_query($conn,"SELECT * FROM cliente WHERE email='$email' AND password='password'") or die("Select Error");
+    $row = mysqli_fetch_array($result);
 
+    if(is_array($row) && empty($row)){
+        $_SESSION['valid'] = $row['email'];
+        $_SESSION['valid'] = $row['nome'];
 
-$email = $_POST['email'];
-$senha = $_POST['senha'];
-
-$stmt = $conn->prepare("SELECT * FROM cliente WHERE email=?");
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    if (password_verify($senha, $row['senha'])) {
-        header("Location: /Projeto/index.php");
     } else {
-        echo "Usuário ou senha incorretos";
+        echo "<div class ='message'>
+        <p>Email ou senha incorretas</p>
+        </div> <BR>";
+        echo "<a href='entrarcliente.php'";
     }
-} else {
-    echo "Usuário ou senha incorretos";
-}
 
-$stmt->close();
-$conn->close();
+    if(isset($_SESSION['valid'])){
+        header('location:index.php');
+    }
+}
 ?>

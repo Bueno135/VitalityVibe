@@ -27,7 +27,7 @@
                 alert("Por favor, preencha todos os campos do formulário.");
             } else {
                     console.log('Formulário enviado');
-                    window.location.href = "/Projeto/cadastro/cpfexistente.php";
+                    window.location.href = "/Projeto/cadastro/processa_nutri.php";
             }
         }
 
