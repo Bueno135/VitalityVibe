@@ -166,8 +166,8 @@
                 cpf: document.getElementById('cpf').value,
                 telefone: document.getElementById('telefone').value,
                 cep: document.getElementById('cep').value,
-                problema_saude: document.getElementById('problema_saude').value,
-                
+                formacao: document.getElementById('formação').value,
+                especialidade: document.getElementById('especialidade').value
             };
             localStorage.setItem('formValues', JSON.stringify(formValues));
             }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
-    <link href="/Projeto/cadastro/confirmarcadastro_n.css" rel="stylesheet">
+    <link href="/Projeto/cadastro/confirmarcadastro.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <title>Confirmação de Login</title>
     <style>
@@ -144,7 +144,7 @@ $conn->close();
     var telefone = document.getElementById('telefone').value;
     var cep = document.getElementById('CEP').value;
     var formacao = document.getElementById('formação').value;
-    var espec = document.getElementById('especialidade').value;
+    var especialidade = document.getElementById('especialidade').value;
 
    
     if (!name || !email || !cpf || !telefone || !cep) {
@@ -160,7 +160,7 @@ $conn->close();
         telefone: telefone,
         cep: cep,
         formacao: formacao,
-        espec: especialidade
+        especialidade: especialidade
         
     };
 

@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificar cadastro</title>
+</head>
+<body>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include '/xampp/htdocs/Projeto/bd/connection.php';
@@ -14,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql2 = "SELECT email FROM nutricionista WHERE email= '$email'";
     $retorno2 = mysqli_query($conn, $sql2);
     $retorno = mysqli_query($conn, $sql);
-
     if(mysqli_num_rows($retorno) > 0) {
         echo"CPF Já cadastrado<BR>";
         echo"<a href=cadastronutri.php>Voltar</a>";
@@ -25,28 +32,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo"<a href=cadastronutri.php>Voltar</a>";
         exit();
     } else {
-        
         $nome = $_POST['nome'];
-        $email = $_POST['email'];
         $senha = $_POST['senha'];
-        $cpf = $_POST['cpf'];
         $dt_nasc = $_POST['dt_nasc'];
         $sexo = $_POST['sexo'];
         $cep = $_POST['cep'];
-        $formação = $_POST['formação'];
-        $especicilidade = $_POST['especialidade'];
+        $formacao = $_POST['formacao'];
+        $especialidade = $_POST['especialidade'];
 
-        
 
-        $sql = "INSERT INTO nutricionista (nome, email, senha, cpf, dt_nasc, sexo, cep,formação, especicilidade ) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep', '$formação','$especialidade')";
+        $sql4 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, formacao, especialidade) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$formação', '$especialidade')";
+        $resultado2 = mysqli_query($conn, $sql4);
+
+        if($resultado1 && $resultado2) {
+            echo"Usuario cadastrado!!<BR>";
+            echo"<a href=confirmarcadastro.php>Avançar</a>";
+        } else {
+            echo "Erro ao cadastrar usuário.";
         }
-        $resultado = mysqli_query($conn, $sql);
-        echo"Usuario cadastrado!!<BR>";
-        echo"<a href=confirmarnutri.php>Avançar</a>";
-        $conn->close();
-}else{
+    }
+    $conn->close();
+} else {
     echo "não foi por POST";
 }
 ?>
+
+</body>
+</html>
 
