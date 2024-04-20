@@ -7,9 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
-    <script src="../js/login-form.js" defer></script>
-    <script src="../js/header.js" defer></script>
-    <script src="../js/inicio.js" defer></script>
     <script src="../js/cep.js" defer></script>
     <script src="../js/telefone.js" defer></script>
     <script src="../js/cpf.js" defer></script>
@@ -28,15 +25,8 @@
             if (!todosPreenchidos) {
                 alert("Por favor, preencha todos os campos do formulário.");
             } else {
-                var senha = document.getElementById('senha').value;
-                var confirmarSenha = document.getElementById('confirmarSenha').value;
-
-                if (senha === confirmarSenha) {
                     console.log('Formulário enviado');
                     window.location.href = "/Projeto/cadastro/cpfexistente.php";
-                } else {
-                    alert('As senhas não são iguais. Por favor, verifique.');
-                }
             }
         }
 
@@ -71,7 +61,7 @@
                 
                 <div id="cadastroForm">
                     <h2 class="text-3xl font-bold text-center mb-6">Cadastro de Cliente</h2>
-                    <form id="form-cadastro" method="POST" action="processa_cadastro.php" onsubmit="return validarCPF()">
+                    <form id="form-cadastro" method="POST" action="cpfexistente.php" onsubmit="return validarCPF()">
                     <div class="mb-6">
                             <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
                             <input type="text" id="nome" name="Nome" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -82,7 +72,7 @@
                         </div>
                          <div class="mb-6">
                             <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Senha</label>
-                            <input type="password" id="password" name="Senha" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="password" id="senha" name="Senha" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Confirmar Senha</label>
@@ -154,7 +144,7 @@
                             <input type="text" id="Altura" name="altura" placeholder="Digite sua altura em metros (Ex: 1.75)" maxlength="3" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="text-center">
-                            <button type="submit" id="resultado" onclick="concluirCadastro()" onclick="armazenar()"  value="Enviar">Concluir Cadastro</button>
+                            <button type="submit" id="resultado" onclick="concluirCadastro()" onclick="armazenar()"  value="Enviar" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
                         </div>
                         <input type="hidden" id="senha-hash" name="senhaHash">
                     </form>

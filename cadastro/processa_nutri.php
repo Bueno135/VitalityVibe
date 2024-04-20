@@ -15,14 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dt_nasc = $_POST['dt_nasc'];
     $sexo = $_POST['sexo'];
     $CEP = $_POST['cep'];
-    $espec = $_POST['espec'];
+    $especialidade = $_POST['especialidade'];
     $formacao = $_POST['formacao'];
 
 
 
     $sql = "INSERT INTO nutricionista (nome, email, senha, cpf, 
-    dt_nasc, sexo, cep, formacao) VALUES ('$Nome', '$email', '$senhaHash', '$cpf', '$dt_nasc', 
-    '$sexo', '$CEP', '$formacao')";
+    dt_nasc, sexo, cep, formacao, especialidade) VALUES ('$Nome', '$email', '$senhaHash', '$cpf', '$dt_nasc', 
+    '$sexo', '$CEP', '$formacao', '$especialidade')";
 
     $sql = "INSERT INTO especialidade (espec) VALUES ('$espec')";
 

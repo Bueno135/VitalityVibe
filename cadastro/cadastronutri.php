@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,16 +6,14 @@
     <title>VitalityVibe - Cadastro</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
-    <script src="../js/login-form.js" defer></script>
-    <script src="../js/header.js" defer></script>
-    <script src="../js/inicio.js" defer></script>
+
+   
     <script src="../js/cpf.js" defer></script>
     <script src="../js/cep.js" defer></script>
     <script src="../js/validarCPF.js" defer></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <script>
-        function logarUser(){
+        function concluirCadastro() {
             let campos = document.querySelectorAll('#form-cadastro input, #form-cadastro select');
             let todosPreenchidos = true;
 
@@ -26,16 +23,13 @@
                 }
             });
 
-            if (todosPreenchidos == false) {
+            if (!todosPreenchidos) {
                 alert("Por favor, preencha todos os campos do formulário.");
             } else {
-                console.log('Formulário enviado');
-                window.location.href = "/Projeto/cadastro/confirmarcadastro.php";
-                alert("ENTREI!");
-            } 
-            
+                    console.log('Formulário enviado');
+                    window.location.href = "/Projeto/cadastro/cpfexistente.php";
+            }
         }
-        
 
     </script>
 
@@ -89,7 +83,7 @@
                         
                         <div class="mb-6">
                             <label for="dataNascimento" class="block text-sm font-medium text-gray-700">Data de nascimento</label>
-                            <input type="date" id="dataNascimento" name="dataNascimento" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="date" id="dt_nasc" name="dt_nasc" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         
                         <div class="mb-6">
@@ -118,7 +112,7 @@
                             <input type="text" id="espec" name="espec" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="text-center">
-                            <button type="button" onclick="logarUser()" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
+                        <button type="button" onclick="concluirCadastro()" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
                         </div>
                         <input type="hidden" id="senha-hash" name="senhaHash">
                     </form>
