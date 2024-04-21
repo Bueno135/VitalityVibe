@@ -1,8 +1,9 @@
 
+
 <?php
     $servernome = "localhost:3306";
-    $usernome = "vb";
-    $password = "1234";
+    $usernome = "root";
+    $password = "";
     $dbnome = "vitalityvibe";
 
     $conn = new mysqli($servernome, $usernome, $password, $dbnome);
