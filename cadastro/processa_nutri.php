@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$conn) {
         die("Conexão falhou: " . $conn->connect_error);
     }
-    $cpf = $_POST['cpf'];
+    $cpf = $_POST['cpf'] ?? '';
     $cpf = mysqli_real_escape_string($conn, $cpf);
-    $email = $_POST['email'];
+    $email = $_POST['email'] ?? '';
     $email = mysqli_real_escape_string($conn, $email);
 
     $sql = "SELECT cpf FROM nutricionista WHERE cpf= '$cpf'";
@@ -23,43 +23,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $retorno2 = mysqli_query($conn, $sql2);
     $retorno = mysqli_query($conn, $sql);
     if(mysqli_num_rows($retorno) > 0) {
-        echo"CPF Já cadastrado<BR>";
-        echo"<a href=cadastronutri.php>Voltar</a>";
+        echo "CPF Já cadastrado<BR>";
+        echo "<a href=cadastronutri.php>Voltar</a>";
         exit();
     
     } else if(mysqli_num_rows($retorno2) > 0) {
-        echo"Email Já cadastrado<BR>";
-        echo"<a href=cadastronutri.php>Voltar</a>";
+        echo "Email Já cadastrado<BR>";
+        echo "<a href=cadastronutri.php>Voltar</a>";
         exit();
     } else {
-        $nome = $_POST['nome'];
-        $senha = $_POST['senha'];
-        $dt_nasc = $_POST['dt_nasc'];
-        $sexo = $_POST['sexo'];
-        $cep = $_POST['cep'];
-        $formacao = $_POST['formacao'];
-        $especialidade = $_POST['especialidade'];
+        $nome = $_POST['nome'] ?? '';
+        $senha = $_POST['senha'] ?? '';
+        $dt_nasc = $_POST['dt_nasc'] ?? '';
+        $sexo = $_POST['sexo'] ?? '';
+        $cep = $_POST['cep'] ?? '';
+        $formacao = $_POST['formacao'] ?? '';
+        $especialidade = $_POST['especialidade'] ?? '';
         
         $sql3 = "INSERT INTO formacao (formacao) VALUES ('$formacao')";
         $resultado3 = mysqli_query($conn, $sql3);
         $sql5 = "INSERT INTO especialidade (especialidade) VALUES ('$especialidade')";
         $resultado4 = mysqli_query($conn, $sql5);
-        $sql4 = "INSERT INTO nutricionista (nome, email, senha, cpf, dt_nasc, sexo, cep, ) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',)";
+        $sql4 = "INSERT INTO nutricionista (nome, email, senha, cpf, dt_nasc, sexo, cep) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep')";
         $resultado2 = mysqli_query($conn, $sql4);
 
-        if($resultado1 && $resultado2) {
-            echo"Usuario cadastrado!!<BR>";
-            echo"<a href=confirmarcadastro.php>Avançar</a>";
+        if($resultado2) {
+            echo "Usuário cadastrado!!<BR>";
+            echo "<a href=confirmarcadastro.php>Avançar</a>";
         } else {
             echo "Erro ao cadastrar usuário.";
         }
     }
     $conn->close();
 } else {
-    echo "não foi por POST";
+    echo "Não foi por POST";
 }
 ?>
+
+
+</body>
+</html>
+
+<?php
 
 </body>
 </html>
