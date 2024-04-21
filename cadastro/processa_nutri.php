@@ -39,10 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cep = $_POST['cep'];
         $formacao = $_POST['formacao'];
         $especialidade = $_POST['especialidade'];
-
-
-        $sql4 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, formacao, especialidade) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$formação', '$especialidade')";
+        
+        $sql3 = "INSERT INTO formacao (formacao) VALUES ('$formacao')";
+        $resultado3 = mysqli_query($conn, $sql3);
+        $sql5 = "INSERT INTO especialidade (especialidade) VALUES ('$especialidade')";
+        $resultado4 = mysqli_query($conn, $sql5);
+        $sql4 = "INSERT INTO nutricionista (nome, email, senha, cpf, dt_nasc, sexo, cep, ) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',)";
         $resultado2 = mysqli_query($conn, $sql4);
 
         if($resultado1 && $resultado2) {
