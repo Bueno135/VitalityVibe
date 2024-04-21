@@ -48,7 +48,7 @@ CREATE TABLE Ingredientes (
 
 CREATE TABLE Especialidade (
     id_especialidade INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100)
+    especialidade VARCHAR(100)
 );
 
 CREATE TABLE CategoriaAlimentar (
@@ -72,7 +72,7 @@ CREATE TABLE PlanoAlimentar (
 
 CREATE TABLE Formacao (
     id_formacao INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100)
+    formacao VARCHAR(100)
 );
 
 CREATE TABLE Objetivo (
