@@ -9,27 +9,6 @@
     <link href="/Projeto/cadastro/confirmarcadastro.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <title>Confirmação de Login</title>
-    <style>
-     
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: white;
-            z-index: 1000;
-            padding: 1rem; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-        }
-        .content {
-            margin-top: 4rem;
-            padding: 1rem;
-        }
-    </style>
 </head>
 <body class="bg-gray-100">
 
@@ -97,19 +76,11 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
             <div class="mt-4 flex justify-between">
-                <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmarUser()">Confirmar</button>
-                <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="editarUser()">Editar</button>
+                <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" a href="/Projeto/cadastro/entrarcliente.css">Confirmar</button>
+                <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" a href="/Projeto/cadastro/editarcadastro.css">Editar</button>
             </div>
         </div>
     </div>
-    <script>
-    function confirmarUser() {
-        window.location.href = "/Projeto/login/entrarcliente.php";
-    }
-    function editarUser() {
-        window.location.href = "/Projeto/cadastro/cadastrocliente.php";
-}
-
-</script>
+    
 </body>
 </html>
