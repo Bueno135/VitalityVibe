@@ -42,14 +42,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $peso = $_POST['peso'];
         $altura = $_POST['altura'];
 
-        $sql3 = "INSERT INTO grafico (peso) VALUES ('$peso')";
-        $resultado1 = mysqli_query($conn, $sql3);
+        $sql3 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, problema_saude, alergias, peso, altura) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$problema_saude', '$alergias', '$peso','$altura')";
+        $resultado = mysqli_query($conn, $sql3);
 
-        $sql4 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, problema_saude, alergias, altura) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$problema_saude', '$alergias', '$altura')";
-        $resultado2 = mysqli_query($conn, $sql4);
-
-        if($resultado1 && $resultado2) {
+        if($resultado) {
             echo"Usuario cadastrado!!<BR>";
             echo"<a href=confirmarcadastro.php>Avançar</a>";
         } else {

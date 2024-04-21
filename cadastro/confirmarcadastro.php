@@ -49,6 +49,10 @@ if ($result->num_rows > 0) {
                 <th>Data de Nascimento</th>
                 <th>Sexo</th>
                 <th>CEP</th>
+                <th>altura</th>
+                <th>peso</th>
+                <th>alergias</th>
+                <th>problema_saude</th>
                 
             </tr>";
 
@@ -62,7 +66,12 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row["cpf"] . "</td>";
         echo "<td>" . $row["dt_nasc"] . "</td>";
         echo "<td>" . $row["sexo"] . "</td>";
-        echo "<td>" . $row["CEP"] . "</td>";
+        echo "<td>" . $row["cep"] . "</td>";
+        echo "<td>" . $row["altura"] . "</td>";
+        echo "<td>" . $row["peso"] . "</td>";
+        echo "<td>" . $row["alergias"] . "</td>";
+        echo "<td>" . $row["problema_saude"] . "</td>";
+
         echo "</tr>";
     }
 
