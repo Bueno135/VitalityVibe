@@ -85,11 +85,19 @@ if ($result->num_rows > 0) {
 $conn->close();
 ?>
             <div class="mt-4 flex justify-between">
-                <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" a href="/Projeto/cadastro/entrarcliente.css">Confirmar</button>
-                <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" a href="/Projeto/cadastro/editarcadastro.css">Editar</button>
+                <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmar()">Confirmar</button>
+                <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="mandarEditar()">Editar</button>
             </div>
         </div>
     </div>
-    
+<script>
+    function mandarEditar(){
+        window.location.href = "editarcadastro.php";
+    }
+    function confirmar(){
+        window.location.href = "entrarcliente.php";
+    }
+
+</script>
 </body>
 </html>

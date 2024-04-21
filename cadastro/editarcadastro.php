@@ -41,40 +41,28 @@
                 
                 <div id="cadastroForm">
                     <h2 class="text-3xl font-bold text-center mb-6">Editar cadastro</h2>
-                    <form id="form-cadastro" method="POST" action="processa_cadastro.php">
+                    <form id="form-cadastro" method="POST" action="editar.php">
                     <div class="mb-6">
                             <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
-                            <input type="text" id="nome" name="nome" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="text" id="nome" name="nome" value="<?php echo $cliente['nome']; ?>"
+                             class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="emailLogin" class="block text-sm font-medium text-gray-700">E-mail</label>
-                            <input type="email" id="emailLogin" name="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="email" id="emailLogin" name="email" value="<?php echo $cliente['email']; ?>"" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
-                         <div class="mb-6">
-                            <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Senha</label>
-                            <input type="password" id="senha" name="senha" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="passwordLogin" class="block text-sm font-medium text-gray-700">Confirmar Senha</label>
-                            <input type="password" id="confirmarSenha" name="" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                        </div>
-                        <div class="mb-6">
                             <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
-                            <input id="cpf" name="cpf" inputmode="numeric" maxlength="11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input id="cpf" name="cpf" inputmode="numeric" maxlength="11" value="<?php echo $cliente['cpf']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                          <div class="mb-6">
                             <label for="telefone" class="block text-sm font-medium text-gray-700">Telefone</label>
-                            <input inputmode="numeric" id="telefone" name="telefone" maxlength="11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input inputmode="numeric" id="telefone" name="telefone" maxlength="11" value="<?php echo $cliente['telefone']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
-                
                         </div>
                         <div class="mb-6">
                             <label for="dt_nasc" class="block text-sm font-medium text-gray-700">Data de nascimento</label>
-                            <input type="date" id="dt_nasc" name="dt_nasc" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="date" id="dt_nasc" name="dt_nasc" value="<?php echo $cliente['dt_nasc']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div id="idadeAviso" class="hidden text-red-500 mb-4">Site Proibido Para Menores de 16 Anos.</div>
-
-                        
-                        
                         <div class="mb-6">
                             <label for="sexo" class="block text-sm font-medium text-gray-700">Sexo</label>
                             <select id="sexo" name="sexo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -87,7 +75,7 @@
 
                         <div class="mb-6">
                             <label for="cep" class="block text-sm font-medium text-gray-700">CEP</label>
-                            <input type="text" id="cep" name="cep" inputmode="numeric" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="text" id="cep" name="cep" inputmode="numeric" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" value="<?php echo $cliente['cep']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div> 
                         <div class="mb-6">
                             <label for="obj" class="block text-sm font-medium text-gray-700">Objetivo</label>
@@ -105,26 +93,26 @@
                         </div>
                         <div class="mb-6">
                             <label for="problem" class="block text-sm font-medium text-gray-700">Você tem algum problema de saúde? Se sim, qual(s)?</label>
-                            <input type="text" id="problem" name="problema_saude" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="text" id="problem" name="problema_saude" value="<?php echo $cliente['problema_saude']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="med" class="block text-sm font-medium text-gray-700">Você utiliza de algum medicamento controlado? Se sim qual(s)?</label>
-                            <input type="text" id="med" name="medicamentoControlado" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="text" id="med" name="medicamentoControlado" value="<?php echo $cliente['nome']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="alergias" class="block text-sm font-medium text-gray-700">Você é alergico a algum alimento? Se sim, qual(s)?</label>
-                            <input type="text" id="alergias" name="alergias" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="text" id="alergias" name="alergias" value="<?php echo $cliente['med_controlado']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="peso" class="block text-sm font-medium text-gray-700">Qual o seu peso?(Em Quilograma/Kg)</label>
-                            <input type="text" id="Peso" name="peso" inputmode="numeric" pattern="[0-9]*" maxlength="3"  class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="text" id="Peso" name="peso" inputmode="numeric" pattern="[0-9]*" maxlength="3"  value="<?php echo $cliente['peso']; ?>"  class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="altura" class="block text-sm font-medium text-gray-700">Qual a sua altura?(Em Metros/M)</label>
-                            <input type="text" id="Altura" name="altura" placeholder="Digite sua altura em metros (Ex: 1.75)" maxlength="3" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="text" id="Altura" name="altura" placeholder="Digite sua altura em metros (Ex: 1.75)" maxlength="3" value="<?php echo $cliente['altura']; ?>"  class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="text-center">
-                            <button type="submit" id="resultado" onclick="armazenar()"  value="Enviar" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
+                            <button type="submit" id="resultado"  value="Enviar" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
                         </div>
                         <input type="hidden" id="senha-hash" name="senhaHash">
                     </form>
@@ -182,4 +170,47 @@
     </script>
 
 </body>
+<?php
+    
+    include '/xampp/htdocs/Projeto/bd/connection.php';
+
+    $cliente = null; // Defina a variável antes do bloco condicional
+    $sql_last_id = "SELECT ID_cliente FROM cliente ORDER BY ID_cliente DESC LIMIT 1";
+    $result_last_id = $conn->query($sql_last_id);
+    
+    if ($result_last_id->num_rows > 0) {
+        $row_last_id = $result_last_id->fetch_assoc();
+        $last_id = $row_last_id['ID_Cliente'];
+    
+
+        $sql_select = "SELECT * FROM cliente WHERE ID_cliente = $last_id";
+        $result_select = $conn->query($sql_select);
+    
+        if ($result_select->num_rows > 0) {
+            $cliente = $result_select->fetch_assoc();
+    
+            $nome = $cliente['nome'];
+            $email = $cliente['email'];
+            $cpf = $cliente['cpf'];
+            $telefone = $cliente['telefone'];
+            $cep = $cliente['cep'];
+            $altura = $cliente['altura'];
+            $peso = $cliente['peso'];
+            $dt_nasc = $cliente['dt_nasc'];
+            $alergias = $cliente['alergias'];
+            $problema_saude = $cliente['problema_saude'];
+            $med_controlado = $cliente['med_controlado'];
+        } else {
+            echo "Cliente não encontrado";
+        }
+    } else {
+        echo "Não há clientes cadastrados";
+    }
+    
+    $conn->close();
+    
+    
+?>
+ 
+   
 </html>

@@ -41,9 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $alergias = $_POST['alergias'];
         $peso = $_POST['peso'];
         $altura = $_POST['altura'];
+        $med_controlado = $_POST['med_controlado'];
 
-        $sql3 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, problema_saude, alergias, peso, altura) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$problema_saude', '$alergias', '$peso','$altura')";
+        $sql3 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, problema_saude, alergias, peso, altura, med_controlado) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$problema_saude', '$alergias', '$peso','$altura', '$med_controlado')";
         $resultado = mysqli_query($conn, $sql3);
 
         if($resultado) {
