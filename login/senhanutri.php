@@ -9,8 +9,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="../js/profile.js" defer></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-
 </head>
+<?php
+    include ("../bd/connection.php");
+    session_start();
+?>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
     <!-- Cabeçalho -->
@@ -31,27 +34,36 @@
     <div class="h-16"></div>
     <div class="h-16"></div>
 
-    
     <section class="container mx-auto my-0 p-6">
         <div class="max-w-lg mx-auto bg-white p-8 rounded shadow">
             <h2 id="userName" class="text-3xl font-bold text-center mb-6">Altere Sua Senha</h2>
 
             <!-- Formulário para alterar senha -->
-            <form id="changePasswordForm">
+            <form id="changePasswordForm" method="post" action="senhanova.php" onsubmit="return validarSenha()">
                 <div class="mb-4">
-                    <label for="newPassword" class="block text-sm font-medium text-gray-700">Nova Senha</label>
-                    <input type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Coloque seu email</label>
+                    <input name="email" onblur="verificar()" type="email" id="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm" required>
                 </div>
-                <div class="mb-4">
-                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirmar Nova Senha</label>
-                    <input type="password" id="confirmPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                <div class="mb-4 relative">
+                    <label for="newPassword" class="block text-sm font-medium text-gray-700">Insira sua nova Senha</label>
+                    <input name="nova_senha" type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
+                    <button type="button" onclick="togglePasswordVisibility('newPassword')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
+                        <i id="toggleIcon" class="fas fa-eye"></i>
+                    </button>
                 </div>
-                <input type="hidden" id="passwordHash" name="passwordHash">
+                <div class="mb-4 relative">
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirme sua nova Senha</label>
+                    <input name="confirm_senha" type="password" id="confirmPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
+                    <button type="button" onclick="togglePasswordVisibility('confirmPassword')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
+                        <i id="toggleConfirmIcon" class="fas fa-eye"></i>
+                    </button>
+                    <span id="senhaMatch" class="text-red-500 text-sm hidden">As senhas não coincidem.</span>
+                </div>
                 <div class="text-center">
-                    <button type="button" onclick="alterarSenha()" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Alterar Senha</button>
+                    <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Alterar Senha</button>
                 </div>
             </form>
-
+        </div>
     </section>
 
     <!-- Rodapé -->
@@ -68,7 +80,6 @@
                     <li><a href="paginas/entrar" class="hover:text-blue-400">Cadastre-se</a></li>
                 </ul>
             </div>
-
             <!-- Informações legais e políticas de uso -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Legal</h5>
@@ -77,16 +88,14 @@
                     <li><a href="#privacidade" class="hover:text-blue-400">Política de Privacidade</a></li>
                 </ul>
             </div>
-
             <!-- Informações de contato -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Contato</h5>
                 <ul>
-                    <li><a href="mailto:info@clevereats.com" class="hover:text-blue-400">info@vitalityvibe.com</a></li>
+                    <li><a href="mailto:info@vitalityvibe.com" class="hover:text-blue-400">info@vitalityvibe.com</a></li>
                     <li><a href="tel:+123456789" class="hover:text-blue-400">+1 234 567 89</a></li>
                 </ul>
             </div>
-
             <!-- Outras informações -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Mais</h5>
@@ -98,10 +107,49 @@
                 </ul>
             </div>
         </div>
-
         <div class="text-center p-4 bg-gray-700 mt-4">
             <p>&copy; 2024 Vitality Vibe. Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <!-- JavaScript for Toggle Password Visibility and Matching Passwords -->
+    <script>
+        function verificar() {
+            const email = document.getElementById('email').value;
+            if (email === '<?php echo $_SESSION["email"]?>') {
+                alert('email válido');
+            } else {
+                alert('email inválido');
+            }
+        }
+
+        function togglePasswordVisibility(inputId) {
+            var passwordInput = document.getElementById(inputId);
+            var toggleIcon = document.getElementById('toggleIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        function validarSenha() {
+            var newPassword = document.getElementById('newPassword').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var senhaMatch = document.getElementById('senhaMatch');
+
+            if (newPassword !== confirmPassword) {
+                senhaMatch.classList.remove('hidden');
+                return false;
+            } else {
+                senhaMatch.classList.add('hidden');
+                return true;
+            }
+        }
+    </script>
 </body>
 </html>
