@@ -3,16 +3,17 @@
 CREATE TABLE Cliente (
     ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
-    telefone INT,
+    telefone VARCHAR(100),
     dt_nasc DATE,
-    altura INT,
+    altura VARCHAR(11),
+    peso VARCHAR(11),
     cpf VARCHAR(21),
     senha VARCHAR(100),
     freq_atv_fisica CHAR,
     email VARCHAR(50),
-    CEP INT,
+    cep VARCHAR(20),
     alergias VARCHAR(100),
-    problema_saude CHAR,
+    problema_saude VARCHAR(100),
     sexo CHAR,
     fk_Objetivo_id_obj INT
 );
@@ -20,12 +21,12 @@ CREATE TABLE Cliente (
 CREATE TABLE Nutricionista (
     id_nutricionista INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
-    cpf INT,
+    cpf VARCHAR(21),
     email VARCHAR(100),
-    telefone INT,
+    telefone VARCHAR(30),
     senha VARCHAR(100),
     sexo CHAR,
-    CEP INT,
+    cep VARCHAR(20),
     dt_nasc DATE,
     fk_Especialidade_id_especialidade INT
 );
