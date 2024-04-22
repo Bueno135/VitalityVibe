@@ -35,7 +35,19 @@
             window.location.href = "/Projeto/login/entrarnutri.php";
         }
         function editarUser(){
+<<<<<<< HEAD
             window.location.href = "/Projeto/cadastro/editarcadastronutri.php";
+=======
+            // Armazena os valores do formulário no localStorage antes de redirecionar
+            const formValues = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value
+                // Adicione outros campos conforme necessário
+            };
+            localStorage.setItem('formValues', JSON.stringify(formValues));
+
+            window.location.href = "/Projeto/cadastro/cadastronutri.php";
+>>>>>>> 647c52fc0ca26000666443febedb459a929b272b
         }
     </script>
 </head>
@@ -59,6 +71,7 @@
             <h1 class="text-2xl font-bold">Confirmação de Login</h1>
             <p class="mt-4">Por favor, confirme seus dados:</p>
             <?php
+<<<<<<< HEAD
 include '/xampp/htdocs/Projeto/bd/connection.php';
 
 $sql = "SELECT * FROM nutricionista ORDER BY id_nutricionista DESC LIMIT 1";
@@ -69,11 +82,28 @@ if ($result->num_rows > 0) {
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
+=======
+// Conexão com o banco de dados
+include '/xampp/htdocs/Projeto/bd/connection.php';
+
+// Query para obter os dados dos clientes
+$sql = "SELECT * FROM nutricionista ORDER BY id_nutricionista DESC LIMIT 1";
+$result = $conn->query($sql);
+
+// Verifica se a consulta retornou resultados
+if ($result->num_rows > 0) {
+    // Exibir cabeçalho da tabela
+    echo "<table class='styled-table'
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+>>>>>>> 647c52fc0ca26000666443febedb459a929b272b
                 <th>Email</th>
                 <th>CPF</th>
                 <th>Data de Nascimento</th>
                 <th>Sexo</th>
                 <th>CEP</th>
+<<<<<<< HEAD
                 <th>Especialidade</th>
                 <th>Formação</th>
             </tr>";
@@ -82,11 +112,23 @@ if ($result->num_rows > 0) {
         echo "<tr>";
         echo "<td>" . $row["id_nutricionista"] . "</td>";
         echo "<td>" . $row["nome"] . "</td>";
+=======
+                
+            </tr>";
+
+    // Loop através dos resultados
+    while ($row = $result->fetch_assoc()) {
+        // Exibir dados de cada cliente em uma linha da tabela
+        echo "<tr>";
+        echo "<td>" . $row["id_nutricionista"] . "</td>";
+        echo "<td>" . $row["name"] . "</td>";
+>>>>>>> 647c52fc0ca26000666443febedb459a929b272b
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["cpf"] . "</td>";
         echo "<td>" . $row["dt_nasc"] . "</td>";
         echo "<td>" . $row["sexo"] . "</td>";
         echo "<td>" . $row["cep"] . "</td>";
+<<<<<<< HEAD
         
         // Consulta SQL para obter a especialidade do nutricionista
         $sql_especialidade = "SELECT nome_especialidade FROM especialidade WHERE id_especialidade = " . $row["id_nutricionista"];
@@ -110,22 +152,91 @@ if ($result->num_rows > 0) {
 
         echo "</tr>";
     }
+=======
+        echo "</tr>";
+    }
+
+    // Fechar tabela
+>>>>>>> 647c52fc0ca26000666443febedb459a929b272b
     echo "</table>";
 } else {
     echo "Nenhum nutricionista encontrado";
 }
 
+<<<<<<< HEAD
 $conn->close();
 ?>
 
 
+=======
+// Fechar conexão
+$conn->close();
+?>
+<?php
+    // Se houver dados no localStorage, exiba-os no formulário
+    session_start();
+
+    if (!empty($_SESSION['formValues'])) {
+        $formValues = json_decode($_SESSION['formValues'], true);
+        echo '<script>';
+        echo 'document.getElementById("name").value = "' . $formValues['name'] . '";';
+        echo 'document.getElementById("email").value = "' . $formValues['email'] . '";';
+        // Adicione mais campos conforme necessário
+        echo '</script>';
+    }
+
+?>
+>>>>>>> 647c52fc0ca26000666443febedb459a929b272b
             <div class="mt-4 flex justify-between">
                 <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmarUser()">Confirmar</button>
                 <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="editarUser()">Editar</button>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     
+=======
+    <script>
+    function confirmarUser() {
+        window.location.href = "/Projeto/login/entrarnutri.php";
+    }
+
+    function editarUser() {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var cpf = document.getElementById('cpf').value;
+    var telefone = document.getElementById('telefone').value;
+    var cep = document.getElementById('CEP').value;
+    var formacao = document.getElementById('formação').value;
+    var especialidade = document.getElementById('especialidade').value;
+
+   
+    if (!name || !email || !cpf || !telefone || !cep) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;
+    }
+
+
+    var formValues = {
+        name: name,
+        email: email,
+        cpf: cpf,
+        telefone: telefone,
+        cep: cep,
+        formacao: formacao,
+        especialidade: especialidade
+        
+    };
+
+    
+    localStorage.setItem('formValues', JSON.stringify(formValues));
+
+    
+    window.location.href = "/Projeto/cadastro/cadastronutri.php";
+}
+
+</script>
+>>>>>>> 647c52fc0ca26000666443febedb459a929b272b
 </body>
 </html>
 

@@ -216,4 +216,8 @@ $conn->close();
 
  
    
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 647c52fc0ca26000666443febedb459a929b272b
