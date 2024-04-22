@@ -35,7 +35,12 @@
             window.location.href = "/Projeto/login/entrarnutri.php";
         }
         function editarUser(){
-            window.location.href = "/Projeto/cadastro/editarcadastronutri.php";
+            var naoLogadoComoModerador = true;
+
+            // Se o usuário não estiver logado como moderador, exiba o alerta
+            if (naoLogadoComoModerador) {
+                alert("Você não está logado como moderador. Por favor, faça login como moderador para acessar esta página.");
+            }
         }
     </script>
 </head>
@@ -71,7 +76,6 @@ if ($result->num_rows > 0) {
                 <th>Nome</th>
                 <th>Email</th>
                 <th>CPF</th>
-                <th>Data de Nascimento</th>
                 <th>Sexo</th>
                 <th>CEP</th>
                 <th>Especialidade</th>
@@ -84,7 +88,6 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row["nome"] . "</td>";
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["cpf"] . "</td>";
-        echo "<td>" . $row["dt_nasc"] . "</td>";
         echo "<td>" . $row["sexo"] . "</td>";
         echo "<td>" . $row["cep"] . "</td>";
         

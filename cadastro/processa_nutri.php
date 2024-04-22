@@ -34,18 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $nome = $_POST['nome'] ?? '';
         $senha = $_POST['senha'] ?? '';
-        $dt_nasc = $_POST['dt_nasc'] ?? '';
         $sexo = $_POST['sexo'] ?? '';
         $cep = $_POST['cep'] ?? '';
         $formacao = $_POST['formacao'] ?? '';
         $especialidade = $_POST['especialidade'] ?? '';
         
-        $sql3 = "INSERT INTO formacao (formacao) VALUES ('$formacao')";
+        $sql3 = "INSERT INTO formacao (nome_formacao) VALUES ('$formacao')";
         $resultado3 = mysqli_query($conn, $sql3);
-        $sql5 = "INSERT INTO especialidade (especialidade) VALUES ('$especialidade')";
+        $sql5 = "INSERT INTO especialidade (nome_especialidade) VALUES ('$especialidade')";
         $resultado4 = mysqli_query($conn, $sql5);
-        $sql4 = "INSERT INTO nutricionista (nome, email, senha, cpf, dt_nasc, sexo, cep) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep')";
+        $sql4 = "INSERT INTO nutricionista (nome, email, senha, cpf, sexo, cep) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$sexo', '$cep')";
         $resultado2 = mysqli_query($conn, $sql4);
 
         if($resultado2) {

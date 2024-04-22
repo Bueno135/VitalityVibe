@@ -36,7 +36,7 @@
         <div class="max-w-lg mx-auto bg-white p-8 rounded shadow">
             <h2 id="userName" class="text-3xl font-bold text-center mb-6">Altere Sua Senha</h2>
 
-            <form id="changePasswordForm" method="post" action="senhanova.php" onsubmit="return validarSenha()">
+            <form id="changePasswordForm" method="post" action="senhanutrinova.php" onsubmit="return validarSenha()">
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Coloque seu email</label>
                     <input name="email" onblur="verificar()" type="email" id="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm" required>

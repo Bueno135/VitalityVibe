@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<div class='message'>
         <p>A nova senha e a confirmação não coincidem.</p>
         </div> <BR>";
-        echo "<a href='entrarcliente.php'>Voltar</a>";
+        echo "<a href='entrarnutri.php'>Voltar</a>";
         exit(); // Encerra o script
     }
 
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     echo "Senha hasheada: $hashedSenha"; // Verificar o hash gerado
 
-    $result = mysqli_query($conn, "UPDATE cliente SET senha='$hashedSenha' WHERE email='$email'");
+    $result = mysqli_query($conn, "UPDATE nutricionista SET senha='$hashedSenha' WHERE email='$email'");
 
     if ($result !== false && mysqli_affected_rows($conn) > 0) {
         echo 'Senha alterada com sucesso';
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<div class='message'>
         <p>Ocorreu um erro ao alterar a senha. Tente novamente.</p>
         </div> <BR>";
-        echo "<a href='entrarcliente.php'>Voltar</a>";
+        echo "<a href='entrarnutri.php'>Voltar</a>";
     }
 }
 ?>
