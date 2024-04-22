@@ -24,40 +24,60 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 
-$cliente = null; // Defina a variável antes do bloco condicional
-$sql_last_id = "SELECT ID_cliente FROM cliente ORDER BY ID_cliente DESC LIMIT 1";
+
+
+$sql_last_id = "SELECT id_nutricionista FROM nutricionista ORDER BY id_nutricionista DESC LIMIT 1";
 $result_last_id = $conn->query($sql_last_id);
 
 if ($result_last_id->num_rows > 0) {
     $row_last_id = $result_last_id->fetch_assoc();
-    $last_id = $row_last_id['ID_cliente'];
+    $last_id = $row_last_id['id_nutricionista'];
 
-    $sql_select = "SELECT * FROM cliente WHERE ID_cliente = $last_id";
+    $sql_select = "SELECT * FROM nutricionista WHERE id_nutricionista = $last_id";
     $result_select = $conn->query($sql_select);
+    
+        if ($result_select->num_rows > 0) {
+            $nutricionista = $result_select->fetch_assoc();
+    
+            
+            $sql_especialidade = "SELECT nome_especialidade FROM especialidade WHERE id_especialidade = " . $nutricionista['fk_Especialidade_id_especialidade'];
+            echo 'ID Especialidade: ' . $nutricionista['fk_Especialidade_id_especialidade'];
+            $result_especialidade = $conn->query($sql_especialidade);
+            if ($result_especialidade->num_rows > 0) {
+                $row_especialidade = $result_especialidade->fetch_assoc();
+                $nutricionista['especialidade'] = $row_especialidade['nome_especialidade'];
+            } else {
+                $nutricionista['especialidade'] = 'Não especificada';
+            }
 
-    if ($result_select->num_rows > 0) {
-        $cliente = $result_select->fetch_assoc();
+        
+        $sql_formacao = "SELECT nome_formacao FROM formacao WHERE id_formacao = " . $nutricionista['id_formacao'];
+        $result_formacao = $conn->query($sql_formacao);
+        if ($result_formacao->num_rows > 0) {
+            $row_formacao = $result_formacao->fetch_assoc();
+            $nutricionista['formacao'] = $row_formacao['nome_formacao'];
+        } else {
+            $nutricionista['formacao'] = 'Não especificada';
+        }
 
-        $nome = $cliente['nome'];
-        $email = $cliente['email'];
-        $cpf = $cliente['cpf'];
-        $telefone = $cliente['telefone'];
-        $cep = $cliente['cep'];
-        $altura = $cliente['altura'];
-        $peso = $cliente['peso'];
-        $dt_nasc = $cliente['dt_nasc'];
-        $alergias = $cliente['alergias'];
-        $problema_saude = $cliente['problema_saude'];
-        $med_controlado = $cliente['med_controlado'];
+        $nome = $nutricionista['nome'];
+        $email = $nutricionista['email'];
+        $cpf = $nutricionista['cpf'];
+        $telefone = $nutricionista['telefone'];
+        $cep = $nutricionista['cep'];
+        $formacao = $nutricionista['formacao'];
+        $especialidade = $nutricionista['especialidade'];
     } else {
-        echo "Cliente não encontrado";
+        echo "Nutricionista não encontrado";
     }
 } else {
-    echo "Não há clientes cadastrados";
+    echo "Não há nutricionistas cadastrados";
 }
 
 $conn->close();
 ?>
+
+
 
         <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">
         <nav class="container mx-auto flex justify-between items-center">
@@ -79,9 +99,47 @@ $conn->close();
             <div class="max-w-lg mx-auto bg-white p-8 rounded shadow">
                 
                 <div id="cadastroForm">
-                    <h2 class="text-3xl font-bold text-center mb-6">Editar cadastro</h2>
-                    <form id="form-cadastro" method="POST" action="editar.php">
-                    
+                    <h2 class="text-3xl font-bold text-center mb-6">Editar cadastro do nutricionista</h2>
+                    <form id="form-cadastro" method="POST" action="editarnutri.php">
+                    <div class="mb-6">
+                            <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
+                            <input type="text" id="nome" name="nome" value="<?php echo $nutricionista['nome']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="emailLogin" class="block text-sm font-medium text-gray-700">E-mail</label>
+                            <input type="email" id="emailLogin" name="email" value="<?php echo $nutricionista['email']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                        </div>
+        
+                        <div class="mb-6">
+                            <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
+                            <input id="cpf" name="cpf" inputmode="numeric" maxlength="11" value="<?php echo $nutricionista['cpf']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                         <div class="mb-6">
+                            <label for="telefone" class="block text-sm font-medium text-gray-700">Telefone</label>
+                            <input inputmode="numeric" id="telefone" name="telefone" maxlength="11" value="<?php echo $nutricionista['telefone']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                        </div>
+                
+                        <div class="mb-6">
+                            <label for="sexo" class="block text-sm font-medium text-gray-700">Sexo</label>
+                            <select id="sexo" name="sexo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                                <option value="" disabled selected>Selecione...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-6">
+                            <label for="cep" class="block text-sm font-medium text-gray-700">CEP</label>
+                            <input type="text" id="cep" name="cep" inputmode="numeric" value="<?php echo $nutricionista['cep']; ?>" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                        </div> 
+                        <div class="mb-6">
+                            <label for="formacao" class="block text-sm font-medium text-gray-700">Formação</label>
+                            <input type="text" id="formacao" name="formacao" value="<?php echo $nutricionista['formacao']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="espec" class="block text-sm font-medium text-gray-700">Especialidade</label>
+                            <input type="text" id="especialidade" name="especialidade" value="<?php echo $nutricionista['especialidade']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                        </div>
                         <div class="text-center">
                             <button type="submit" id="resultado"  value="Enviar" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
                         </div>

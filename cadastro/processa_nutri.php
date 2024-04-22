@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if($resultado2) {
             echo "Usuário cadastrado!!<BR>";
-            echo "<a href=confirmarcadastro.php>Avançar</a>";
+            echo "<a href=confirmar_nutri.php>Avançar</a>";
         } else {
             echo "Erro ao cadastrar usuário.";
         }
