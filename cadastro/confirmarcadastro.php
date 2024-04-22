@@ -66,21 +66,11 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row["cpf"] . "</td>";
         echo "<td>" . $row["dt_nasc"] . "</td>";
         echo "<td>" . $row["sexo"] . "</td>";
-<<<<<<< HEAD
         echo "<td>" . $row["cep"] . "</td>";
         echo "<td>" . $row["altura"] . "</td>";
         echo "<td>" . $row["peso"] . "</td>";
         echo "<td>" . $row["alergias"] . "</td>";
         echo "<td>" . $row["problema_saude"] . "</td>";
-=======
-        
-        // Verificar se os campos estão definidos antes de exibi-los
-        echo "<td>" . (isset($row["cep"]) ? $row["cep"] : "") . "</td>";
-        echo "<td>" . (isset($row["altura"]) ? $row["altura"] : "") . "</td>";
-        echo "<td>" . (isset($row["peso"]) ? $row["peso"] : "") . "</td>";
-        echo "<td>" . (isset($row["alergias"]) ? $row["alergias"] : "") . "</td>";
-        echo "<td>" . (isset($row["problema_saude"]) ? $row["problema_saude"] : "") . "</td>";
->>>>>>> 647c52fc0ca26000666443febedb459a929b272b
 
         echo "</tr>";
     }
