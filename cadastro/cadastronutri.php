@@ -81,21 +81,12 @@
                             <input type="text" id="cep" name="cep" inputmode="numeric" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div> 
                         <div class="mb-6">
-<<<<<<< HEAD
                             <label for="formacao" class="block text-sm font-medium text-gray-700">Formação</label>
                             <input type="text" id="formacao" name="formacao" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="espec" class="block text-sm font-medium text-gray-700">Especialidade</label>
                             <input type="text" id="especialidade" name="especialidade" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-=======
-                            <label for="problem" class="block text-sm font-medium text-gray-700">Formação</label>
-                            <input type="text" id="problem" name="problema_saude" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="med" class="block text-sm font-medium text-gray-700">Especialidade</label>
-                            <input type="text" id="med" name="medicamentoControlado" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
->>>>>>> 647c52fc0ca26000666443febedb459a929b272b
                         </div>
                        
                         <div class="text-center">
@@ -143,7 +134,6 @@
             const form = document.getElementById('form-cadastro');
             const inputs = form.querySelectorAll('input');
 
-            // Carrega os valores dos campos do formulário do localStorage, se existirem
             inputs.forEach(input => {
                 const value = localStorage.getItem(input.id);
                 if (value) {    
@@ -151,14 +141,12 @@
                 }
             });
 
-            // Salva os valores dos campos do formulário no localStorage quando houver alterações
             form.addEventListener('input', () => {
                 inputs.forEach(input => {
                     localStorage.setItem(input.id, input.value);
                 });
             });
 
-            // Limpa os valores do localStorage quando o formulário é enviado
             form.addEventListener('submit', () => {
                 inputs.forEach(input => {
                     localStorage.removeItem(input.id);
@@ -168,7 +156,6 @@
     </script>
     <script>
         function armazenar() {
-            // Armazena os valores do formulário no localStorage antes de redirecionar
             var formValues = {
                 nome: document.getElementById('nome').value,
                 email: document.getElementById('email').value,

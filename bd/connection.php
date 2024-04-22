@@ -1,7 +1,7 @@
 
 
 <?php
-    $servernome = "localhost:3306";
+    $servernome = "localhost:3307";
     $usernome = "root";
     $password = "";
     $dbnome = "vitalityvibe";

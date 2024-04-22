@@ -196,10 +196,8 @@ $conn->close();
         campoAltura.addEventListener('input', function() {
             let altura = this.value;
 
-            // Remove todos os caracteres que não são números
             altura = altura.replace(/\D/g, '');
 
-            // Formata a altura adicionando o ponto de separação
             if (altura.length >= 3) {
                 altura = altura.substring(0, altura.length - 2) + '.' + altura.substring(altura.length - 2);
             }
@@ -216,8 +214,4 @@ $conn->close();
 
  
    
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 647c52fc0ca26000666443febedb459a929b272b

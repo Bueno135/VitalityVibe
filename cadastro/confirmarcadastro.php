@@ -30,16 +30,12 @@
             <h1 class="text-2xl font-bold">Confirmação de Login</h1>
             <p class="mt-4">Por favor, confirme seus dados:</p>
 <?php
-// Conexão com o banco de dados
 include '/xampp/htdocs/Projeto/bd/connection.php';
 
-// Query para obter os dados dos clientes
 $sql = "SELECT * FROM cliente ORDER BY ID_Cliente DESC LIMIT 1";
 $result = $conn->query($sql);
 
-// Verifica se a consulta retornou resultados
 if ($result->num_rows > 0) {
-    // Exibir cabeçalho da tabela
     echo "<table class='styled-table'
             <tr>
                 <th>ID</th>
@@ -56,9 +52,7 @@ if ($result->num_rows > 0) {
                 
             </tr>";
 
-    // Loop através dos resultados
     while ($row = $result->fetch_assoc()) {
-        // Exibir dados de cada cliente em uma linha da tabela
         echo "<tr>";
         echo "<td>" . $row["ID_Cliente"] . "</td>";
         echo "<td>" . $row["nome"] . "</td>";
@@ -75,13 +69,11 @@ if ($result->num_rows > 0) {
         echo "</tr>";
     }
 
-    // Fechar tabela
     echo "</table>";
 } else {
     echo "Nenhum cliente encontrado";
 }
 
-// Fechar conexão
 $conn->close();
 ?>
             <div class="mt-4 flex justify-between">
@@ -100,8 +92,4 @@ $conn->close();
 
 </script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 647c52fc0ca26000666443febedb459a929b272b

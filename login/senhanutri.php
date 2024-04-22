@@ -16,7 +16,6 @@
 ?>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
-    <!-- Cabeçalho -->
     <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">
         <nav class="container mx-auto flex justify-between items-center">
             <a href="/Projeto/index.php" class="text-xl font-bold text-blue-600">VitalityVibe</a>
@@ -29,7 +28,6 @@
         </nav>
     </header>
 
-    <!-- Espaço para evitar sobreposição do cabeçalho -->
     <div class="h-16"></div>
     <div class="h-16"></div>
     <div class="h-16"></div>
@@ -38,7 +36,6 @@
         <div class="max-w-lg mx-auto bg-white p-8 rounded shadow">
             <h2 id="userName" class="text-3xl font-bold text-center mb-6">Altere Sua Senha</h2>
 
-            <!-- Formulário para alterar senha -->
             <form id="changePasswordForm" method="post" action="senhanova.php" onsubmit="return validarSenha()">
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Coloque seu email</label>
@@ -66,10 +63,8 @@
         </div>
     </section>
 
-    <!-- Rodapé -->
     <footer class="bg-gray-800 text-white text-center md:text-left">
         <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- Links para seções do site -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>
                 <ul>
@@ -80,7 +75,6 @@
                     <li><a href="paginas/entrar" class="hover:text-blue-400">Cadastre-se</a></li>
                 </ul>
             </div>
-            <!-- Informações legais e políticas de uso -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Legal</h5>
                 <ul>
@@ -88,7 +82,6 @@
                     <li><a href="#privacidade" class="hover:text-blue-400">Política de Privacidade</a></li>
                 </ul>
             </div>
-            <!-- Informações de contato -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Contato</h5>
                 <ul>
@@ -96,7 +89,6 @@
                     <li><a href="tel:+123456789" class="hover:text-blue-400">+1 234 567 89</a></li>
                 </ul>
             </div>
-            <!-- Outras informações -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Mais</h5>
                 <ul>
@@ -112,7 +104,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Toggle Password Visibility and Matching Passwords -->
     <script>
         function verificar() {
             const email = document.getElementById('email').value;

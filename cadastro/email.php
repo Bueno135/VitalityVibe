@@ -11,6 +11,5 @@ if ($result->num_rows > 0) {
     echo 'E-mail disponível para cadastro.';
 }
 
-// Fechar a conexão com o banco de dados
 $conn->close();
 ?>
