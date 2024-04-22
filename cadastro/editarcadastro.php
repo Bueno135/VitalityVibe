@@ -20,6 +20,45 @@
 
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
+
+<?php
+include '/xampp/htdocs/Projeto/bd/connection.php';
+
+$cliente = null; // Defina a variável antes do bloco condicional
+$sql_last_id = "SELECT ID_cliente FROM cliente ORDER BY ID_cliente DESC LIMIT 1";
+$result_last_id = $conn->query($sql_last_id);
+
+if ($result_last_id->num_rows > 0) {
+    $row_last_id = $result_last_id->fetch_assoc();
+    $last_id = $row_last_id['ID_cliente'];
+
+    $sql_select = "SELECT * FROM cliente WHERE ID_cliente = $last_id";
+    $result_select = $conn->query($sql_select);
+
+    if ($result_select->num_rows > 0) {
+        $cliente = $result_select->fetch_assoc();
+
+        $nome = $cliente['nome'];
+        $email = $cliente['email'];
+        $cpf = $cliente['cpf'];
+        $telefone = $cliente['telefone'];
+        $cep = $cliente['cep'];
+        $altura = $cliente['altura'];
+        $peso = $cliente['peso'];
+        $dt_nasc = $cliente['dt_nasc'];
+        $alergias = $cliente['alergias'];
+        $problema_saude = $cliente['problema_saude'];
+        $med_controlado = $cliente['med_controlado'];
+    } else {
+        echo "Cliente não encontrado";
+    }
+} else {
+    echo "Não há clientes cadastrados";
+}
+
+$conn->close();
+?>
+
         <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">
         <nav class="container mx-auto flex justify-between items-center">
             <a href="/Projeto/index.php" class="text-xl font-bold text-blue-600">VitalityVibe</a>
@@ -49,7 +88,7 @@
                         </div>
                         <div class="mb-6">
                             <label for="emailLogin" class="block text-sm font-medium text-gray-700">E-mail</label>
-                            <input type="email" id="emailLogin" name="email" value="<?php echo $cliente['email']; ?>"" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <input type="email" id="emailLogin" name="email" value="<?php echo $cliente['email']; ?>"class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                             <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
                             <input id="cpf" name="cpf" inputmode="numeric" maxlength="11" value="<?php echo $cliente['cpf']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -169,48 +208,12 @@
         });
     </script>
 
+
 </body>
-<?php
-    
-    include '/xampp/htdocs/Projeto/bd/connection.php';
+</html>
 
-    $cliente = null; // Defina a variável antes do bloco condicional
-    $sql_last_id = "SELECT ID_cliente FROM cliente ORDER BY ID_cliente DESC LIMIT 1";
-    $result_last_id = $conn->query($sql_last_id);
-    
-    if ($result_last_id->num_rows > 0) {
-        $row_last_id = $result_last_id->fetch_assoc();
-        $last_id = $row_last_id['ID_Cliente'];
-    
+</body>
 
-        $sql_select = "SELECT * FROM cliente WHERE ID_cliente = $last_id";
-        $result_select = $conn->query($sql_select);
-    
-        if ($result_select->num_rows > 0) {
-            $cliente = $result_select->fetch_assoc();
-    
-            $nome = $cliente['nome'];
-            $email = $cliente['email'];
-            $cpf = $cliente['cpf'];
-            $telefone = $cliente['telefone'];
-            $cep = $cliente['cep'];
-            $altura = $cliente['altura'];
-            $peso = $cliente['peso'];
-            $dt_nasc = $cliente['dt_nasc'];
-            $alergias = $cliente['alergias'];
-            $problema_saude = $cliente['problema_saude'];
-            $med_controlado = $cliente['med_controlado'];
-        } else {
-            echo "Cliente não encontrado";
-        }
-    } else {
-        echo "Não há clientes cadastrados";
-    }
-    
-    $conn->close();
-    
-    
-?>
  
    
 </html>

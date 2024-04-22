@@ -10,8 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result !== false && mysqli_num_rows($result) > 0) {
         $usuario = mysqli_fetch_assoc($result);
 
-        // Verifica a senha usando password_verify
-        if (password_verify($senha, $usuario['senha'])) {
+        // Verifica a senha
+        if ($senha === $usuario['senha']) {
             // Senha correta, faça o login
             session_start();
             $_SESSION['email'] = $email;
