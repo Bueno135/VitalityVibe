@@ -148,11 +148,11 @@
                             <img src="imagens/Receita da seman.jpg" alt="Receitas da Semana">
                             <p class="font-semibold">Receitas da Semana</p>
                         </a>
-                        <a href="/contatar_nutri.php" class="contatar-nutri">
+                        <a href="contatarnutri.php" class="contatar-nutri">
                             <img src="imagens/nutricionista.jpg" alt="Contatar Nutricionista">
                             <p class="font-semibold">Contatar Nutricionista</p>
                         </a>
-                        <a href="/olhar_dieta.php" class="olhar-dieta">
+                        <a href="olhardieta.php" class="olhar-dieta">
                             <img src="imagens/dieta.jpg" alt="Olhar Dieta">
                             <p class="font-semibold">Olhar a sua Dieta</p>
                         </a>
@@ -210,9 +210,10 @@
 
     <script>
         function showAlert() {
-            alert("Esta página está em manuntenção");
+            alert("Esta página está em manutenção");
         }
     </script>
     
 </body>
 </html>
+
