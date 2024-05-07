@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $email;
             $_SESSION['nome'] = $usuario['nome']; // Se 'nome' é o campo correto para o nome do cliente
             echo 'Login bem sucedido';
-            header('Location: /Projeto/index.php');
+            header('Location: /Projeto/tela.php');
             exit();
         } else {
             // Senha incorreta
