@@ -40,16 +40,13 @@
             margin-bottom: 10px; /* Espaçamento entre a imagem e o texto */
         }
         .image-container a {
-    text-align: center;
-    width: 33.33%; /* Para ocupar um terço da largura */
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-    
-
+            text-align: center;
+            width: 33.33%; /* Para ocupar um terço da largura */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
         .image-container a:hover::before {
             opacity: 1; /* Tornar o quadrado branco visível ao passar o mouse */
@@ -73,37 +70,42 @@
             margin-left: 1em; 
         }
 
-        .image-container .olhar-dieta img {
-            /* Estilos específicos para a imagem de Olhar Dieta */
+        .image-container .atendimento img {
+            /* Estilos específicos para a imagem de Atendimento */
+            border: 2px solid #FF5722;
+            margin-left: 1em; 
+        }
+        .image-container .atendimento p {
+            /* Estilos específicos para o texto "Atendimento" */
+            margin: 0; /* Remover margens padrão */
+            font-size: 18px; /* Tamanho do texto */
+            color: #4a5568; /* Cor do texto */
+            position: center;
+            margin-left: 1em;
+        }
+
+        .image-container .criar-dieta img {
+            /* Estilos específicos para a imagem de Criar Dieta */
             border: 2px solid #2196F3;
             margin-left: 3em;
-            
         }
-        .image-container .olhar-dieta p {
-        /* Estilos específicos para o texto "Olhar Dieta" */
-         margin: 0; /* Remover margens padrão */
-        font-size: 18px; /* Tamanho do texto */
-        color: #4a5568; /* Cor do texto */
-        position: center;  
-        margin-left: 3em;
+        .image-container .criar-dieta p {
+            /* Estilos específicos para o texto "Criar Dieta" */
+            margin: 0; /* Remover margens padrão */
+            font-size: 18px; /* Tamanho do texto */
+            color: #4a5568; /* Cor do texto */
+            position: center;  
+            margin-left: 3em;
         }
-        .image-container .contatar-nutri p {
-        /* Estilos específicos para o texto "Contatar Nutricionista" */
-        margin: 0; /* Remover margens padrão */
-        font-size: 18px; /* Tamanho do texto */
-        color: #4a5568; /* Cor do texto */
-        position: center;
-        margin-left: 1em;
-        }
+
         .image-container .receitas-semana p {
-        /* Estilos específicos para o texto "Receitas da Semana" */
-        margin: 0; /* Remover margens padrão */
-        font-size: 18px; /* Tamanho do texto */
-        color: #4a5568; /* Cor do texto */
-        position: center;
-        margin-right: 2em;
+            /* Estilos específicos para o texto "Receitas da Semana" */
+            margin: 0; /* Remover margens padrão */
+            font-size: 18px; /* Tamanho do texto */
+            color: #4a5568; /* Cor do texto */
+            position: center;
+            margin-right: 2em;
         }
-        
 
         .image-container p {
             margin: 0; /* Remover margens padrão */
@@ -148,13 +150,13 @@
                             <img src="imagens/Receita da seman.jpg" alt="Receitas da Semana">
                             <p class="font-semibold">Receitas da Semana</p>
                         </a>
-                        <a href="/contatar_nutri.php" class="contatar-nutri">
-                            <img src="imagens/nutricionista.jpg" alt="Contatar Nutricionista">
-                            <p class="font-semibold">Contatar Nutricionista</p>
+                        <a href="/atendimento_nutri.php" class="atendimento">
+                            <img src="imagens/atendimento.jpg" alt="Atendimento Nutricionista">
+                            <p class="font-semibold">Atendimentos</p>
                         </a>
-                        <a href="olhardieta.php" class="olhar-dieta">
-                            <img src="imagens/dieta.jpg" alt="Olhar Dieta">
-                            <p class="font-semibold">Olhar a sua Dieta</p>
+                        <a href="olhardieta.php" class="criar-dieta">
+                            <img src="imagens/check.jpg" alt="Criar Dieta">
+                            <p class="font-semibold">Criar e visualizar Dietas</p>
                         </a>
                     </div>
                 </div>
@@ -210,10 +212,11 @@
 
     <script>
         function showAlert() {
-            alert("Esta página está em manuntenção");
+            alert("Esta página está em manutenção");
         }
     </script>
     
 </body>
 </html>
+
 
