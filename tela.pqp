@@ -16,7 +16,7 @@
         }
 
         .footer-info {
-            font-size: 14px; /* Tamanho do texto do rodapé */
+            font-size: 14px; /* Tamanho do texto do rodapé */   
         }
 
         .image-container {
@@ -216,4 +216,3 @@
     
 </body>
 </html>
-
