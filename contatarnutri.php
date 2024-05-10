@@ -150,7 +150,7 @@
                                 echo '<p><strong>Telefone:</strong> Não especificado</p>';
                             }
                             // Adicionando botão Avançar
-                            echo '<div class="btn-avancar"><a href="avancar.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
+                            echo '<div class="btn-avancar"><a href="avançarnutri.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
                             // Adicione outros detalhes aqui, conforme necessário
                             echo '</div>';
                         }
@@ -203,6 +203,10 @@
         }
     }
 </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
