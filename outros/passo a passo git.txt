@@ -14,5 +14,4 @@ git commit -m ""
 git push
 
 Puxar da main:
-git branch -M main
 git pull origin main --allow-related-histories
