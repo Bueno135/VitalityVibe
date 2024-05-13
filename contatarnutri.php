@@ -6,6 +6,7 @@
     <title>Escolha o Nutricionista - VitalityVibe</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
+    <link href="/Projeto/css/contatarnutri.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
         /* Adicione estilos CSS personalizados aqui */
