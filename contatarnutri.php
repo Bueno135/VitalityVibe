@@ -100,6 +100,11 @@
             margin-top: 10px;
             text-align: center;
         }
+
+        /* Estilo para a mensagem de conexão */
+        .conexão-ok {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
