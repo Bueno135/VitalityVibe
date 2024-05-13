@@ -1,9 +1,12 @@
  /* Adicione estilos CSS personalizados aqui */
  .logo {
-    font-size: 50px; /* Tamanho do título */
-    text-align: center;
-    margin-left:12em;
-}
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .footer-info {
+            font-size: 0.875rem;
+        }
 
 .nutricionista-box {
     max-width: 600px;

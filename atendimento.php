@@ -3,19 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avançar - VitalityVibe</title>
+    <title>Atendimento - VitalityVibe</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
         /* Adicione estilos CSS personalizados aqui */
         .logo {
-            font-size: 2rem;
+            font-size: 50px; /* Tamanho do título */
             text-align: center;
-        }
-
-        .footer-info {
-            font-size: 0.875rem;
+            margin-left:12em;
         }
 
         .nutricionista-box {
@@ -52,12 +49,8 @@
             margin-bottom: 10px;
         }
 
-        .opcoes-conversa textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            resize: vertical;
+        .opcoes-conversa p {
+            margin-bottom: 10px;
         }
 
         .opcoes-conversa button {
@@ -89,43 +82,19 @@
 <main class="flex-grow">
     <section class="my-1 p-10">
         <div class="max-w-lg mx-auto nutricionista-box">
-            <h2>Avançar - Escolha o Tópico da Conversa</h2>
-            <?php
-                // Verificar se foi passado o nome do nutricionista na URL
-                if (isset($_GET['nutricionista'])) {
-                    $nutricionista = $_GET['nutricionista'];
-                    echo '<h3>Escolha sobre o que vocês querem conversar com '.$nutricionista.'</h3>';
-                } else {
-                    echo '<p>Nutricionista não especificado.</p>';
-                }
-            ?>
+            <h2>Atendimento - VitalityVibe</h2>
             <div class="opcoes-conversa">
-                <form action="#" method="post">
-                    <?php
-                        // Exibir campo oculto para enviar o nome do nutricionista
-                        if (isset($nutricionista)) {
-                            echo '<input type="hidden" name="nutricionista" value="'.$nutricionista.'">';
-                        }
-                    ?>
-                    <label>
-                        <input type="radio" name="opcao_conversa" value="plano_alimentar" checked>
-                        Sobre o seu plano alimentar
-                    </label>
-                    <label>
-                        <input type="radio" name="opcao_conversa" value="perda_peso">
-                        Sobre perda de peso
-                    </label>
-                    <label>
-                        <input type="radio" name="opcao_conversa" value="ganho_peso">
-                        Sobre ganho de peso
-                    </label>
-                    <label>
-                        <input type="radio" name="opcao_conversa" value="outro">
-                        Outro
-                    </label>
-                    <textarea name="outro_opcao" rows="4" placeholder="Digite sua mensagem aqui..."></textarea>
-                    <button type="submit">Enviar</button>
-                </form>
+                <h3>Dúvida recebida:</h3>
+                <?php
+                if(isset($_POST['duvida'])) {
+                    $duvida = $_POST['duvida'];
+                    echo "<p><strong>Dúvida:</strong> $duvida</p>";
+                    echo "<p>Dúvida recebida com sucesso!</p>";
+                } else {
+                    echo "<p>Nenhuma dúvida recebida.</p>";
+                }
+                ?>
+                <button type="button" onclick="window.location.href='telanutri.php'">Voltar</button>
             </div>
         </div>
     </section>

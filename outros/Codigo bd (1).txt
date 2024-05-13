@@ -2,19 +2,19 @@
 
 CREATE TABLE Cliente (
     ID_Cliente INT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    cpf VARCHAR(21),
+    senha VARCHAR(100),
     telefone VARCHAR(30),
     dt_nasc DATE,
     altura VARCHAR(10),
-    cpf VARCHAR(21),
+    peso VARCHAR(10),
     sexo VARCHAR(10),
-    senha VARCHAR(100),
     freq_atv_fisica VARCHAR(100),
-    email VARCHAR(100),
-    nome VARCHAR(100),
     alergias VARCHAR(100),
     problema_saude VARCHAR(100),
     med_controlado VARCHAR(100),
-    peso VARCHAR(10),
     UNIQUE (ID_Cliente, cpf, email)
 );
 
@@ -26,6 +26,7 @@ CREATE TABLE Nutricionista (
     telefone VARCHAR(30),
     senha VARCHAR(100),
     sexo VARCHAR(15),
+    CRN VARCHAR(20),
     formacao VARCHAR(100),
     fk_Especialidade_id_especialidade INT,
     UNIQUE (id_nutricionista, cpf, email)
@@ -57,20 +58,14 @@ CREATE TABLE CategoriaAlimentar (
     nome VARCHAR(100)
 );
 
-CREATE TABLE Grafico (
-    imc FLOAT,
-    massa_magra FLOAT,
-    BF FLOAT,
-    fk_Cliente_ID_Cliente INT
-);
-
 CREATE TABLE PlanoAlimentar (
-    refeicao VARCHAR(100) PRIMARY KEY,
+    id_plano INT PRIMARY KEY UNIQUE,
+    refeicao VARCHAR(100),
     dia_semana DATE,
     horario TIME
 );
 
-CREATE TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar (
+CREATE TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar (
     fk_Cliente_ID_Cliente INT,
     fk_Nutricionista_id_nutricionista INT,
     fk_PlanoAlimentar_refeicao VARCHAR(100),
@@ -99,24 +94,19 @@ ALTER TABLE Ingredientes ADD CONSTRAINT FK_Ingredientes_2
     REFERENCES CategoriaAlimentar (id_categoria)
     ON DELETE RESTRICT;
  
-ALTER TABLE Grafico ADD CONSTRAINT FK_Grafico_1
-    FOREIGN KEY (fk_Cliente_ID_Cliente)
-    REFERENCES Cliente (ID_Cliente)
-    ON DELETE CASCADE;
- 
-ALTER TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Dieta_Cliente_Nutricionista_PlanoAlimentar_1
+ALTER TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Contrato_Cliente_Nutricionista_PlanoAlimentar_1
     FOREIGN KEY (fk_Cliente_ID_Cliente)
     REFERENCES Cliente (ID_Cliente)
     ON DELETE NO ACTION;
  
-ALTER TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Dieta_Cliente_Nutricionista_PlanoAlimentar_2
+ALTER TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Contrato_Cliente_Nutricionista_PlanoAlimentar_2
     FOREIGN KEY (fk_Nutricionista_id_nutricionista)
     REFERENCES Nutricionista (id_nutricionista)
     ON DELETE NO ACTION;
  
-ALTER TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Dieta_Cliente_Nutricionista_PlanoAlimentar_3
-    FOREIGN KEY (fk_PlanoAlimentar_refeicao)
-    REFERENCES PlanoAlimentar (refeicao)
+ALTER TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Contrato_Cliente_Nutricionista_PlanoAlimentar_3
+    FOREIGN KEY (fk_PlanoAlimentar_refeicao???)
+    REFERENCES PlanoAlimentar (???)
     ON DELETE NO ACTION;
  
 ALTER TABLE Composicao ADD CONSTRAINT FK_Composicao_1
@@ -130,8 +120,8 @@ ALTER TABLE Composicao ADD CONSTRAINT FK_Composicao_2
     ON DELETE SET NULL;
  
 ALTER TABLE PlanoAlimentarPrato ADD CONSTRAINT FK_PlanoAlimentarPrato_1
-    FOREIGN KEY (fk_PlanoAlimentar_refeicao)
-    REFERENCES PlanoAlimentar (refeicao)
+    FOREIGN KEY (fk_PlanoAlimentar_refeicao???)
+    REFERENCES PlanoAlimentar (???)
     ON DELETE SET NULL;
  
 ALTER TABLE PlanoAlimentarPrato ADD CONSTRAINT FK_PlanoAlimentarPrato_2

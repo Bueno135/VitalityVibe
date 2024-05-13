@@ -142,7 +142,11 @@
                             echo '<p><strong>Sexo:</strong> ' . $row['sexo'] . '</p>';
                             echo '<p><strong>Objetivo:</strong> ' . $row['fk_Objetivo_id_obj'] . '</p>';
                             // Adicionando botão Avançar
+<<<<<<< HEAD
+                            echo '<div class="btn-avancar"><a href="criarplano.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
+=======
                             echo '<div class="btn-avancar"><a href="avançarnutri.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
                             echo '</div>';
                         }
                     } else {
