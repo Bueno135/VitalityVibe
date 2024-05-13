@@ -131,9 +131,15 @@
                     if (mysqli_num_rows($result) > 0) {
                         // Loop através dos resultados e exibir como itens da lista
                         while ($row = mysqli_fetch_assoc($result)) {
+<<<<<<< HEAD
                             echo '<li class="nutricionista-item" onclick="showNutricionistaDetails(this)">'.$row['nome'].'</li>';
                             // Div oculta de detalhes do nutricionista
                             echo '<div class="nutricionista-details">';
+=======
+                            echo '<li class="nutricionista-item" onclick="showNutricionistaDetails(this)" id="'.$row['nome'].'">'.$row['nome'].'</li>';
+                            // Div oculta de detalhes do nutricionista
+                            echo '<div class="nutricionista-details" id="'.$row['nome'].'_details">';
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
                             // Verifica se a chave 'formacao' está definida antes de acessá-la
                             if(isset($row['formacao'])) {
                                 echo '<p><strong>Formação:</strong> ' . $row['formacao'] . '</p>';
@@ -192,8 +198,17 @@
     }
 
     function showNutricionistaDetails(element) {
+<<<<<<< HEAD
         // Seleciona a div de detalhes do nutricionista correspondente ao elemento clicado
         var detailsDiv = element.nextElementSibling;
+=======
+        // Obtém o ID do nutricionista a partir do elemento clicado
+        var nutricionistaId = element.id;
+        // Obtém o ID da div de detalhes do nutricionista
+        var detailsId = nutricionistaId + '_details';
+        // Seleciona a div de detalhes do nutricionista
+        var detailsDiv = document.getElementById(detailsId);
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
         // Alterna a visibilidade da div de detalhes
         if (detailsDiv.style.display === 'none') {
             detailsDiv.style.display = 'block';
@@ -205,3 +220,10 @@
 
 </body>
 </html>
+<<<<<<< HEAD
+=======
+
+</body>
+</html>
+
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b

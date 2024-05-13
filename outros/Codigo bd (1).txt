@@ -1,71 +1,88 @@
 /* Lógico_1: */
 
 CREATE TABLE Cliente (
-    ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    telefone INT,
+    ID_Cliente INT PRIMARY KEY,
+    telefone VARCHAR(30),
     dt_nasc DATE,
-    altura INT,
+    altura VARCHAR(10),
     cpf VARCHAR(21),
+    sexo VARCHAR(10),
     senha VARCHAR(100),
-    freq_atv_fisica CHAR,
-    email VARCHAR(50),
-    CEP INT,
+    freq_atv_fisica VARCHAR(100),
+    email VARCHAR(100),
+    nome VARCHAR(100),
     alergias VARCHAR(100),
-    problema_saude CHAR,
-    sexo CHAR,
-    fk_Objetivo_id_obj INT
+    problema_saude VARCHAR(100),
+    med_controlado VARCHAR(100),
+    peso VARCHAR(10),
+    UNIQUE (ID_Cliente, cpf, email)
 );
 
 CREATE TABLE Nutricionista (
-    id_nutricionista INT AUTO_INCREMENT PRIMARY KEY,
+    id_nutricionista INT PRIMARY KEY,
     nome VARCHAR(100),
-    cpf INT,
+    cpf VARCHAR(21),
     email VARCHAR(100),
-    telefone INT,
+    telefone VARCHAR(30),
     senha VARCHAR(100),
-    sexo CHAR,
-    CEP INT,
-    dt_nasc DATE,
-    fk_Especialidade_id_especialidade INT
+    sexo VARCHAR(15),
+    formacao VARCHAR(100),
+    fk_Especialidade_id_especialidade INT,
+    UNIQUE (id_nutricionista, cpf, email)
 );
 
 CREATE TABLE Prato (
-    id_prato INT AUTO_INCREMENT PRIMARY KEY,
+    id_prato INT PRIMARY KEY UNIQUE,
     nome VARCHAR(100),
-    modo_preparo VARCHAR(100)
+    modo_preparo VARCHAR(300)
 );
 
 CREATE TABLE Ingredientes (
-    id_ingrediente INT AUTO_INCREMENT PRIMARY KEY,
+    id_ingrediente INT PRIMARY KEY UNIQUE,
     gordura FLOAT,
     proteina FLOAT,
     carboidratos FLOAT,
-    unidade_medida INT,
+    unidade_medida FLOAT,
     calorias FLOAT,
     fk_CategoriaAlimentar_id_categoria INT
 );
 
 CREATE TABLE Especialidade (
+<<<<<<< HEAD
     id_especialidade INT AUTO_INCREMENT PRIMARY KEY,
     especialidade VARCHAR(100)
 );
 
 CREATE TABLE CategoriaAlimentar (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+=======
+    id_especialidade INT PRIMARY KEY UNIQUE,
+    nome_especialidade VARCHAR(100)
+);
+
+CREATE TABLE CategoriaAlimentar (
+    id_categoria INT PRIMARY KEY UNIQUE,
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
     nome VARCHAR(100)
 );
 
 CREATE TABLE Grafico (
+<<<<<<< HEAD
     IMC INT,
     peso INT,
     massa_magra INT,
     BF INT,
+=======
+    imc FLOAT,
+    massa_magra FLOAT,
+    BF FLOAT,
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
     fk_Cliente_ID_Cliente INT
 );
 
 CREATE TABLE PlanoAlimentar (
     refeicao VARCHAR(100) PRIMARY KEY,
+<<<<<<< HEAD
     dia_semana CHAR,
     horario TIME
 );
@@ -80,11 +97,21 @@ CREATE TABLE Objetivo (
     nome VARCHAR(100)
 );
 
+=======
+    dia_semana DATE,
+    horario TIME
+);
+
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
 CREATE TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar (
     fk_Cliente_ID_Cliente INT,
     fk_Nutricionista_id_nutricionista INT,
     fk_PlanoAlimentar_refeicao VARCHAR(100),
+<<<<<<< HEAD
     dt_inicio DATE,
+=======
+    dt_inic DATE,
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
     dt_fim DATE
 );
 
@@ -94,6 +121,7 @@ CREATE TABLE Composicao (
     Quantidade FLOAT
 );
 
+<<<<<<< HEAD
 CREATE TABLE Possuir (
     fk_PlanoAlimentar_refeicao VARCHAR(100),
     fk_Prato_id_prato INT
@@ -108,6 +136,12 @@ ALTER TABLE Cliente ADD CONSTRAINT FK_Cliente_2
     FOREIGN KEY (fk_Objetivo_id_obj)
     REFERENCES Objetivo (id_obj)
     ON DELETE RESTRICT;
+=======
+CREATE TABLE PlanoAlimentarPrato (
+    fk_PlanoAlimentar_refeicao VARCHAR(100),
+    fk_Prato_id_prato INT
+);
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
  
 ALTER TABLE Nutricionista ADD CONSTRAINT FK_Nutricionista_2
     FOREIGN KEY (fk_Especialidade_id_especialidade)
@@ -122,7 +156,11 @@ ALTER TABLE Ingredientes ADD CONSTRAINT FK_Ingredientes_2
 ALTER TABLE Grafico ADD CONSTRAINT FK_Grafico_1
     FOREIGN KEY (fk_Cliente_ID_Cliente)
     REFERENCES Cliente (ID_Cliente)
+<<<<<<< HEAD
     ON DELETE RESTRICT;
+=======
+    ON DELETE CASCADE;
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
  
 ALTER TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Dieta_Cliente_Nutricionista_PlanoAlimentar_1
     FOREIGN KEY (fk_Cliente_ID_Cliente)
@@ -149,11 +187,16 @@ ALTER TABLE Composicao ADD CONSTRAINT FK_Composicao_2
     REFERENCES Ingredientes (id_ingrediente)
     ON DELETE SET NULL;
  
+<<<<<<< HEAD
 ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_1
+=======
+ALTER TABLE PlanoAlimentarPrato ADD CONSTRAINT FK_PlanoAlimentarPrato_1
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
     FOREIGN KEY (fk_PlanoAlimentar_refeicao)
     REFERENCES PlanoAlimentar (refeicao)
     ON DELETE SET NULL;
  
+<<<<<<< HEAD
 ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_2
     FOREIGN KEY (fk_Prato_id_prato)
     REFERENCES Prato (id_prato)
@@ -168,3 +211,9 @@ ALTER TABLE Possui ADD CONSTRAINT FK_Possui_2
     FOREIGN KEY (fk_Formacao_id_formacao)
     REFERENCES Formacao (id_formacao)
     ON DELETE RESTRICT;
+=======
+ALTER TABLE PlanoAlimentarPrato ADD CONSTRAINT FK_PlanoAlimentarPrato_2
+    FOREIGN KEY (fk_Prato_id_prato)
+    REFERENCES Prato (id_prato)
+    ON DELETE SET NULL;
+>>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
