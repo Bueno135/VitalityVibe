@@ -8,44 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <link href="/Projeto/css/olhardieta.css" rel="stylesheet"> 
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-    <style>
-        /* Adicione estilos CSS personalizados aqui */
-        .logo {
-            font-size: 50px; /* Tamanho do título */
-            text-align: center;
-            margin-left:12em;
-        }
 
-        .subtitulo {
-            font-size: 24px; /* Tamanho do subtitulo */
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 50px;
-        }
-
-        .image-container a {
-            text-align: center;
-            position: relative;
-        }
-
-        .image-container img {
-            height: 300px;
-            width: 400px; /* Largura padrão das imagens */
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            margin-bottom: 10px; /* Espaçamento entre a imagem e o texto */
-        }
-
-        .image-container img:hover {
-            transform: scale(1.05);
-        }
-    </style>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
