@@ -231,7 +231,7 @@
             </div>
         </div>
 
-        <div class="text-center p-4 bg-gray-700 mt-4">
+        <div class="p-4 footer-info">
             <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
         </div>
     </footer>
