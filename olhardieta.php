@@ -47,9 +47,6 @@
 
 <script>
     function showAlert() {
-<<<<<<< HEAD
-        alert("Esta página está em manutenção");
-=======
         Swal.fire({
             position: "top",
             icon: "info",
@@ -57,7 +54,6 @@
             showConfirmButton: false,
             timer: 1500
             });
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
     }
 </script>
 

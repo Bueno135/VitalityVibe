@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <link href="/Projeto/css/olhardieta.css" rel="stylesheet">  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
@@ -112,14 +113,25 @@
             document.querySelector('#horarioRefeicao').value = '';
         } else {
             // Exibir uma mensagem de erro se algum campo estiver vazio
-            alert('Por favor, preencha todos os campos!');
-        }
+            Swal.fire({
+            position: "top",
+            icon: "error",
+            title: "Por favor, preencha todos os campos!",
+            showConfirmButton: false,
+            timer: 1500
+            });
     });
 
     // Adicionar evento de clique ao botão "Salvar Dieta"
     document.querySelector('.btn-salvar').addEventListener('click', function() {
         // Simular salvamento da dieta
-        alert('Dieta salva com sucesso!');
+        Swal.fire({
+            position: "top",
+            icon: "sucess",
+            title: "Dieta salva com sucesso",
+            showConfirmButton: false,
+            timer: 1500
+            });
     });
 </script>
 

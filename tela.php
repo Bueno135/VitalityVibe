@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <link href="/Projeto/css/tela.css" rel="stylesheet">  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     
 </head>
@@ -104,8 +105,15 @@
 <!-- Seus scripts JavaScript -->
 <script>
     function showAlert() {
-        alert("Esta página está em manutenção");
+        Swal.fire({
+            position: "top",
+            icon: "info",
+            title: "Página em manutenção",
+            showConfirmButton: false,
+            timer: 1500
+            });
     }
+    
 
     function toggleProfileInfo() {
         var profileInfo = document.getElementById("profileInfo");
@@ -121,11 +129,6 @@
 
 </body>
 </html>
-<<<<<<< HEAD
-=======
 
-    </script>
-    
 </body>
 </html>
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
