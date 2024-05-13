@@ -105,12 +105,21 @@
     </footer>
 
     <script>
+        const Swal = require('sweetalert2')
         function verificar() {
             const email = document.getElementById('email').value;
             if (email === '<?php echo $_SESSION["email"]?>') {
-                alert('email válido');
+                Swal.fire({
+                    title: "The Internet?",
+                    text: "That thing is still around?",
+                    icon: "question"
+                    });
             } else {
-                alert('email inválido');
+                Swal.fire({
+                    title: "The Internet?",
+                    text: "That thing is still around?",
+                    icon: "question"
+                    });
             }
         }
 

@@ -31,7 +31,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if ($stmt->execute()) {
-        echo "<script>alert('Cadastro atualizado com sucesso!'); window.location.href='/Projeto/login/entrarcliente.php';</script>";
+        echo "<script>Swal.fire({
+            position: "top",
+            icon: "sucess",
+            title: "Cadastro atualizado com sucesso",
+            showConfirmButton: false,
+            timer: 1500
+            });; window.location.href='/Projeto/login/entrarcliente.php';</script>";
     } else {
         echo "Erro ao atualizar o cadastro: " . $conn->error;
     }

@@ -2,6 +2,8 @@ inicio:
 git init
 git add .
 git commit -m ""
+git config --global user.name "Seu Nome"
+git config --global user.email "seu@email.com"
 git branch -M main
 git remote add origin https://github.com/Bueno135/VitalityVibe.git
 git push -u origin main
