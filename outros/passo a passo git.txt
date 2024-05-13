@@ -11,7 +11,7 @@ git push -u origin sua_branch
 Adicionar:
 git add .
 git commit -m ""
-git push
+git push origin sua_branch
 
 Puxar da main:
 git pull origin main --allow-related-histories
