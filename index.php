@@ -231,7 +231,11 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <div class="text-center p-4 bg-gray-700 mt-4">
+=======
+        <div class="p-4 footer-info">
+>>>>>>> e6aaaf99ba17631a70e7047f772f62634170eebd
             <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
         </div>
     </footer>

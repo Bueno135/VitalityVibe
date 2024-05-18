@@ -6,115 +6,9 @@
     <title>VitalityVibe - Página Principal</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
+    <link href="/Projeto/css/tela.css" rel="stylesheet">  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-    <style>
-        /* Estilos CSS personalizados */
-        .logo {
-            font-size: 2rem;
-            text-align: center;
-        }
-
-        .footer-info {
-            font-size: 0.875rem;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 50px;
-        }
-
-        .image-container a {
-            text-align: center;
-            width: 33.33%;
-            position: relative;
-        }
-
-        .image-container img {
-            height: 150px;
-            width: 550px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            margin-bottom: 10px;
-        }
-
-        .image-container a {
-            text-align: center;
-            width: 33.33%;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .image-container a:hover::before {
-            opacity: 1;
-        }
-
-        .image-container img:hover {
-            transform: scale(1.05);
-        }
-
-        .image-container .receitas-semana img {
-            border: 2px solid #4CAF50;
-            margin-right: 2em;
-            width: 550px;
-            margin-right: 2em;
-        }
-
-        .image-container .contatar-nutri img {
-            border: 2px solid #FF5722;
-            margin-left: 1em; 
-        }
-
-        .image-container .olhar-dieta img {
-            border: 2px solid #2196F3;
-            margin-left: 3em;
-        }
-
-        .image-container .olhar-dieta p {
-            margin: 0;
-            font-size: 18px;
-            color: #4a5568;
-            position: center;  
-            margin-left: 3em;
-        }
-
-        .image-container .contatar-nutri p {
-            margin: 0;
-            font-size: 18px;
-            color: #4a5568;
-            position: center;
-            margin-left: 1em;
-        }
-
-        .image-container .receitas-semana p {
-            margin: 0;
-            font-size: 18px;
-            color: #4a5568;
-            position: center;
-            margin-right: 2em;
-        }
-
-        .image-container p {
-            margin: 0;
-            font-size: 18px;
-            color: #4a5568;
-        }
-
-        body {
-            background-image: url('imagens/fundo.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-        }
-    </style>
     
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
@@ -211,8 +105,15 @@
 <!-- Seus scripts JavaScript -->
 <script>
     function showAlert() {
-        alert("Esta página está em manutenção");
+        Swal.fire({
+            position: "top",
+            icon: "info",
+            title: "Página em manutenção",
+            showConfirmButton: false,
+            timer: 1500
+            });
     }
+    
 
     function toggleProfileInfo() {
         var profileInfo = document.getElementById("profileInfo");

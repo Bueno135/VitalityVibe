@@ -6,7 +6,6 @@
     <title>Olhar Dieta - VitalityVibe</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
-<<<<<<< HEAD
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
         /* Adicione estilos CSS personalizados aqui */
@@ -47,11 +46,16 @@
         }
     </style>
 =======
+=======
+>>>>>>> e6aaaf99ba17631a70e7047f772f62634170eebd
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="/Projeto/css/olhardieta.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     
+<<<<<<< HEAD
 >>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
+=======
+>>>>>>> e6aaaf99ba17631a70e7047f772f62634170eebd
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
@@ -89,9 +93,7 @@
 
 <script>
     function showAlert() {
-<<<<<<< HEAD
-        alert("Esta página está em manutenção");
-=======
+    
         Swal.fire({
             position: "top",
             icon: "info",
@@ -99,7 +101,7 @@
             showConfirmButton: false,
             timer: 1500
             });
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
+
     }
 </script>
 
