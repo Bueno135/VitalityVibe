@@ -2,19 +2,19 @@
 
 CREATE TABLE Cliente (
     ID_Cliente INT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    cpf VARCHAR(21),
+    senha VARCHAR(100),
     telefone VARCHAR(30),
     dt_nasc DATE,
     altura VARCHAR(10),
-    cpf VARCHAR(21),
+    peso VARCHAR(10),
     sexo VARCHAR(10),
-    senha VARCHAR(100),
     freq_atv_fisica VARCHAR(100),
-    email VARCHAR(100),
-    nome VARCHAR(100),
     alergias VARCHAR(100),
     problema_saude VARCHAR(100),
     med_controlado VARCHAR(100),
-    peso VARCHAR(10),
     UNIQUE (ID_Cliente, cpf, email)
 );
 
@@ -26,6 +26,7 @@ CREATE TABLE Nutricionista (
     telefone VARCHAR(30),
     senha VARCHAR(100),
     sexo VARCHAR(15),
+    CRN VARCHAR(20),
     formacao VARCHAR(100),
     fk_Especialidade_id_especialidade INT,
     UNIQUE (id_nutricionista, cpf, email)
@@ -48,70 +49,27 @@ CREATE TABLE Ingredientes (
 );
 
 CREATE TABLE Especialidade (
-<<<<<<< HEAD
-    id_especialidade INT AUTO_INCREMENT PRIMARY KEY,
-    especialidade VARCHAR(100)
-);
-
-CREATE TABLE CategoriaAlimentar (
-    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
-=======
     id_especialidade INT PRIMARY KEY UNIQUE,
     nome_especialidade VARCHAR(100)
 );
 
 CREATE TABLE CategoriaAlimentar (
     id_categoria INT PRIMARY KEY UNIQUE,
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
     nome VARCHAR(100)
-);
-
-CREATE TABLE Grafico (
-<<<<<<< HEAD
-    IMC INT,
-    peso INT,
-    massa_magra INT,
-    BF INT,
-=======
-    imc FLOAT,
-    massa_magra FLOAT,
-    BF FLOAT,
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
-    fk_Cliente_ID_Cliente INT
 );
 
 CREATE TABLE PlanoAlimentar (
-    refeicao VARCHAR(100) PRIMARY KEY,
-<<<<<<< HEAD
-    dia_semana CHAR,
-    horario TIME
-);
-
-CREATE TABLE Formacao (
-    id_formacao INT AUTO_INCREMENT PRIMARY KEY,
-    formacao VARCHAR(100)
-);
-
-CREATE TABLE Objetivo (
-    id_obj INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100)
-);
-
-=======
+    id_plano INT PRIMARY KEY UNIQUE,
+    refeicao VARCHAR(100),
     dia_semana DATE,
     horario TIME
 );
 
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
-CREATE TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar (
+CREATE TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar (
     fk_Cliente_ID_Cliente INT,
     fk_Nutricionista_id_nutricionista INT,
-    fk_PlanoAlimentar_refeicao VARCHAR(100),
-<<<<<<< HEAD
-    dt_inicio DATE,
-=======
+    fk_PlanoAlimentar_id_plano INT,
     dt_inic DATE,
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
     dt_fim DATE
 );
 
@@ -121,27 +79,10 @@ CREATE TABLE Composicao (
     Quantidade FLOAT
 );
 
-<<<<<<< HEAD
-CREATE TABLE Possuir (
-    fk_PlanoAlimentar_refeicao VARCHAR(100),
-    fk_Prato_id_prato INT
-);
-
-CREATE TABLE Possui (
-    fk_Nutricionista_id_nutricionista INT,
-    fk_Formacao_id_formacao INT
-);
- 
-ALTER TABLE Cliente ADD CONSTRAINT FK_Cliente_2
-    FOREIGN KEY (fk_Objetivo_id_obj)
-    REFERENCES Objetivo (id_obj)
-    ON DELETE RESTRICT;
-=======
 CREATE TABLE PlanoAlimentarPrato (
-    fk_PlanoAlimentar_refeicao VARCHAR(100),
+    fk_PlanoAlimentar_id_plano INT,
     fk_Prato_id_prato INT
 );
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
  
 ALTER TABLE Nutricionista ADD CONSTRAINT FK_Nutricionista_2
     FOREIGN KEY (fk_Especialidade_id_especialidade)
@@ -153,28 +94,19 @@ ALTER TABLE Ingredientes ADD CONSTRAINT FK_Ingredientes_2
     REFERENCES CategoriaAlimentar (id_categoria)
     ON DELETE RESTRICT;
  
-ALTER TABLE Grafico ADD CONSTRAINT FK_Grafico_1
-    FOREIGN KEY (fk_Cliente_ID_Cliente)
-    REFERENCES Cliente (ID_Cliente)
-<<<<<<< HEAD
-    ON DELETE RESTRICT;
-=======
-    ON DELETE CASCADE;
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
- 
-ALTER TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Dieta_Cliente_Nutricionista_PlanoAlimentar_1
+ALTER TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Contrato_Cliente_Nutricionista_PlanoAlimentar_1
     FOREIGN KEY (fk_Cliente_ID_Cliente)
     REFERENCES Cliente (ID_Cliente)
     ON DELETE NO ACTION;
  
-ALTER TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Dieta_Cliente_Nutricionista_PlanoAlimentar_2
+ALTER TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Contrato_Cliente_Nutricionista_PlanoAlimentar_2
     FOREIGN KEY (fk_Nutricionista_id_nutricionista)
     REFERENCES Nutricionista (id_nutricionista)
     ON DELETE NO ACTION;
  
-ALTER TABLE Dieta_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Dieta_Cliente_Nutricionista_PlanoAlimentar_3
-    FOREIGN KEY (fk_PlanoAlimentar_refeicao)
-    REFERENCES PlanoAlimentar (refeicao)
+ALTER TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Contrato_Cliente_Nutricionista_PlanoAlimentar_3
+    FOREIGN KEY (fk_PlanoAlimentar_id_plano)
+    REFERENCES PlanoAlimentar (id_plano)
     ON DELETE NO ACTION;
  
 ALTER TABLE Composicao ADD CONSTRAINT FK_Composicao_1
@@ -187,33 +119,12 @@ ALTER TABLE Composicao ADD CONSTRAINT FK_Composicao_2
     REFERENCES Ingredientes (id_ingrediente)
     ON DELETE SET NULL;
  
-<<<<<<< HEAD
-ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_1
-=======
 ALTER TABLE PlanoAlimentarPrato ADD CONSTRAINT FK_PlanoAlimentarPrato_1
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
-    FOREIGN KEY (fk_PlanoAlimentar_refeicao)
-    REFERENCES PlanoAlimentar (refeicao)
+    FOREIGN KEY (fk_PlanoAlimentar_id_plano)
+    REFERENCES PlanoAlimentar (id_plano)
     ON DELETE SET NULL;
  
-<<<<<<< HEAD
-ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_2
-    FOREIGN KEY (fk_Prato_id_prato)
-    REFERENCES Prato (id_prato)
-    ON DELETE SET NULL;
- 
-ALTER TABLE Possui ADD CONSTRAINT FK_Possui_1
-    FOREIGN KEY (fk_Nutricionista_id_nutricionista)
-    REFERENCES Nutricionista (id_nutricionista)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Possui ADD CONSTRAINT FK_Possui_2
-    FOREIGN KEY (fk_Formacao_id_formacao)
-    REFERENCES Formacao (id_formacao)
-    ON DELETE RESTRICT;
-=======
 ALTER TABLE PlanoAlimentarPrato ADD CONSTRAINT FK_PlanoAlimentarPrato_2
     FOREIGN KEY (fk_Prato_id_prato)
     REFERENCES Prato (id_prato)
     ON DELETE SET NULL;
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
