@@ -105,12 +105,5 @@
         </div>
     </footer>
 
-    <?php
-    // Verificar se o login foi bem-sucedido e redirecionar para tela.php
-    if ($login_sucesso) {
-        echo '<script>window.location.href = "tela.php";</script>';
-    }
-    ?>
-
 </body>
 </html>

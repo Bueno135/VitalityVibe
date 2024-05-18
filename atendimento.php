@@ -44,11 +44,7 @@
 </main>
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
-<<<<<<< HEAD
-    <div class="container mx-auto p-6">
-=======
     <div class="p-6 footer-info ">
->>>>>>> e6aaaf99ba17631a70e7047f772f62634170eebd
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>

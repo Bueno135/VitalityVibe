@@ -32,9 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         echo "<script>Swal.fire({
-            position: "top",
-            icon: "sucess",
-            title: "Cadastro atualizado com sucesso",
+            position: 'top',
+            icon: 'sucess',
+            title: 'Cadastro atualizado com sucesso',
             showConfirmButton: false,
             timer: 1500
             });; window.location.href='/Projeto/login/entrarcliente.php';</script>";
