@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['ID_Cliente'])) {
+    header("Location: tela.php");
+    exit;
+}
+
+$name = $_SESSION['nome'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,7 +30,7 @@
     <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="index.php">VitalityVibe</a></h1>
     <div>
         <a href="#" class="text-gray-600 hover:text-blue-600" onclick="toggleProfileInfo()">
-            <i class="fas fa-user-circle fa-lg"></i>
+            <i class="fas fa-user-circle fa-lg"></i> <?php echo htmlspecialchars($name); ?>
         </a>
     </div>
 </header>
@@ -59,7 +71,7 @@
 </main>
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
-    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 footer-info">
+    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
         <div>
             <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>
             <ul>
@@ -116,17 +128,16 @@
     }
     
 
-    function toggleProfileInfo() {
-        var profileInfo = document.getElementById("profileInfo");
-        if (profileInfo.style.display === "none") {
-            profileInfo.style.display = "block";
-            // Aqui você pode adicionar lógica para buscar o nome e o email do usuário
-            // e atribuí-los aos elementos de parágrafo #userName e #userEmail
-        } else {
-            profileInfo.style.display = "none";
+    
+        function toggleProfileInfo() {
+            var profileInfo = document.getElementById('profileInfo');
+            if (profileInfo.classList.contains('hidden')) {
+                profileInfo.classList.remove('hidden');
+            } else {
+                profileInfo.classList.add('hidden');
+            }
         }
-    }
-</script>
+    </script>
 
 </body>
 </html>

@@ -1,37 +1,45 @@
 <?php
-include '/xampp/htdocs/Projeto/bd/connection.php';
+session_start();
+require '/xampp/htdocs/Projeto/bd/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $senha = mysqli_real_escape_string($conn, $_POST['senha']);
+    if ($conn->connect_error) {
+        die("Connection failed: ". $conn->connect_error);
+    }
 
-    $result = mysqli_query($conn, "SELECT * FROM cliente WHERE email='$email'");
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
 
-    if ($result !== false && mysqli_num_rows($result) > 0) {
-        $usuario = mysqli_fetch_assoc($result);
+    $stmt = $conn->prepare("SELECT * FROM cliente WHERE email=?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $usuario = $result->fetch_assoc();
 
         // Verifica a senha usando password_verify
         if (password_verify($senha, $usuario['senha'])) {
             // Senha correta, faça o login
-            session_start();
             $_SESSION['email'] = $email;
             $_SESSION['nome'] = $usuario['nome']; // Se 'nome' é o campo correto para o nome do cliente
-            echo 'Login bem sucedido';
             header('Location: /Projeto/tela.php');
             exit();
         } else {
             // Senha incorreta
-            echo "<div class='message'>
-            <p>Senha incorreta.</p>
-            </div> <BR>";
-            echo "<a href='entrarcliente.php'>Voltar</a>";
+            $erro = 'Erro de login';
         }
     } else {
         // Usuário não encontrado
-        echo "<div class='message'>
-        <p>Usuário não encontrado.</p>
-        </div> <BR>";
-        echo "<a href='entrarcliente.php'>Voltar</a>";
+        $erro = 'Erro de login';
     }
 }
-?>
+
+// Exibição de erro genérico
+if (isset($erro)) {
+    echo "<div class='message'>
+        <p>{$erro}</p>
+        </div><br>";
+    echo "<a href='entrarcliente.php'>Voltar</a>";
+}
+
