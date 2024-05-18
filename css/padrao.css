@@ -1,8 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-
 .footer-info {
-    @apply text-center p-4 bg-gray-700 mt-4; 
+    text-align: center;
+    background-color: grey;
+    margin-top: 4;
+    padding: 4;
 }

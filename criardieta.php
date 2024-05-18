@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escolha o Cliente - VitalityVibe</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <link href="/Projeto/css/criardieta.css" rel="stylesheet">  
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
@@ -66,7 +67,7 @@
 </main>
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
-    <div class="container mx-auto p-6">
+    <div class="footer-info">
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>

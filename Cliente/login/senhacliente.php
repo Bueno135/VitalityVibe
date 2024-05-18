@@ -6,6 +6,7 @@
     <title>Vitality Vibe - Login & Cadastro</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
+    <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="../js/profile.js" defer></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
@@ -99,7 +100,7 @@
                 </ul>
             </div>
         </div>
-        <div class="text-center p-4 bg-gray-700 mt-4">
+        <div class="footer-info">
             <p>&copy; 2024 Vitality Vibe. Todos os direitos reservados.</p>
         </div>
     </footer>

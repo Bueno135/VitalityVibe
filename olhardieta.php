@@ -6,6 +6,7 @@
     <title>Olhar Dieta - VitalityVibe</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
+    <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
         /* Adicione estilos CSS personalizados aqui */
@@ -86,7 +87,7 @@
     <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 footer-info">
         <!-- Conteúdo do rodapé -->
     </div>
-    <div class="text-center p-4 bg-gray-700 mt-4 footer-info">
+    <div class="footer-info">
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>

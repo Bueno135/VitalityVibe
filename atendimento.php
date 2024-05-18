@@ -44,7 +44,7 @@
 </main>
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
-    <div class="p-6 footer-info ">
+    <div class="footer-info ">
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>

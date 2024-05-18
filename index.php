@@ -7,6 +7,7 @@
     <title>VitalityVibe</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
+    <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="js/header.js" defer></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
@@ -21,8 +22,8 @@
                 <a href="#sobre" class="mx-2 hover:text-blue-500">Sobre</a>
                 <a href="#features" class="mx-2 hover:text-blue-500">Recursos</a>
                 <a href="#contato" class="mx-2 hover:text-blue-500">Contato</a>
-                <a href="/Projeto/login/entrarcliente.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cliente</a>
-                <a href="/Projeto/login/entrarnutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Nutricionista</a>
+                <a href="/Projeto/Cliente/login/entrarcliente.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cliente</a>
+                <a href="/Projeto/nutricionista/login/entrarnutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Nutricionista</a>
             </div>
         </nav>
     </header>
@@ -33,8 +34,9 @@
             <div class="text-white bg-black bg-opacity-50 p-6 rounded-lg">
                 <h1 class="text-5xl font-bold mb-4">Alimentação Saudável Simplificada</h1>
                 <p class="text-xl mb-8">Me diga sobre você, como deseja ingressar em nossa plataforma?</p>
-                <a href="/Projeto/login/entrarnutri.php" class="bg-white text-blue-500 py-3 px-6 rounded-lg font-semibold hover:bg-gray-100">Sou(a) Nutricionista</a>
-                <a href="/Projeto/login/entrarcliente.php" class="bg-white text-blue-500 py-3 px-6 rounded-lg font-semibold hover:bg-gray-100">Sou(a) Cliente</a>
+                <a href="/Projeto/Cliente/login/entrarcliente.php" class="bg-white text-blue-500 py-3 px-6 rounded-lg font-semibold hover:bg-gray-100">Sou(a) Cliente</a>
+                <a href="/Projeto/nutricionista/login/entrarnutri.php" class="bg-white text-blue-500 py-3 px-6 rounded-lg font-semibold hover:bg-gray-100">Sou(a) Nutricionista</a>
+                
             </div>
         </div>
     </section>
@@ -197,7 +199,7 @@
                     <li><a href="#features" class="hover:text-blue-400">Recursos</a></li>
                     <li><a href="#contato" class="hover:text-blue-400">Contato</a></li>
                     <li><a href="#login" class="hover:text-blue-400">Login</a></li>
-                    <li><a href="paginas/entrar" class="hover:text-blue-400">Cadastre-se</a></li>
+                    <li><a href="#cadastro" class="hover:text-blue-400">Cadastre-se</a></li>
                 </ul>
             </div>
 
@@ -231,11 +233,7 @@
             </div>
         </div>
 
-<<<<<<< HEAD
-        <div class="text-center p-4 bg-gray-700 mt-4">
-=======
-        <div class="p-4 footer-info">
->>>>>>> e6aaaf99ba17631a70e7047f772f62634170eebd
+        <div class="footer-info">
             <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
         </div>
     </footer>
