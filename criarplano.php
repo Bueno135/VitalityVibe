@@ -122,6 +122,7 @@
             });
         }
 
+    
     // Adicionar evento de clique ao botão "Salvar Dieta"
     document.querySelector('.btn-salvar').addEventListener('click', function() {
         // Simular salvamento da dieta
@@ -133,6 +134,7 @@
             timer: 1500
             });
     });
+});
 </script>
 
 </body>
