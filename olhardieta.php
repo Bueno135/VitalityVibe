@@ -46,17 +46,12 @@
             transform: scale(1.05);
         }
     </style>
-=======
-=======
->>>>>>> e6aaaf99ba17631a70e7047f772f62634170eebd
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="/Projeto/css/olhardieta.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     
-<<<<<<< HEAD
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
-=======
->>>>>>> e6aaaf99ba17631a70e7047f772f62634170eebd
+
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 

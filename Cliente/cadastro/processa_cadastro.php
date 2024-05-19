@@ -24,12 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $retorno = mysqli_query($conn, $sql);
     if(mysqli_num_rows($retorno) > 0) {
         echo"CPF Já cadastrado<BR>";
-        echo"<a href=cadastrocliente.php>Voltar</a>";
+        echo"<a href='/Projeto/Cliente/cadastro/cadastrocliente.php'>Voltar</a>";
         exit();
     
     } else if(mysqli_num_rows($retorno2) > 0) {
         echo"Email Já cadastrado<BR>";
-        echo"<a href=cadastrocliente.php>Voltar</a>";
+        echo"<a href='/Projeto/Cliente/cadastro/cadastrocliente.php'>Voltar</a>";
         exit();
     } else {
         $nome = $_POST['nome'];
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if($resultado) {
             echo"Usuario cadastrado!!<BR>";
-            echo"<a href=confirmarcadastro.php>Avançar</a>";
+            echo"<a href='/Projeto/Cliente/login/entrarcliente.php'>Avançar</a>";
         } else {
             echo "Erro ao cadastrar usuário.";
         }

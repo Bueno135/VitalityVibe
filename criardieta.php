@@ -35,7 +35,7 @@
                     include 'bd/connection.php';
 
                     // Query para buscar todos os clientes
-                    $sql = "SELECT * FROM Cliente";
+                    $sql = "SELECT * FROM cliente";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {

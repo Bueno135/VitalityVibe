@@ -1,14 +1,17 @@
 <?php
 session_start();
-require '/xampp/htdocs/Projeto/bd/connection.php';
+include '/xampp/htdocs/Projeto/bd/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->connect_error) {
-        die("Connection failed: ". $conn->connect_error);
+        die("Connection failed: " . $conn->connect_error);
     }
 
     $email = $_POST['email'];
     $senha = $_POST['senha'];
+
+    // Adiciona um echo para verificar se os dados estão sendo recebidos
+    // echo "Email: $email, Senha: $senha";
 
     $stmt = $conn->prepare("SELECT * FROM cliente WHERE email=?");
     $stmt->bind_param("s", $email);
@@ -17,6 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows > 0) {
         $usuario = $result->fetch_assoc();
+
+        // Adiciona um echo para verificar o hash da senha no banco de dados
+        // echo "Senha do banco de dados: " . $usuario['senha'];
 
         // Verifica a senha usando password_verify
         if (password_verify($senha, $usuario['senha'])) {
@@ -27,11 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Senha incorreta
-            $erro = 'Erro de login';
+            $erro = 'Erro de login: Senha incorreta';
         }
     } else {
         // Usuário não encontrado
-        $erro = 'Erro de login';
+        $erro = 'Erro de login: Usuário não encontrado';
     }
 }
 

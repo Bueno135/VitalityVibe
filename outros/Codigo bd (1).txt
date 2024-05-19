@@ -8,6 +8,7 @@ CREATE TABLE Cliente (
     senha VARCHAR(100),
     telefone VARCHAR(30),
     dt_nasc DATE,
+    cep VARCHAR(20),
     altura VARCHAR(10),
     peso VARCHAR(10),
     sexo VARCHAR(10),

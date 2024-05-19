@@ -23,15 +23,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn, "UPDATE cliente SET senha='$hashedSenha' WHERE email='$email'");
 
     if ($result !== false && mysqli_affected_rows($conn) > 0) {
-        echo 'Senha alterada com sucesso';
-        // Redirecionar para index.php após a alteração bem-sucedida
-        header('Location: /Projeto/index.php');
+        // Exibir Sweet Alert
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
+        echo "<script>
+        Swal.fire({
+            title: 'Senha alterada com sucesso!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.href = 'C:/xampp/htdocs/Projeto/Cliente/login/entrarcliente.phpp'; // Redirecionar para login.php após o OK
+        });
+        </script>";
         exit();
     } else {
         echo "<div class='message'>
         <p>Ocorreu um erro ao alterar a senha. Tente novamente.</p>
         </div> <BR>";
-        echo "<a href='entrarcliente.php'>Voltar</a>";
+        echo "<a href='senhacliente.php'>Voltar</a>";
     }
 }
 ?>
