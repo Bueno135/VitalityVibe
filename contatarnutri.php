@@ -1,6 +1,6 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-include '/xampp/htdocs/Projeto/bd/protect.php';
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -64,6 +64,7 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
                             } else {
                                 echo '<p><strong>Formação:</strong> Não especificada</p>';
                             }
+                            
                             // Verifica se a chave 'email' está definida antes de acessá-la
                             if(isset($row['email'])) {
                                 echo '<p><strong>Email:</strong> ' . $row['email'] . '</p>';
@@ -77,7 +78,7 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
                                 echo '<p><strong>Telefone:</strong> Não especificado</p>';
                             }
                             // Adicionando botão Avançar
-                            echo '<div class="btn-avancar"><a href="avançarnutri.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
+                            echo '<div class="btn-avancar"><a href="avancarnutri.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
                             // Adicione outros detalhes aqui, conforme necessário
                             echo '</div>';
                         }
