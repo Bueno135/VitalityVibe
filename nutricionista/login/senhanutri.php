@@ -45,18 +45,22 @@
                 </div>
                 <div class="mb-4 relative">
                     <label for="newPassword" class="block text-sm font-medium text-gray-700">Insira sua nova Senha</label>
-                    <input name="nova_senha" type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
-                    <button type="button" onclick="togglePasswordVisibility('newPassword')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
-                        <i id="toggleIcon" class="fas fa-eye"></i>
-                    </button>
+                    <div class ="relative">
+                        <input name="nova_senha" type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
+                        <button type="button" onclick="togglepassword('newPassword', 'toggleIcon')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
+                            <i id="toggleIcon" class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="mb-4 relative">
                     <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirme sua nova Senha</label>
-                    <input name="confirm_senha" type="password" id="confirmPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
-                    <button type="button" onclick="togglePasswordVisibility('confirmPassword')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
-                        <i id="toggleConfirmIcon" class="fas fa-eye"></i>
-                    </button>
-                    <span id="senhaMatch" class="text-red-500 text-sm hidden">As senhas não coincidem.</span>
+                    <div class ="relative">
+                        <input name="confirm_senha" type="password" id="confirmPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
+                        <button type="button" onclick="togglepassword('confirmPassword', 'toggleConfirmIcon')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
+                            <i id="toggleConfirmIcon" class="fas fa-eye"></i>
+                        </button>
+                        <span id="senhaMatch" class="text-red-500 text-sm hidden">As senhas não coincidem.</span>
+                    </div>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Alterar Senha</button>
@@ -65,7 +69,7 @@
         </div>
     </section>
 
-    <footer class="bg-gray-800 text-white text-center md:text-left">
+    <footer class="bg-gray-800 text-white text-center md:text-left mt-auto">
         <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
                 <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>
@@ -74,7 +78,7 @@
                     <li><a href="#features" class="hover:text-blue-400">Recursos</a></li>
                     <li><a href="#contato" class="hover:text-blue-400">Contato</a></li>
                     <li><a href="#login" class="hover:text-blue-400">Login</a></li>
-                    <li><a href="paginas/entrar" class="hover:text-blue-400">Cadastre-se</a></li>
+                    <li><a href="/Projeto/Cliente/cadastro/cadastrocliente.php" class="hover:text-blue-400">Cadastre-se</a></li>
                 </ul>
             </div>
             <div>
@@ -101,11 +105,10 @@
                 </ul>
             </div>
         </div>
-        <div class="text-center p-4 bg-gray-700 mt-4">
+        <div class="footer-info">
             <p>&copy; 2024 Vitality Vibe. Todos os direitos reservados.</p>
         </div>
     </footer>
-
     <script>
         function verificar() {
             const email = document.getElementById('email').value;

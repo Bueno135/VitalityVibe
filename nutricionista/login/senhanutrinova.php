@@ -24,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result !== false && mysqli_affected_rows($conn) > 0) {
         echo 'Senha alterada com sucesso';
-        // Redirecionar para index.php após a alteração bem-sucedida
-        header('Location: /Projeto/index.php');
+        // Redirecionar para entrarnutri.php após a alteração bem-sucedida
+        header('Location: /Projeto/nutricionista/login/entrarnutri.php');
         exit();
     } else {
         echo "<div class='message'>

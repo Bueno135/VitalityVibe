@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 session_start();
             }        
             // Senha correta, faça o login
-            $_SESSION['ID_Cliente'] = $cliente['ID_Cliente']; // Defina a ID do cliente na sessão
+            $_SESSION['id'] = $cliente['ID_Cliente']; // Defina a ID do cliente na sessão
             $_SESSION['email'] = $email;
             $_SESSION['nome'] = $cliente['nome']; // Se 'nome' é o campo correto para o nome do cliente
 

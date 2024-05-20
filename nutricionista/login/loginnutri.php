@@ -27,18 +27,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 session_start();
             }        
             // Senha correta, faça o login
-            $_SESSION['id_nutricionista'] = $nutricionista['id_nutricionista']; // Defina a ID do cliente na sessão
+            $_SESSION['id'] = $nutricionista['id_nutricionista']; // Defina a ID do cliente na sessão
             $_SESSION['email'] = $email;
             $_SESSION['nome'] = $nutricionista['nome']; // Se 'nome' é o campo correto para o nome do cliente
 
-            header('Location: /Projeto/telanutri.php');
+            header('Location: C:/xampp/htdocs/Projeto/telanutri.php');
             exit();
+        } else {
+            // Senha incorreta
+            $erro = 'Erro de login: Senha incorreta';
+        }
     } else {
-        echo "<div class='message'>
+        $erro = "<div class='message'>
         <p>Email ou senha incorretas</p>
         </div> <BR>";
         echo "<a href='entrarnutri.php'>Voltar</a>";
     }
 }
-}
+
 
