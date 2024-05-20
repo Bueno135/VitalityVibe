@@ -1,7 +1,7 @@
 <?php
-include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,68 +15,55 @@ session_start();
     <script src="/Projeto/js/botaoperfil.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-    
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
     <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="index.php">VitalityVibe</a></h1>
     <div class="flex items-center">
-        <a href="#" class="text-gray-600 hover:text-blue-600 mr-4" onclick="toggleProfileInfo()">
-            <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
-        </a>
+        <div class="relative">
+            <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
+                <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
+            </button>
+            <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome']; ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
+                <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
+                <button id="editarperfil" onclick="editarperfil()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
+            </div>
+        </div>
     </div>
 </header>
 
-<!-- Elemento do perfil -->
-<div id="profileInfo" class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded shadow-lg">
-        <p>Nome: <?php echo $_SESSION['nome']; ?></p>
-        <p>Email: <?php echo $_SESSION['email']; ?></p>
-        <button id="openProfileInfo" onclick="deslogar()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Deslogar</button>
-        <button id="editarperfil" onclick="editarperfil()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Editar perfil</button>
-    </div>
-</div>
-
-
-
-<!-- Elemento do perfil -->
-<div id="profileInfo" style="display: none;">
-    <p id="userName"></p>
-    <p id="userEmail"></p>
-</div>
-
 <div class="h-16"></div>
 
-<main class="flex-grow">
+<main class="flex-grow flex items-center justify-center">
     <section class="my-1 p-10">
-        <div class="max-w-lg mx-auto bg-white p-10 rounded shadow">
-            
+        <div class="max-w-4xl mx-auto bg-white p-10 rounded shadow">
             <div id="loginForm">
                 <h2 class="text-3xl font-bold text-center mb-6">Bem-vindo ao VitalityVibe</h2>
                 <!-- Conteúdo da página principal -->
-                <div class="image-container">
-                    <a href="#" class="receitas-semana" onclick="showAlert()">
-                        <img src="imagens/Receita da seman.jpg" alt="Receitas da Semana">
+                <div class="flex justify-around items-center space-x-4">
+                    <a href="#" class="receitas-semana text-center" onclick="showAlert()">
+                        <img src="imagens/Receita da seman.jpg" alt="Receitas da Semana" class="mb-2">
                         <p class="font-semibold">Receitas da Semana</p>
                     </a>
-                    <a href="contatarnutri.php" class="contatar-nutri">
-                        <img src="imagens/nutricionista.jpg" alt="Contatar Nutricionista">
+                    <a href="contatarnutri.php" class="contatar-nutri text-center">
+                        <img src="imagens/nutricionista.jpg" alt="Contatar Nutricionista" class="mb-2">
                         <p class="font-semibold">Contatar Nutricionista</p>
                     </a>
-                    <a href="olhardieta.php" class="olhar-dieta">
-                        <img src="imagens/dieta.jpg" alt="Olhar Dieta">
+                    <a href="olhardieta.php" class="olhar-dieta text-center">
+                        <img src="imagens/dieta.jpg" alt="Olhar Dieta" class="mb-2">
                         <p class="font-semibold">Olhar a sua Dieta</p>
                     </a>
                 </div>
             </div>
-            
         </div>
     </section>
 </main>
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
-    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
+    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
             <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>
             <ul>
@@ -120,7 +107,6 @@ session_start();
     </div>
 </footer>
 
-<!-- Seus scripts JavaScript -->
 <script>
     function showAlert() {
         Swal.fire({
@@ -129,10 +115,14 @@ session_start();
             title: "Página em manutenção",
             showConfirmButton: false,
             timer: 1500
-            });
+        });
     }
     
-    </script>
+    document.getElementById("profileDropdown").addEventListener("click", function() {
+        var dropdown = document.getElementById("profileInfo");
+        dropdown.classList.toggle("hidden");
+    });
+</script>
 
 </body>
 </html>

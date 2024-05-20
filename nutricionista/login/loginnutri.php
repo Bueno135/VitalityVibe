@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $email;
             $_SESSION['nome'] = $nutricionista['nome']; // Se 'nome' é o campo correto para o nome do cliente
             
-            header('Location: C:/xampp/htdocs/Projeto/telanutri.php');
+            header('Location: /Projeto/telanutri.php');
             exit();
         } else {
             // Senha incorreta
