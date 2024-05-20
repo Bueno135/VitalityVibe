@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 <?php
     include '/xampp/htdocs/Projeto/bd/connection.php';
 
 ?>
-=======
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,19 +12,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="../js/profile.js" defer></script>
-<<<<<<< HEAD
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
 </head>
 
-=======
-    <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-</head>
-<?php
-    include ("../bd/connection.php");
-    session_start();
-?>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
     <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">
@@ -57,7 +45,6 @@
                 </div>
                 <div class="mb-4 relative">
                     <label for="newPassword" class="block text-sm font-medium text-gray-700">Insira sua nova Senha</label>
-<<<<<<< HEAD
                     <div class ="relative">
                         <input name="nova_senha" type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
                         <button type="button" onclick="togglepassword('newPassword', 'toggleIcon')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
@@ -74,20 +61,6 @@
                         </button>
                         <span id="senhaMatch" class="text-red-500 text-sm hidden">As senhas não coincidem.</span>
                     </div>
-=======
-                    <input name="nova_senha" type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
-                    <button type="button" onclick="togglePasswordVisibility('newPassword')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
-                        <i id="toggleIcon" class="fas fa-eye"></i>
-                    </button>
-                </div>
-                <div class="mb-4 relative">
-                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirme sua nova Senha</label>
-                    <input name="confirm_senha" type="password" id="confirmPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
-                    <button type="button" onclick="togglePasswordVisibility('confirmPassword')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
-                        <i id="toggleConfirmIcon" class="fas fa-eye"></i>
-                    </button>
-                    <span id="senhaMatch" class="text-red-500 text-sm hidden">As senhas não coincidem.</span>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                 </div>
                 <div class="text-center">
                     <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Alterar Senha</button>
@@ -96,11 +69,7 @@
         </div>
     </section>
 
-<<<<<<< HEAD
     <footer class="bg-gray-800 text-white text-center md:text-left mt-auto">
-=======
-    <footer class="bg-gray-800 text-white text-center md:text-left">
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
                 <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>
@@ -109,15 +78,11 @@
                     <li><a href="#features" class="hover:text-blue-400">Recursos</a></li>
                     <li><a href="#contato" class="hover:text-blue-400">Contato</a></li>
                     <li><a href="#login" class="hover:text-blue-400">Login</a></li>
-<<<<<<< HEAD
+
                     <li><a href="/Projeto/Cliente/cadastro/cadastrocliente.php" class="hover:text-blue-400">Cadastre-se</a></li>
-=======
+
                     <li><a href="paginas/entrar" class="hover:text-blue-400">Cadastre-se</a></li>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                 </ul>
-            </div>
-            <div>
-                <h5 class="uppercase mb-2 font-bold">Legal</h5>
                 <ul>
                     <li><a href="#termos-de-uso" class="hover:text-blue-400">Termos de Uso</a></li>
                     <li><a href="#privacidade" class="hover:text-blue-400">Política de Privacidade</a></li>
@@ -140,18 +105,10 @@
                 </ul>
             </div>
         </div>
-<<<<<<< HEAD
         <div class="footer-info">
             <p>&copy; 2024 Vitality Vibe. Todos os direitos reservados.</p>
         </div>
     </footer>
-=======
-        <div class="text-center p-4 bg-gray-700 mt-4">
-            <p>&copy; 2024 Vitality Vibe. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
     <script>
         function verificar() {
             const email = document.getElementById('email').value;

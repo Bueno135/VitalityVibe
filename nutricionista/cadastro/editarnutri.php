@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-=======
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
     <title>Verificar cadastro</title>
 </head>
 <body>
@@ -31,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if ($stmt->execute()) {
-<<<<<<< HEAD
     echo "<script>
     Swal.fire({
         position: 'top',
@@ -48,19 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Erro ao atualizar o cadastro: " . $conn->error;
 }
 
-=======
-        echo "<script>Swal.fire({
-            position: "top",
-            icon: "sucess",
-            title: "Cadastro atualizado com sucesso",
-            showConfirmButton: false,
-            timer: 1500
-            });
-    }; window.location.href='/Projeto/login/entrarnutri.php';</script>";
-    } else {
-        echo "Erro ao atualizar o cadastro: " . $conn->error;
-    }
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 
     $stmt->close();
     $conn->close();

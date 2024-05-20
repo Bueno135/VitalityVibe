@@ -40,21 +40,12 @@
             // Se o usuário não estiver logado como moderador, exiba o alerta
             if (naoLogadoComoModerador) {
                 Swal.fire({
-<<<<<<< HEAD
                 position: "top",
                 icon: "info",
                 title: "Você não está logado como moderador para acessar essa sessão!",
                 showConfirmButton: false,
                 timer: 1500
                 });
-=======
-            position: "top",
-            icon: "info",
-            title: "Você não está logado como moderador para acessar essa sessão!"
-            showConfirmButton: false,
-            timer: 1500
-            });
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
     }
         }
     </script>

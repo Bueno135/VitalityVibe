@@ -7,14 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
-<<<<<<< HEAD
     <script src="Projeto/js/formatarCampos.js" defer></script>
-=======
-    <script src="../js/cep.js" defer></script>
-    <script src="../js/telefone.js" defer></script>
-    <script src="../js/cpf.js" defer></script>
-    <script src="../js/validarCPF.js" defer></script>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
     .mb-6{
@@ -91,11 +84,7 @@
 
                         <div class="mb-6">
                             <label for="cep" class="block text-sm font-medium text-gray-700">CEP</label>
-<<<<<<< HEAD
-                            <input id="cep" name="cep" inputmode="numeric" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-=======
                             <input type="text" id="cep" name="cep" inputmode="numeric" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                         </div> 
                         <div class="mb-6">
                             <label for="obj" class="block text-sm font-medium text-gray-700">Objetivo</label>

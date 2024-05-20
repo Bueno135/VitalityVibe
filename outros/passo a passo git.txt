@@ -12,11 +12,7 @@ git push -u origin "sua branch"
 Adicionar:
 git add .
 git commit -m ""
-<<<<<<< HEAD
 git push -u origin "sua branch"
-=======
-git push origin "sua branch"
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 
 Puxar da main:
 git branch -M main

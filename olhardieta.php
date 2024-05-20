@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 include '/xampp/htdocs/Projeto/bd/protect.php';
 ?>
-=======
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,69 +10,20 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
     <title>Olhar Dieta - VitalityVibe</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
-<<<<<<< HEAD
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link href="/Projeto/css/olhardieta.css"rel="stylesheet">
     <script src="/Projeto/js/botaoperfil.js"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-=======
-<<<<<<< HEAD
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-    <style>
-        /* Adicione estilos CSS personalizados aqui */
-        .logo {
-            font-size: 50px; /* Tamanho do título */
-            text-align: center;
-            margin-left:12em;
-        }
-
-        .subtitulo {
-            font-size: 24px; /* Tamanho do subtitulo */
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 50px;
-        }
-
-        .image-container a {
-            text-align: center;
-            position: relative;
-        }
-
-        .image-container img {
-            height: 300px;
-            width: 400px; /* Largura padrão das imagens */
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            margin-bottom: 10px; /* Espaçamento entre a imagem e o texto */
-        }
-
-        .image-container img:hover {
-            transform: scale(1.05);
-        }
-    </style>
-=======
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="/Projeto/css/olhardieta.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     
-<<<<<<< HEAD
-
-=======
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
     <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="index.php">VitalityVibe</a></h1>
-<<<<<<< HEAD
     <div class="flex items-center">
         <a href="#" class="text-gray-600 hover:text-blue-600 mr-4" onclick="toggleProfileInfo()">
             <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
@@ -93,13 +41,6 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
     </div>
 </div>
 
-=======
-    <div>
-        <a href="#" class="text-gray-600 hover:text-blue-600"><i class="fas fa-user-circle fa-lg"></i></a>
-    </div>
-</header>
-
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <div class="h-16"></div>
 
 <main class="flex-grow">
@@ -120,24 +61,13 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
     <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 footer-info">
         <!-- Conteúdo do rodapé -->
     </div>
-<<<<<<< HEAD
     <div class="footer-info">
-=======
-    <div class="text-center p-4 bg-gray-700 mt-4 footer-info">
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>
 
 <script>
     function showAlert() {
-<<<<<<< HEAD
-    
-=======
-<<<<<<< HEAD
-        alert("Esta página está em manutenção");
-=======
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         Swal.fire({
             position: "top",
             icon: "info",
@@ -145,11 +75,6 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
             showConfirmButton: false,
             timer: 1500
             });
-<<<<<<< HEAD
-
-=======
->>>>>>> 6439456bd1118bc4f8cbbf7b2b8d67e612e0566b
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
     }
 </script>
 

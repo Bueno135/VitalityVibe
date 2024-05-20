@@ -8,14 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<<<<<<< HEAD
     <script src="Projeto/js/formatarCampos.js" defer></script>
-=======
-    <script src="../js/cep.js" defer></script>
-    <script src="../js/telefone.js" defer></script>
-    <script src="../js/cpf.js" defer></script>
-    <script src="../js/validarCPF.js" defer></script>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
     .mb-6{
@@ -32,13 +25,8 @@
                 <a href="#sobre" class="mx-2 hover:text-blue-500">Sobre</a>
                 <a href="#features" class="mx-2 hover:text-blue-500">Recursos</a>
                 <a href="#contato" class="mx-2 hover:text-blue-500">Contato</a>
-<<<<<<< HEAD
                 <a href="/Projeto/nutricionista/login/entrarnutri.php" class="mx-2 hover:text-blue-500">Login</a>
                 <a href="/Projeto/nutricionista/cadastro/cadastro_nutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
-=======
-                <a href="/Projeto/login/entrarnutri.php" class="mx-2 hover:text-blue-500">Login</a>
-                <a href="/Projeto/cadastro/cadastro_nutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
             </div>
         </nav>
     </header>
@@ -76,10 +64,7 @@
                             <input inputmode="numeric" id="telefone" name="telefone" maxlength="11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                 
-<<<<<<< HEAD
                 
-=======
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                         <div class="mb-6">
                             <label for="sexo" class="block text-sm font-medium text-gray-700">Sexo</label>
                             <select id="sexo" name="sexo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -95,13 +80,10 @@
                             <input type="text" id="cep" name="cep" inputmode="numeric" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div> 
                         <div class="mb-6">
-<<<<<<< HEAD
                             <label for="crn" class="block text-sm font-medium text-gray-700">CRN</label>
                             <input type="text" id="crn" name="crn" inputmode="numeric" maxlength="7" placeholder="CRN1-11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div> 
                         <div class="mb-6">
-=======
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                             <label for="formacao" class="block text-sm font-medium text-gray-700">Formação</label>
                             <input type="text" id="formacao" name="formacao" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
@@ -150,48 +132,5 @@
             }
         });
     </script>
-<<<<<<< HEAD
-
-=======
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('form-cadastro');
-            const inputs = form.querySelectorAll('input');
-
-            inputs.forEach(input => {
-                const value = localStorage.getItem(input.id);
-                if (value) {    
-                    input.value = value;
-                }
-            });
-
-            form.addEventListener('input', () => {
-                inputs.forEach(input => {
-                    localStorage.setItem(input.id, input.value);
-                });
-            });
-
-            form.addEventListener('submit', () => {
-                inputs.forEach(input => {
-                    localStorage.removeItem(input.id);
-                });
-            });
-        });
-    </script>
-    <script>
-        function armazenar() {
-            var formValues = {
-                nome: document.getElementById('nome').value,
-                email: document.getElementById('email').value,
-                cpf: document.getElementById('cpf').value,
-                telefone: document.getElementById('telefone').value,
-                cep: document.getElementById('cep').value,
-                formacao: document.getElementById('formação').value,
-                especialidade: document.getElementById('especialidade').value
-            };
-            localStorage.setItem('formValues', JSON.stringify(formValues));
-            }
-</script>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 </body>
 </html>

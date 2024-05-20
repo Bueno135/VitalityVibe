@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 include '/xampp/htdocs/Projeto/bd/protect.php'
 ?>
-=======
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -12,114 +9,17 @@ include '/xampp/htdocs/Projeto/bd/protect.php'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escolha o Cliente - VitalityVibe</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
-<<<<<<< HEAD
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <link href="/Projeto/css/criardieta.css" rel="stylesheet">  
     <script src="/Projeto/js/botaoperfil.js"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     
-=======
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
-    <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-    <style>
-        /* Adicione estilos CSS personalizados aqui */
-        .logo {
-            font-size: 50px; /* Tamanho do título */
-            text-align: center;
-            margin-left:12em;
-        }
-
-        .cliente-box {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .cliente-box h2 {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .search-bar {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-bar input[type="text"] {
-            flex-grow: 1;
-            padding: 8px;
-            border: none;
-            outline: none;
-            font-size: 16px;
-        }
-
-        .search-bar button {
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .search-bar button:hover {
-            background-color: #45a049;
-        }
-
-        .cliente-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .cliente-item {
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .cliente-item:hover {
-            background-color: #f9f9f9;
-        }
-
-        /* Estilo para a exibição dos detalhes */
-        .cliente-details {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-
-        /* Estilo para o botão Avançar */
-        .btn-avancar {
-            display: block;
-            margin-top: 10px;
-            text-align: center;
-        }
-    </style>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
     <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="index.php">VitalityVibe</a></h1>
-<<<<<<< HEAD
     <div class="flex items-center">
         <a href="#" class="text-gray-600 hover:text-blue-600 mr-4" onclick="toggleProfileInfo()">
             <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
@@ -137,13 +37,6 @@ include '/xampp/htdocs/Projeto/bd/protect.php'
     </div>
 </div>
 
-=======
-    <div>
-        <a href="#" class="text-gray-600 hover:text-blue-600"><i class="fas fa-user-circle fa-lg"></i></a>
-    </div>
-</header>
-
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <div class="h-16"></div>
 
 <main class="flex-grow">
@@ -159,11 +52,7 @@ include '/xampp/htdocs/Projeto/bd/protect.php'
                     include 'bd/connection.php';
 
                     // Query para buscar todos os clientes
-<<<<<<< HEAD
                     $sql = "SELECT * FROM cliente";
-=======
-                    $sql = "SELECT * FROM Cliente";
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -195,11 +84,7 @@ include '/xampp/htdocs/Projeto/bd/protect.php'
 </main>
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
-<<<<<<< HEAD
     <div class="footer-info">
-=======
-    <div class="container mx-auto p-6">
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>
