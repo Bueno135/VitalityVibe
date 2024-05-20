@@ -1,0 +1,20 @@
+inicio:
+git init
+git add .
+git commit -m ""
+git config --global user.name "Seu Nome"
+git config --global user.email "seu@email.com"
+git branch -M "sua branch"
+git remote add origin https://github.com/Bueno135/VitalityVibe.git
+git push -u origin "sua branch"
+
+
+Adicionar:
+git add .
+git commit -m ""
+git push -u origin "sua branch"
+
+Puxar da main:
+git branch -M main
+git pull origin main --allow-unrelated-histories
+

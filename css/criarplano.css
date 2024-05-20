@@ -1,0 +1,44 @@
+/* Adicione estilos CSS personalizados aqui */
+.logo {
+    font-size: 50px; /* Tamanho do título */
+    text-align: center;
+    margin-left:12em;
+}
+
+.dieta-box {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dieta-box h2 {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-adicionar {
+    display: none; /* Esconde o formulário inicialmente */
+    margin-bottom: 20px;
+}
+
+/* Estilo para o botão Adicionar Alimento */
+.btn-adicionar {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Estilo para o botão Salvar Dieta */
+.btn-salvar {
+    text-align: center;
+}
+
+/* Estilo para os campos do formulário de adição de alimento */
+.form-group {
+    margin-bottom: 10px;
+}
