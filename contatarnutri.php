@@ -14,7 +14,6 @@ session_start();
     <script src="/Projeto/js/botaoperfil.js"></script>
     <link href="/Projeto/css/contatarnutri.css" rel="stylesheet">  
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-    
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
@@ -57,7 +56,7 @@ session_start();
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo '<li class="nutricionista-item" onclick="showNutricionistaDetails(this)">'.$row['nome'].'</li>';
                             // Div oculta de detalhes do nutricionista
-                            echo '<div class="nutricionista-details">';
+                            echo '<div class="nutricionista-details" style="display:none;">';
                             // Verifica se a chave 'formacao' está definida antes de acessá-la
                             if(isset($row['formacao'])) {
                                 echo '<p><strong>Formação:</strong> ' . $row['formacao'] . '</p>';
@@ -77,8 +76,8 @@ session_start();
                             } else {
                                 echo '<p><strong>Telefone:</strong> Não especificado</p>';
                             }
-                            // Adicionando botão Avançar
-                            echo '<div class="btn-avancar"><a href="avancarnutri.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
+                            // Adicionando botão Avançar com o nome do nutricionista na URL
+                            echo '<div class="btn-avancar"><a href="avancarnutri.php?nutricionista='.urlencode($row['nome']).'" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
                             // Adicione outros detalhes aqui, conforme necessário
                             echo '</div>';
                         }
