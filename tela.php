@@ -32,7 +32,7 @@ session_start();
     <div class="bg-white p-6 rounded shadow-lg">
         <p>Nome: <?php echo $_SESSION['nome']; ?></p>
         <p>Email: <?php echo $_SESSION['email']; ?></p>
-        <button id="openProfileInfo" action="logout.php" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Deslogar</button>
+        <button id="openProfileInfo" onclick="deslogar()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Deslogar</button>
         <button id="editarperfil" onclick="editarperfil()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Editar perfil</button>
     </div>
 </div>
@@ -142,6 +142,21 @@ session_start();
         } else {
             profileInfo.classList.add('hidden');
         }
+    }
+
+    function deslogar(){
+        fetch('/Projeto/Cliente/perfil/logout.php', {
+        method: 'POST',
+        credentials: 'same-origin'
+        })
+        .then(response => {
+            if (response.redirected) {
+                window.location.href = response.url; // Redireciona para a página de login
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao fazer logout:', error);
+        });
     }
     </script>
 
