@@ -1,3 +1,7 @@
+<?php
+include '/xampp/htdocs/Projeto/bd/connection.php';
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

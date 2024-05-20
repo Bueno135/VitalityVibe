@@ -12,6 +12,7 @@ session_start();
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <link href="/Projeto/css/tela.css" rel="stylesheet">  
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
+    <script src="/Projeto/js/botaoperfil.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     
@@ -130,34 +131,7 @@ session_start();
             timer: 1500
             });
     }
-    function editarperfil(){
-        window.location.href = '/Projeto/Cliente/Cadastro/confirmarcadastro.php';
-    }
-
     
-    function toggleProfileInfo() {
-        var profileInfo = document.getElementById('profileInfo');
-        if (profileInfo.classList.contains('hidden')) {
-            profileInfo.classList.remove('hidden');
-        } else {
-            profileInfo.classList.add('hidden');
-        }
-    }
-
-    function deslogar(){
-        fetch('/Projeto/Cliente/perfil/logout.php', {
-        method: 'POST',
-        credentials: 'same-origin'
-        })
-        .then(response => {
-            if (response.redirected) {
-                window.location.href = response.url; // Redireciona para a página de login
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao fazer logout:', error);
-        });
-    }
     </script>
 
 </body>
