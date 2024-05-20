@@ -1,3 +1,7 @@
+<?php
+    include '/xampp/htdocs/Projeto/bd/connection.php';
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,12 +12,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="../js/profile.js" defer></script>
+    <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
 </head>
-<?php
-    include ("../bd/connection.php");
-    session_start();
-?>
+
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
     <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">

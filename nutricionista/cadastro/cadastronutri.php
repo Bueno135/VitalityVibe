@@ -8,10 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../js/cep.js" defer></script>
-    <script src="../js/telefone.js" defer></script>
-    <script src="../js/cpf.js" defer></script>
-    <script src="../js/validarCPF.js" defer></script>
+    <script src="Projeto/js/formatarCampos.js" defer></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
     .mb-6{
@@ -28,8 +25,8 @@
                 <a href="#sobre" class="mx-2 hover:text-blue-500">Sobre</a>
                 <a href="#features" class="mx-2 hover:text-blue-500">Recursos</a>
                 <a href="#contato" class="mx-2 hover:text-blue-500">Contato</a>
-                <a href="/Projeto/login/entrarnutri.php" class="mx-2 hover:text-blue-500">Login</a>
-                <a href="/Projeto/cadastro/cadastro_nutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
+                <a href="/Projeto/nutricionista/login/entrarnutri.php" class="mx-2 hover:text-blue-500">Login</a>
+                <a href="/Projeto/nutricionista/cadastro/cadastro_nutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
             </div>
         </nav>
     </header>
@@ -67,6 +64,7 @@
                             <input inputmode="numeric" id="telefone" name="telefone" maxlength="11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                 
+                
                         <div class="mb-6">
                             <label for="sexo" class="block text-sm font-medium text-gray-700">Sexo</label>
                             <select id="sexo" name="sexo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -80,6 +78,10 @@
                         <div class="mb-6">
                             <label for="cep" class="block text-sm font-medium text-gray-700">CEP</label>
                             <input type="text" id="cep" name="cep" inputmode="numeric" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                        </div> 
+                        <div class="mb-6">
+                            <label for="crn" class="block text-sm font-medium text-gray-700">CRN</label>
+                            <input type="text" id="crn" name="crn" inputmode="numeric" maxlength="7" placeholder="CRN1-11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div> 
                         <div class="mb-6">
                             <label for="formacao" class="block text-sm font-medium text-gray-700">Formação</label>
@@ -130,44 +132,6 @@
             }
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('form-cadastro');
-            const inputs = form.querySelectorAll('input');
 
-            inputs.forEach(input => {
-                const value = localStorage.getItem(input.id);
-                if (value) {    
-                    input.value = value;
-                }
-            });
-
-            form.addEventListener('input', () => {
-                inputs.forEach(input => {
-                    localStorage.setItem(input.id, input.value);
-                });
-            });
-
-            form.addEventListener('submit', () => {
-                inputs.forEach(input => {
-                    localStorage.removeItem(input.id);
-                });
-            });
-        });
-    </script>
-    <script>
-        function armazenar() {
-            var formValues = {
-                nome: document.getElementById('nome').value,
-                email: document.getElementById('email').value,
-                cpf: document.getElementById('cpf').value,
-                telefone: document.getElementById('telefone').value,
-                cep: document.getElementById('cep').value,
-                formacao: document.getElementById('formação').value,
-                especialidade: document.getElementById('especialidade').value
-            };
-            localStorage.setItem('formValues', JSON.stringify(formValues));
-            }
-</script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-session_start();
+include '/xampp/htdocs/Projeto/bd/protect.php'
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

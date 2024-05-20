@@ -35,21 +35,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nome = $_POST['nome'] ?? '';
         $senha = $_POST['senha'] ?? '';
         $sexo = $_POST['sexo'] ?? '';
+        $telefone = $_POST['telefone']?? '';
         $cep = $_POST['cep'] ?? '';
+        $crn = $_POST['crn'] ?? '';
         $formacao = $_POST['formacao'] ?? '';
         $especialidade = $_POST['especialidade'] ?? '';
         
-        $sql3 = "INSERT INTO formacao (nome_formacao) VALUES ('$formacao')";
-        $resultado3 = mysqli_query($conn, $sql3);
         $sql5 = "INSERT INTO especialidade (nome_especialidade) VALUES ('$especialidade')";
         $resultado4 = mysqli_query($conn, $sql5);
-        $sql4 = "INSERT INTO nutricionista (nome, email, senha, cpf, sexo, cep) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$sexo', '$cep')";
+        $sql4 = "INSERT INTO nutricionista (nome, email, senha, cpf, telefone, sexo, cep, crn, formacao) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$telefone', '$sexo', '$cep', '$crn', '$formacao')";
         $resultado2 = mysqli_query($conn, $sql4);
 
         if($resultado2) {
             echo "Usuário cadastrado!!<BR>";
-            echo "<a href=confirmar_nutri.php>Avançar</a>";
+            echo "<a href=/Projeto/nutricionista/login/entrarnutri.php>Avançar</a>";
         } else {
             echo "Erro ao cadastrar usuário.";
         }

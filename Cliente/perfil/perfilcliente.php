@@ -1,5 +1,5 @@
 <?php
-session_start(); // Inicia a sessão ou continua a sessão existente
+include '/xampp/htdocs/Projeto/bd/protect.php';
 
 if (!isset($_SESSION['ID_Cliente'])) {
     header("Location: login.php");
