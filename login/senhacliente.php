@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-<?php
-    include '/xampp/htdocs/Projeto/bd/connection.php';
-
-?>
-=======
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,21 +8,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
     <script src="../js/profile.js" defer></script>
-<<<<<<< HEAD
-    <link href="/Projeto/css/padrao.css" rel="stylesheet">
-    <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-</head>
-
-=======
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
 </head>
 <?php
     include ("../bd/connection.php");
     session_start();
 ?>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
+    <!-- Cabeçalho -->
     <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">
         <nav class="container mx-auto flex justify-between items-center">
             <a href="/Projeto/index.php" class="text-xl font-bold text-blue-600">VitalityVibe</a>
@@ -42,6 +29,7 @@
         </nav>
     </header>
 
+    <!-- Espaço para evitar sobreposição do cabeçalho -->
     <div class="h-16"></div>
     <div class="h-16"></div>
     <div class="h-16"></div>
@@ -50,44 +38,27 @@
         <div class="max-w-lg mx-auto bg-white p-8 rounded shadow">
             <h2 id="userName" class="text-3xl font-bold text-center mb-6">Altere Sua Senha</h2>
 
-            <form id="changePasswordForm" method="post" action="senhanutrinova.php" onsubmit="return validarSenha()">
+            <!-- Formulário para alterar senha -->
+            <form id="changePasswordForm" method="post" action="senhanova.php" onsubmit="return validarSenha()">
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Coloque seu email</label>
                     <input name="email" onblur="verificar()" type="email" id="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm" required>
                 </div>
                 <div class="mb-4 relative">
                     <label for="newPassword" class="block text-sm font-medium text-gray-700">Insira sua nova Senha</label>
-<<<<<<< HEAD
-                    <div class ="relative">
-                        <input name="nova_senha" type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
-                        <button type="button" onclick="togglepassword('newPassword', 'toggleIcon')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
-                            <i id="toggleIcon" class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="mb-4 relative">
-                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirme sua nova Senha</label>
-                    <div class ="relative">
-                        <input name="confirm_senha" type="password" id="confirmPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
-                        <button type="button" onclick="togglepassword('confirmPassword', 'toggleConfirmIcon')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
-                            <i id="toggleConfirmIcon" class="fas fa-eye"></i>
-                        </button>
-                        <span id="senhaMatch" class="text-red-500 text-sm hidden">As senhas não coincidem.</span>
-                    </div>
-=======
                     <input name="nova_senha" type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
-                    <button type="button" onclick="togglePasswordVisibility('newPassword')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
+                    <button type="button" onclick="togglePasswordVisibility('newPassword')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5" style="top: 70%; transform: translateY(-50%);">
                         <i id="toggleIcon" class="fas fa-eye"></i>
                     </button>
+
                 </div>
                 <div class="mb-4 relative">
                     <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirme sua nova Senha</label>
                     <input name="confirm_senha" type="password" id="confirmPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
-                    <button type="button" onclick="togglePasswordVisibility('confirmPassword')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
-                        <i id="toggleConfirmIcon" class="fas fa-eye"></i>
+                    <button type="button" onclick="togglePasswordVisibility('confirmPassword')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5" style="top: 70%; transform: translateY(-50%);">
+                        <i id="toggleIcon" class="fas fa-eye"></i>
                     </button>
                     <span id="senhaMatch" class="text-red-500 text-sm hidden">As senhas não coincidem.</span>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                 </div>
                 <div class="text-center">
                     <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Alterar Senha</button>
@@ -96,12 +67,10 @@
         </div>
     </section>
 
-<<<<<<< HEAD
-    <footer class="bg-gray-800 text-white text-center md:text-left mt-auto">
-=======
+    <!-- Rodapé -->
     <footer class="bg-gray-800 text-white text-center md:text-left">
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Links para seções do site -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>
                 <ul>
@@ -109,13 +78,10 @@
                     <li><a href="#features" class="hover:text-blue-400">Recursos</a></li>
                     <li><a href="#contato" class="hover:text-blue-400">Contato</a></li>
                     <li><a href="#login" class="hover:text-blue-400">Login</a></li>
-<<<<<<< HEAD
-                    <li><a href="/Projeto/Cliente/cadastro/cadastrocliente.php" class="hover:text-blue-400">Cadastre-se</a></li>
-=======
                     <li><a href="paginas/entrar" class="hover:text-blue-400">Cadastre-se</a></li>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                 </ul>
             </div>
+            <!-- Informações legais e políticas de uso -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Legal</h5>
                 <ul>
@@ -123,6 +89,7 @@
                     <li><a href="#privacidade" class="hover:text-blue-400">Política de Privacidade</a></li>
                 </ul>
             </div>
+            <!-- Informações de contato -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Contato</h5>
                 <ul>
@@ -130,6 +97,7 @@
                     <li><a href="tel:+123456789" class="hover:text-blue-400">+1 234 567 89</a></li>
                 </ul>
             </div>
+            <!-- Outras informações -->
             <div>
                 <h5 class="uppercase mb-2 font-bold">Mais</h5>
                 <ul>
@@ -140,18 +108,11 @@
                 </ul>
             </div>
         </div>
-<<<<<<< HEAD
-        <div class="footer-info">
-            <p>&copy; 2024 Vitality Vibe. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-=======
         <div class="text-center p-4 bg-gray-700 mt-4">
             <p>&copy; 2024 Vitality Vibe. Todos os direitos reservados.</p>
         </div>
     </footer>
 
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
     <script>
         function verificar() {
             const email = document.getElementById('email').value;

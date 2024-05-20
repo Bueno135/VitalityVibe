@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
 ?>
+=======
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,25 +13,144 @@ session_start();
     <title>VitalityVibe - Página Principal</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
+<<<<<<< HEAD
     <link href="/Projeto/css/tela.css" rel="stylesheet">  
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <script src="/Projeto/js/botaoperfil.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
+=======
+    <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
+    <style>
+        /* Estilos CSS personalizados */
+        .logo {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .footer-info {
+            font-size: 0.875rem;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .image-container a {
+            text-align: center;
+            width: 33.33%;
+            position: relative;
+        }
+
+        .image-container img {
+            height: 150px;
+            width: 550px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .image-container a {
+            text-align: center;
+            width: 33.33%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-container a:hover::before {
+            opacity: 1;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .image-container .receitas-semana img {
+            border: 2px solid #4CAF50;
+            margin-right: 2em;
+            width: 550px;
+            margin-right: 2em;
+        }
+
+        .image-container .contatar-nutri img {
+            border: 2px solid #FF5722;
+            margin-left: 1em; 
+        }
+
+        .image-container .olhar-dieta img {
+            border: 2px solid #2196F3;
+            margin-left: 3em;
+        }
+
+        .image-container .olhar-dieta p {
+            margin: 0;
+            font-size: 18px;
+            color: #4a5568;
+            position: center;  
+            margin-left: 3em;
+        }
+
+        .image-container .contatar-nutri p {
+            margin: 0;
+            font-size: 18px;
+            color: #4a5568;
+            position: center;
+            margin-left: 1em;
+        }
+
+        .image-container .receitas-semana p {
+            margin: 0;
+            font-size: 18px;
+            color: #4a5568;
+            position: center;
+            margin-right: 2em;
+        }
+
+        .image-container p {
+            margin: 0;
+            font-size: 18px;
+            color: #4a5568;
+        }
+
+        body {
+            background-image: url('imagens/fundo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
     
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
     <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="index.php">VitalityVibe</a></h1>
+<<<<<<< HEAD
     <div class="flex items-center">
         <a href="#" class="text-gray-600 hover:text-blue-600 mr-4" onclick="toggleProfileInfo()">
             <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
+=======
+    <div>
+        <a href="#" class="text-gray-600 hover:text-blue-600" onclick="toggleProfileInfo()">
+            <i class="fas fa-user-circle fa-lg"></i>
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         </a>
     </div>
 </header>
 
 <!-- Elemento do perfil -->
+<<<<<<< HEAD
 <div id="profileInfo" class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
     <div class="bg-white p-6 rounded shadow-lg">
         <p>Nome: <?php echo $_SESSION['nome']; ?></p>
@@ -41,6 +163,8 @@ session_start();
 
 
 <!-- Elemento do perfil -->
+=======
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <div id="profileInfo" style="display: none;">
     <p id="userName"></p>
     <p id="userEmail"></p>
@@ -76,7 +200,11 @@ session_start();
 </main>
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
+<<<<<<< HEAD
     <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
+=======
+    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 footer-info">
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         <div>
             <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>
             <ul>
@@ -115,7 +243,11 @@ session_start();
         </div>
     </div>
 
+<<<<<<< HEAD
     <div class="footer-info">
+=======
+    <div class="text-center p-4 bg-gray-700 mt-4 footer-info">
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>
@@ -123,6 +255,7 @@ session_start();
 <!-- Seus scripts JavaScript -->
 <script>
     function showAlert() {
+<<<<<<< HEAD
         Swal.fire({
             position: "top",
             icon: "info",
@@ -133,6 +266,22 @@ session_start();
     }
     
     </script>
+=======
+        alert("Esta página está em manutenção");
+    }
+
+    function toggleProfileInfo() {
+        var profileInfo = document.getElementById("profileInfo");
+        if (profileInfo.style.display === "none") {
+            profileInfo.style.display = "block";
+            // Aqui você pode adicionar lógica para buscar o nome e o email do usuário
+            // e atribuí-los aos elementos de parágrafo #userName e #userEmail
+        } else {
+            profileInfo.style.display = "none";
+        }
+    }
+</script>
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 
 </body>
 </html>

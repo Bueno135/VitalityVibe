@@ -35,27 +35,15 @@
             window.location.href = "/Projeto/login/entrarnutri.php";
         }
         function editarUser(){
-            var naoLogadoComoModerador = true;
+            // Armazena os valores do formulário no localStorage antes de redirecionar
+            const formValues = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value
+                // Adicione outros campos conforme necessário
+            };
+            localStorage.setItem('formValues', JSON.stringify(formValues));
 
-            // Se o usuário não estiver logado como moderador, exiba o alerta
-            if (naoLogadoComoModerador) {
-                Swal.fire({
-<<<<<<< HEAD
-                position: "top",
-                icon: "info",
-                title: "Você não está logado como moderador para acessar essa sessão!",
-                showConfirmButton: false,
-                timer: 1500
-                });
-=======
-            position: "top",
-            icon: "info",
-            title: "Você não está logado como moderador para acessar essa sessão!"
-            showConfirmButton: false,
-            timer: 1500
-            });
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
-    }
+            window.location.href = "/Projeto/cadastro/cadastronutri.php";
         }
     </script>
 </head>
@@ -79,71 +67,111 @@
             <h1 class="text-2xl font-bold">Confirmação de Login</h1>
             <p class="mt-4">Por favor, confirme seus dados:</p>
             <?php
+// Conexão com o banco de dados
 include '/xampp/htdocs/Projeto/bd/connection.php';
 
+// Query para obter os dados dos clientes
 $sql = "SELECT * FROM nutricionista ORDER BY id_nutricionista DESC LIMIT 1";
 $result = $conn->query($sql);
 
+// Verifica se a consulta retornou resultados
 if ($result->num_rows > 0) {
-    echo "<table class='styled-table'>
+    // Exibir cabeçalho da tabela
+    echo "<table class='styled-table'
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>CPF</th>
+                <th>Data de Nascimento</th>
                 <th>Sexo</th>
                 <th>CEP</th>
-                <th>Especialidade</th>
-                <th>Formação</th>
+                
             </tr>";
 
+    // Loop através dos resultados
     while ($row = $result->fetch_assoc()) {
+        // Exibir dados de cada cliente em uma linha da tabela
         echo "<tr>";
         echo "<td>" . $row["id_nutricionista"] . "</td>";
-        echo "<td>" . $row["nome"] . "</td>";
+        echo "<td>" . $row["name"] . "</td>";
         echo "<td>" . $row["email"] . "</td>";
         echo "<td>" . $row["cpf"] . "</td>";
+        echo "<td>" . $row["dt_nasc"] . "</td>";
         echo "<td>" . $row["sexo"] . "</td>";
         echo "<td>" . $row["cep"] . "</td>";
-        
-        // Consulta SQL para obter a especialidade do nutricionista
-        $sql_especialidade = "SELECT nome_especialidade FROM especialidade WHERE id_especialidade = " . $row["id_nutricionista"];
-        $result_especialidade = $conn->query($sql_especialidade);
-        if ($result_especialidade->num_rows > 0) {
-            $row_especialidade = $result_especialidade->fetch_assoc();
-            echo "<td>" . $row_especialidade["nome_especialidade"] . "</td>";
-        } else {
-            echo "<td>Não especificada</td>";
-        }
-        
-        // Consulta SQL para obter a formação do nutricionista
-        $sql_formacao = "SELECT nome_formacao FROM formacao WHERE id_formacao = " . $row["id_nutricionista"];
-        $result_formacao = $conn->query($sql_formacao);
-        if ($result_formacao->num_rows > 0) {
-            $row_formacao = $result_formacao->fetch_assoc();
-            echo "<td>" . $row_formacao["nome_formacao"] . "</td>";
-        } else {
-            echo "<td>Não especificada</td>";
-        }
-
         echo "</tr>";
     }
+
+    // Fechar tabela
     echo "</table>";
 } else {
     echo "Nenhum nutricionista encontrado";
 }
 
+// Fechar conexão
 $conn->close();
 ?>
+<?php
+    // Se houver dados no localStorage, exiba-os no formulário
+    session_start();
 
+    if (!empty($_SESSION['formValues'])) {
+        $formValues = json_decode($_SESSION['formValues'], true);
+        echo '<script>';
+        echo 'document.getElementById("name").value = "' . $formValues['name'] . '";';
+        echo 'document.getElementById("email").value = "' . $formValues['email'] . '";';
+        // Adicione mais campos conforme necessário
+        echo '</script>';
+    }
 
+?>
             <div class="mt-4 flex justify-between">
                 <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmarUser()">Confirmar</button>
                 <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="editarUser()">Editar</button>
             </div>
         </div>
     </div>
+    <script>
+    function confirmarUser() {
+        window.location.href = "/Projeto/login/entrarnutri.php";
+    }
+
+    function editarUser() {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var cpf = document.getElementById('cpf').value;
+    var telefone = document.getElementById('telefone').value;
+    var cep = document.getElementById('CEP').value;
+    var formacao = document.getElementById('formação').value;
+    var especialidade = document.getElementById('especialidade').value;
+
+   
+    if (!name || !email || !cpf || !telefone || !cep) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return;
+    }
+
+
+    var formValues = {
+        name: name,
+        email: email,
+        cpf: cpf,
+        telefone: telefone,
+        cep: cep,
+        formacao: formacao,
+        especialidade: especialidade
+        
+    };
+
     
+    localStorage.setItem('formValues', JSON.stringify(formValues));
+
+    
+    window.location.href = "/Projeto/cadastro/cadastronutri.php";
+}
+
+</script>
 </body>
 </html>
 

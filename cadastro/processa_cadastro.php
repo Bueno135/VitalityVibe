@@ -24,57 +24,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $retorno = mysqli_query($conn, $sql);
     if(mysqli_num_rows($retorno) > 0) {
         echo"CPF Já cadastrado<BR>";
-<<<<<<< HEAD
-        echo"<a href='/Projeto/Cliente/cadastro/cadastrocliente.php'>Voltar</a>";
-=======
         echo"<a href=cadastrocliente.php>Voltar</a>";
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         exit();
     
     } else if(mysqli_num_rows($retorno2) > 0) {
         echo"Email Já cadastrado<BR>";
-<<<<<<< HEAD
-        echo"<a href='/Projeto/Cliente/cadastro/cadastrocliente.php'>Voltar</a>";
-=======
         echo"<a href=cadastrocliente.php>Voltar</a>";
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         exit();
     } else {
         $nome = $_POST['nome'];
         $senha = $_POST['senha'];
         $dt_nasc = $_POST['dt_nasc'];
         $sexo = $_POST['sexo'];
-<<<<<<< HEAD
-        $telefone = $_POST['telefone'];
-=======
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         $cep = $_POST['cep'];
         $problema_saude = $_POST['problema_saude'];
         $alergias = $_POST['alergias'];
         $peso = $_POST['peso'];
-<<<<<<< HEAD
-        $freq_atv_fisica = $_POST['freq_atv_fisica'];
         $altura = $_POST['altura'];
-        $med_controlado = $_POST['med_controlado'];
 
-        $sql3 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, telefone,  problema_saude, freq_atv_fisica, alergias, peso, altura, med_controlado) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$problema_saude', '$freq_atv_fisica', '$telefone', '$alergias', '$peso','$altura', '$med_controlado')";
-=======
-        $altura = $_POST['altura'];
-        $med_controlado = $_POST['med_controlado'];
+        $sql3 = "INSERT INTO grafico (peso) VALUES ('$peso')";
+        $resultado1 = mysqli_query($conn, $sql3);
 
-        $sql3 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, problema_saude, alergias, peso, altura, med_controlado) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$problema_saude', '$alergias', '$peso','$altura', '$med_controlado')";
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
-        $resultado = mysqli_query($conn, $sql3);
+        $sql4 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, problema_saude, alergias, altura) 
+        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$problema_saude', '$alergias', '$altura')";
+        $resultado2 = mysqli_query($conn, $sql4);
 
-        if($resultado) {
+        if($resultado1 && $resultado2) {
             echo"Usuario cadastrado!!<BR>";
-<<<<<<< HEAD
-            echo"<a href='/Projeto/Cliente/login/entrarcliente.php'>Avançar</a>";
-=======
             echo"<a href=confirmarcadastro.php>Avançar</a>";
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
         } else {
             echo "Erro ao cadastrar usuário.";
         }
@@ -86,8 +63,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d

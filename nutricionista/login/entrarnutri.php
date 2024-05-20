@@ -8,6 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+<<<<<<< HEAD
+=======
+    <script src="../js/login-form.js" defer></script>
+    <script src="../js/header.js" defer></script>
+    <script src="../js/inicio.js" defer></script>
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
 
 </head>
@@ -21,7 +27,11 @@
                 <a href="#features" class="mx-2 hover:text-blue-500">Recursos</a>
                 <a href="#contato" class="mx-2 hover:text-blue-500">Contato</a>
                 <a href="#login" class="mx-2 hover:text-blue-500">Login</a>
+<<<<<<< HEAD
                 <a href="/Projeto/nutricionista/cadastro/cadastronutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
+=======
+                <a href="/Projeto/cadastro/cadastronutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
             </div>
         </nav>
     </header>
@@ -32,7 +42,11 @@
                 
                 <div id="loginForm">
                     <h2 class="text-3xl font-bold text-center mb-6">Login no VitalityVibe</h2>
+<<<<<<< HEAD
                     <form action="/Projeto/nutricionista/login/loginnutri.php" method="post" id="form-login">
+=======
+                    <form action="/Projeto/login/loginnutri.php" method="post" id="form-login">
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                         <div id="mensagem" class="mb-4">
                             <label for="emailLogin" class="block text-sm font-medium text-gray-700">E-mail</label>
                             <input type="email" id="emailLogin" name="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -50,8 +64,13 @@
             
                 <div class="flex justify-center mb-6 mt-4">
                     
+<<<<<<< HEAD
                     <a href="/Projeto/nutricionista/cadastro/cadastronutri.php" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-1">Cadastre-se</a>
                     <a href="/Projeto/nutricionista/login/senhanutri.php" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-900 mx-1">Alterar Senha</a>
+=======
+                    <a href="/Projeto/cadastro/cadastronutri.php" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mx-1">Cadastre-se</a>
+                    <a href="/Projeto/login/senhanutri.php" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-900 mx-1">Alterar Senha</a>
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                 </div>
                 
             </div>

@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
 ?>
+=======
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,17 +12,122 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escolha o Nutricionista - VitalityVibe</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
+<<<<<<< HEAD
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <script src="/Projeto/js/botaoperfil.js"></script>
     <link href="/Projeto/css/contatarnutri.css" rel="stylesheet">  
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     
+=======
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
+    <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
+    <style>
+        /* Adicione estilos CSS personalizados aqui */
+        .logo {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .footer-info {
+            font-size: 0.875rem;
+        }
+
+        .nutricionista-box {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nutricionista-box h2 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input[type="text"] {
+            flex-grow: 1;
+            padding: 8px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #45a049;
+        }
+
+        .nutricionista-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nutricionista-item {
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nutricionista-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Estilo para a exibição dos detalhes */
+        .nutricionista-details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        /* Estilo para o botão Avançar */
+        .btn-avancar {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* Estilo para a mensagem de conexão */
+        .conexão-ok {
+            display: none;
+        }
+    </style>
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
     <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="index.php">VitalityVibe</a></h1>
+<<<<<<< HEAD
     <div class="flex items-center">
         <a href="#" class="text-gray-600 hover:text-blue-600 mr-4" onclick="toggleProfileInfo()">
             <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
@@ -36,6 +144,14 @@ session_start();
         <button id="editarperfil" onclick="editarperfil()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Editar perfil</button>
     </div>
 </div>
+=======
+    <div>
+        <a href="#" class="text-gray-600 hover:text-blue-600"><i class="fas fa-user-circle fa-lg"></i></a>
+    </div>
+</header>
+
+<div class="h-16"></div>
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
 
 <main class="flex-grow">
     <section class="my-1 p-10">
@@ -64,7 +180,10 @@ session_start();
                             } else {
                                 echo '<p><strong>Formação:</strong> Não especificada</p>';
                             }
+<<<<<<< HEAD
                             
+=======
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                             // Verifica se a chave 'email' está definida antes de acessá-la
                             if(isset($row['email'])) {
                                 echo '<p><strong>Email:</strong> ' . $row['email'] . '</p>';
@@ -78,7 +197,11 @@ session_start();
                                 echo '<p><strong>Telefone:</strong> Não especificado</p>';
                             }
                             // Adicionando botão Avançar
+<<<<<<< HEAD
                             echo '<div class="btn-avancar"><a href="avancarnutri.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
+=======
+                            echo '<div class="btn-avancar"><a href="avançarnutri.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
+>>>>>>> efbd70cd98857f85ab17a6b9ebaed18fba0e4b9d
                             // Adicione outros detalhes aqui, conforme necessário
                             echo '</div>';
                         }
