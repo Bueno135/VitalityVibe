@@ -14,7 +14,17 @@ session_start();
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <script src="/Projeto/js/botaoperfil.js"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-    
+    <script>
+        function toggleTextarea() {
+            var dropdown = document.getElementById('opcaoConversa');
+            var textarea = document.getElementById('outroOpcao');
+            if (dropdown.value) {
+                textarea.style.display = 'block';
+            } else {
+                textarea.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
@@ -22,7 +32,7 @@ session_start();
     <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="index.php">VitalityVibe</a></h1>
     <div class="flex items-center">
         <a href="#" class="text-gray-600 hover:text-blue-600 mr-4" onclick="toggleProfileInfo()">
-            <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
+            <i class="fas fa-user-circle fa-lg"></i> <?php echo htmlspecialchars($_SESSION['nome']); ?>
         </a>
     </div>
 </header>
@@ -30,8 +40,8 @@ session_start();
 <!-- Elemento do perfil -->
 <div id="profileInfo" class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
     <div class="bg-white p-6 rounded shadow-lg">
-        <p>Nome: <?php echo $_SESSION['nome']; ?></p>
-        <p>Email: <?php echo $_SESSION['email']; ?></p>
+        <p>Nome: <?php echo htmlspecialchars($_SESSION['nome']); ?></p>
+        <p>Email: <?php echo htmlspecialchars($_SESSION['email']); ?></p>
         <button id="openProfileInfo" onclick="deslogar()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Deslogar</button>
         <button id="editarperfil" onclick="editarperfil()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Editar perfil</button>
     </div>
@@ -42,14 +52,14 @@ session_start();
 <main class="flex-grow">
     <section class="my-1 p-10">
         <div class="max-w-lg mx-auto nutricionista-box">
-            <h2>Avançar - Escolha o Tópico da Conversa</h2>
+            <h2 class="text-xl font-bold mb-4">Avançar - Escolha o Tópico da Conversa</h2>
             <?php
                 // Verificar se foi passado o nome do nutricionista na URL
-                if (isset($_GET['nutricionista'])) {
-                    $nutricionista = $_GET['nutricionista'];
-                    echo '<h3>Escolha sobre o que vocês querem conversar com '.$nutricionista.'</h3>';
+                if (isset($_GET['nutricionista']) && !empty($_GET['nutricionista'])) {
+                    $nutricionista = htmlspecialchars($_GET['nutricionista']);
+                    echo '<h3 class="text-lg mb-4">Escolha sobre o que você quere conversar com '.$nutricionista.'</h3>';
                 } else {
-                    echo '<p>Nutricionista não especificado.</p>';
+                    echo '<p class="text-red-500">Nutricionista não especificado.</p>';
                 }
             ?>
             <div class="opcoes-conversa">
@@ -60,31 +70,25 @@ session_start();
                             echo '<input type="hidden" name="nutricionista" value="'.$nutricionista.'">';
                         }
                     ?>
-                    <label>
-                        <input type="radio" name="opcao_conversa" value="plano_alimentar" checked>
-                        Sobre o seu plano alimentar
-                    </label>
-                    <label>
-                        <input type="radio" name="opcao_conversa" value="perda_peso">
-                        Sobre perda de peso
-                    </label>
-                    <label>
-                        <input type="radio" name="opcao_conversa" value="ganho_peso">
-                        Sobre ganho de peso
-                    </label>
-                    <label>
-                        <input type="radio" name="opcao_conversa" value="outro">
-                        Outro
-                    </label>
-                    <textarea name="outro_opcao" rows="4" placeholder="Digite sua mensagem aqui..."></textarea>
-                    <button type="submit">Enviar</button>
+                    <div class="mb-4">
+                        <label for="opcaoConversa" class="block mb-2">Escolha um tópico:</label>
+                        <select id="opcaoConversa" name="opcao_conversa" class="w-full p-2 border rounded" onchange="toggleTextarea()">
+                            <option value="">Selecione um tópico</option>
+                            <option value="plano_alimentar">Sobre o seu plano alimentar</option>
+                            <option value="perda_peso">Sobre perda de peso</option>
+                            <option value="ganho_peso">Sobre ganho de peso</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                    <textarea id="outroOpcao" name="outro_opcao" rows="4" placeholder="Digite sua mensagem aqui..." style="display:none;" class="w-full p-2 border rounded"></textarea>
+                    <button type="submit" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded">Enviar</button>
                 </form>
             </div>
         </div>
     </section>
 </main>
 
-<footer class="bg-gray-800 text-white text-center md:text-left">
+<footer class="bg-gray-800 text-white text-center md:text-left p-4">
     <div class="footer-info">
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
@@ -92,3 +96,4 @@ session_start();
 
 </body>
 </html>
+
