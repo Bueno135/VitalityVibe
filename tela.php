@@ -21,9 +21,9 @@ session_start();
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
+
     <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="tela.php">VitalityVibe</a></h1>
     <div class="flex items-center">
-        <div class="relative">
             <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
             </button>
@@ -39,8 +39,8 @@ session_start();
 
 
 
-
-
+    <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="index.php">VitalityVibe</a></h1>
+    <div class="flex items-center">
 <!-- Elemento do perfil -->
 <div id="profileInfo" style="display: none;">
     <p id="userName"></p>

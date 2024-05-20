@@ -84,7 +84,6 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
         <div>
             <h5 class="uppercase mb-2 font-bold">Contato</h5>
             <ul>
-                <li><a href="mailto:info@clevereats.com" class="hover:text-blue-400">info@vitalityvibe.com</a></li>
                 <li><a href="tel:+123456789" class="hover:text-blue-400">+1 234 567 89</a></li>
             </ul>
         </div>

@@ -16,5 +16,5 @@ git push -u origin "sua branch"
 
 Puxar da main:
 git branch -M main
-git pull origin main --allow-unrelated-histories
+git pull origin nicolas --allow-unrelated-histories
 
