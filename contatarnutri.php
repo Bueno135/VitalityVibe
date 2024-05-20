@@ -1,6 +1,6 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-include '/xampp/htdocs/Projeto/bd/protect.php'
+include '/xampp/htdocs/Projeto/bd/protect.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -36,8 +36,6 @@ include '/xampp/htdocs/Projeto/bd/protect.php'
         <button id="editarperfil" onclick="editarperfil()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Editar perfil</button>
     </div>
 </div>
-
-<div class="h-16"></div>
 
 <main class="flex-grow">
     <section class="my-1 p-10">
@@ -93,7 +91,7 @@ include '/xampp/htdocs/Projeto/bd/protect.php'
 </main>
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
-    <div class="footer-info">
+    <div class="container mx-auto p-6">
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>
@@ -118,12 +116,8 @@ include '/xampp/htdocs/Projeto/bd/protect.php'
     }
 
     function showNutricionistaDetails(element) {
-        // Obtém o ID do nutricionista a partir do elemento clicado
-        var nutricionistaId = element.id;
-        // Obtém o ID da div de detalhes do nutricionista
-        var detailsId = nutricionistaId + '_details';
-        // Seleciona a div de detalhes do nutricionista
-        var detailsDiv = document.getElementById(detailsId);
+        // Seleciona a div de detalhes do nutricionista correspondente ao elemento clicado
+        var detailsDiv = element.nextElementSibling;
         // Alterna a visibilidade da div de detalhes
         if (detailsDiv.style.display === 'none') {
             detailsDiv.style.display = 'block';
