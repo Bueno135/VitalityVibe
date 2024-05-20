@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $senha = $_POST['senha'];
         $dt_nasc = $_POST['dt_nasc'];
         $sexo = $_POST['sexo'];
+        $senha_hash = password_hash($senha, PASSWORD_DEFAULT); // Hash da senha
         $telefone = $_POST['telefone'];
         $cep = $_POST['cep'];
         $problema_saude = $_POST['problema_saude'];
@@ -46,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $med_controlado = $_POST['med_controlado'];
 
         $sql3 = "INSERT INTO cliente (nome, email, senha, cpf, dt_nasc, sexo, cep, telefone,  problema_saude, freq_atv_fisica, alergias, peso, altura, med_controlado) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$problema_saude', '$freq_atv_fisica', '$telefone', '$alergias', '$peso','$altura', '$med_controlado')";
+        VALUES ('$nome', '$email', '$senha_hash', '$cpf', '$dt_nasc', '$sexo', '$cep',  '$problema_saude', '$freq_atv_fisica', '$telefone', '$alergias', '$peso','$altura', '$med_controlado')";
         $resultado = mysqli_query($conn, $sql3);
 
         if($resultado) {

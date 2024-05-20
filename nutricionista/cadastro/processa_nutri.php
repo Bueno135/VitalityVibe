@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verificar cadastro</title>
-</head>
-<body>
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include '/xampp/htdocs/Projeto/bd/connection.php';
@@ -34,17 +26,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $nome = $_POST['nome'] ?? '';
         $senha = $_POST['senha'] ?? '';
+        $senha_hash = password_hash($senha, PASSWORD_DEFAULT); // Hash da senha
         $sexo = $_POST['sexo'] ?? '';
         $telefone = $_POST['telefone']?? '';
         $cep = $_POST['cep'] ?? '';
         $crn = $_POST['crn'] ?? '';
         $formacao = $_POST['formacao'] ?? '';
         $especialidade = $_POST['especialidade'] ?? '';
-        
         $sql5 = "INSERT INTO especialidade (nome_especialidade) VALUES ('$especialidade')";
         $resultado4 = mysqli_query($conn, $sql5);
         $sql4 = "INSERT INTO nutricionista (nome, email, senha, cpf, telefone, sexo, cep, crn, formacao) 
-        VALUES ('$nome', '$email', '$senha', '$cpf', '$telefone', '$sexo', '$cep', '$crn', '$formacao')";
+        VALUES ('$nome', '$email', '$senha_hash', '$cpf', '$telefone', '$sexo', '$cep', '$crn', '$formacao')";
         $resultado2 = mysqli_query($conn, $sql4);
 
         if($resultado2) {
@@ -59,13 +51,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Não foi por POST";
 }
 ?>
-
-
-</body>
-</html>
-
-
-
-</body>
-</html>
-

@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($quantidade == 1) {
         $nutricionista = $result->fetch_assoc();
-        var_dump($nutricionista);
+        
         // Verifica a senha usando password_verify
         if (password_verify($senha, $nutricionista['senha'])) {
             
