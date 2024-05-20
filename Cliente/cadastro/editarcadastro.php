@@ -7,10 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
-    <script src="../js/cep.js" defer></script>
-    <script src="../js/telefone.js" defer></script>
-    <script src="../js/cpf.js" defer></script>
-    <script src="../js/validarCPF.js" defer></script>
+    <script src="/Projeto/js/cep.js" defer></script>
+    <script src="/Projeto/js/telefone.js" defer></script>
+    <script src="/Projeto/js/cpf.js" defer></script>
+    <script src="/Projeto/js/validarCPF.js" defer></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
     .mb-6{
@@ -22,41 +22,37 @@
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <?php
-include '/xampp/htdocs/Projeto/bd/connection.php';
+        include '/xampp/htdocs/Projeto/bd/connection.php';
+        session_start();
 
-$cliente = null; // Defina a variável antes do bloco condicional
-$sql_last_id = "SELECT ID_cliente FROM cliente ORDER BY ID_cliente DESC LIMIT 1";
-$result_last_id = $conn->query($sql_last_id);
+        if (!isset($_SESSION['ID_Cliente'])) {
+            header("Location: tela.php");
+            exit;
+        }
 
-if ($result_last_id->num_rows > 0) {
-    $row_last_id = $result_last_id->fetch_assoc();
-    $last_id = $row_last_id['ID_cliente'];
+        $email = $_SESSION['email'];
 
-    $sql_select = "SELECT * FROM cliente WHERE ID_cliente = $last_id";
-    $result_select = $conn->query($sql_select);
+        $stmt = $conn->prepare("SELECT * FROM cliente WHERE email=?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    if ($result_select->num_rows > 0) {
-        $cliente = $result_select->fetch_assoc();
+        if ($result->num_rows > 0) {
+            $cliente = $result->fetch_assoc();
 
-        $nome = $cliente['nome'];
-        $email = $cliente['email'];
-        $cpf = $cliente['cpf'];
-        $telefone = $cliente['telefone'];
-        $cep = $cliente['cep'];
-        $altura = $cliente['altura'];
-        $peso = $cliente['peso'];
-        $dt_nasc = $cliente['dt_nasc'];
-        $alergias = $cliente['alergias'];
-        $problema_saude = $cliente['problema_saude'];
-        $med_controlado = $cliente['med_controlado'];
-    } else {
-        echo "Cliente não encontrado";
-    }
-} else {
-    echo "Não há clientes cadastrados";
-}
+            $nome = $cliente['nome'];
+            $email = $cliente['email'];
+            $dt_nasc = $cliente['dt_nasc'];
+            $sexo = $cliente['sexo'];
+            $cpf = $cliente['cpf'];
+            $telefone = $cliente['telefone'];
+            $cep = $cliente['cep'];
+            
+        } else {
+            echo "Cliente não encontrado";
+        }
 
-$conn->close();
+    $conn->close();
 ?>
 
         <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">
@@ -104,7 +100,7 @@ $conn->close();
                         <div id="idadeAviso" class="hidden text-red-500 mb-4">Site Proibido Para Menores de 16 Anos.</div>
                         <div class="mb-6">
                             <label for="sexo" class="block text-sm font-medium text-gray-700">Sexo</label>
-                            <select id="sexo" name="sexo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <select id="sexo" name="sexo" value="<?php echo $cliente['sexo']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                                 <option value="" disabled selected>Selecione...</option>
                                 <option value="masculino">Masculino</option>
                                 <option value="feminino">Feminino</option>
@@ -116,40 +112,7 @@ $conn->close();
                             <label for="cep" class="block text-sm font-medium text-gray-700">CEP</label>
                             <input type="text" id="cep" name="cep" inputmode="numeric" pattern="[0-9]{5}-[0-9]{3}" maxlength="9" placeholder="_____-__" value="<?php echo $cliente['cep']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div> 
-                        <div class="mb-6">
-                            <label for="obj" class="block text-sm font-medium text-gray-700">Objetivo</label>
-                            <select id="obj" name="objetivo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                                <option value="" disabled selected>Selecione...</option>
-                                <option value="perda">Perda de Peso</option>
-                                <option value="ganho">Ganho de Peso</option>
-                                <option value="saude">Melhora na Saúde</option>
-                                <option value="atletica">Melhora na Performace Atlética</option>
-                                <option value="epesificas">Melhora em Condições Específicas</option>
-                                <option value="habitos">Melhoria dos Hábitos Alimentares</option>
-                                <option value="disturbios">Construir um Controle de Distúrbios Alimentares</option>
-                                <option value="outros">Outros...</option>
-                            </select>
-                        </div>
-                        <div class="mb-6">
-                            <label for="problem" class="block text-sm font-medium text-gray-700">Você tem algum problema de saúde? Se sim, qual(s)?</label>
-                            <input type="text" id="problem" name="problema_saude" value="<?php echo $cliente['problema_saude']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="med" class="block text-sm font-medium text-gray-700">Você utiliza de algum medicamento controlado? Se sim qual(s)?</label>
-                            <input type="text" id="med" name="medicamentoControlado" value="<?php echo $cliente['nome']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="alergias" class="block text-sm font-medium text-gray-700">Você é alergico a algum alimento? Se sim, qual(s)?</label>
-                            <input type="text" id="alergias" name="alergias" value="<?php echo $cliente['med_controlado']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="peso" class="block text-sm font-medium text-gray-700">Qual o seu peso?(Em Quilograma/Kg)</label>
-                            <input type="text" id="Peso" name="peso" inputmode="numeric" pattern="[0-9]*" maxlength="3"  value="<?php echo $cliente['peso']; ?>"  class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="altura" class="block text-sm font-medium text-gray-700">Qual a sua altura?(Em Metros/M)</label>
-                            <input type="text" id="Altura" name="altura" placeholder="Digite sua altura em metros (Ex: 1.75)" maxlength="3" value="<?php echo $cliente['altura']; ?>"  class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
-                        </div>
+                        
                         <div class="text-center">
                             <button type="submit" id="resultado"  value="Enviar" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Concluir Cadastro</button>
                         </div>

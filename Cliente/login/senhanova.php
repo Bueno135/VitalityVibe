@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             icon: 'success',
             confirmButtonText: 'OK'
         }).then(() => {
-            window.location.href = 'C:/xampp/htdocs/Projeto/Cliente/login/entrarcliente.phpp'; // Redirecionar para login.php após o OK
+            window.location.href = '/Projeto/Cliente/login/entrarcliente.php'; // Redirecionar para login.php após o OK
         });
         </script>";
         exit();

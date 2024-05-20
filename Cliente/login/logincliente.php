@@ -1,5 +1,4 @@
 <?php
-session_start();
 include '/xampp/htdocs/Projeto/bd/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -7,28 +6,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
+    $email = $conn->real_escape_string($_POST['email']);
+    $senha = $conn->real_escape_string($_POST['senha']);
 
     // Adiciona um echo para verificar se os dados estão sendo recebidos
     // echo "Email: $email, Senha: $senha";
-
     $stmt = $conn->prepare("SELECT * FROM cliente WHERE email=?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
+    $quantidade = $result->num_rows;
 
-    if ($result->num_rows > 0) {
-        $usuario = $result->fetch_assoc();
-
-        // Adiciona um echo para verificar o hash da senha no banco de dados
-        // echo "Senha do banco de dados: " . $usuario['senha'];
+    if ($quantidade == 1) {
+        $cliente = $result->fetch_assoc();
 
         // Verifica a senha usando password_verify
-        if (password_verify($senha, $usuario['senha'])) {
+        if (password_verify($senha, $cliente['senha'])) {
+
+            if(!isset($_SESSION)){
+                session_start();
+            }        
             // Senha correta, faça o login
+            $_SESSION['ID_Cliente'] = $cliente['ID_Cliente']; // Defina a ID do cliente na sessão
             $_SESSION['email'] = $email;
-            $_SESSION['nome'] = $usuario['nome']; // Se 'nome' é o campo correto para o nome do cliente
+            $_SESSION['nome'] = $cliente['nome']; // Se 'nome' é o campo correto para o nome do cliente
+
             header('Location: /Projeto/tela.php');
             exit();
         } else {
@@ -39,6 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Usuário não encontrado
         $erro = 'Erro de login: Usuário não encontrado';
     }
+
+    $stmt->close();
+    $conn->close();
 }
 
 // Exibição de erro genérico
@@ -48,4 +53,4 @@ if (isset($erro)) {
         </div><br>";
     echo "<a href='entrarcliente.php'>Voltar</a>";
 }
-
+?>

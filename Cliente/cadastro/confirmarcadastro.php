@@ -91,7 +91,8 @@
         ?>
         <div class="mt-4 flex justify-between">
             <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmar()">Confirmar</button>
-            <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="mandarEditar()">Editar</button>
+            <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="mandarEditar()">Editar informações de cadastro</button>
+            <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="mandarEditaAdicionais()">Editar informações pessoais</button>
         </div>
     </div>
 
@@ -100,7 +101,10 @@
             window.location.href = "editarcadastro.php";
         }
         function confirmar(){
-            window.location.href = "entrarcliente.php";
+            window.location.href = "/Projeto/tela.php";
+        }
+        function mandarEditarAdicionais(){
+            window.location.href = "editarcadastro.php";
         }
     </script>
 </body>

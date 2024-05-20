@@ -11,6 +11,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/profile.js" defer></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <?php
     include '/xampp/htdocs/Projeto/bd/connection.php';
@@ -34,34 +40,34 @@
     <div class="h-16"></div>
     <div class="h-16"></div>
 
-    <section class="container mx-auto my-0 p-6">
+    <section class="container mx-auto my-0 p-6 flex-grow">
         <div class="max-w-lg mx-auto bg-white p-8 rounded shadow">
             <h2 id="userName" class="text-3xl font-bold text-center mb-6">Altere Sua Senha</h2>
 
             <form id="changePasswordForm" method="post" action="senhanova.php" onsubmit="return validarSenha()">
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Coloque seu email</label>
-                    <input name="email" onblur="verificar()" type="email" id="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm" required>
+                    <input name="email" type="email" id="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm" required>
+                </div>
                 <div class="mb-4 relative">
                     <label for="newPassword" class="block text-sm font-medium text-gray-700">Insira sua nova Senha</label>
                     <div class ="relative">
-                    <input name="nova_senha" type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
-                    <button type="button" onclick="togglePasswordVisibility('newPassword', 'toggleIcon')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
-                        <i id="toggleIcon" class="fas fa-eye"></i>
-                    </button>
+                        <input name="nova_senha" type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
+                        <button type="button" onclick="togglepassword('newPassword', 'toggleIcon')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
+                            <i id="toggleIcon" class="fas fa-eye"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="mb-4 relative">
                     <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirme sua nova Senha</label>
                     <div class ="relative">
-                    <input name="confirm_senha" type="password" id="confirmPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
-                    <button type="button" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmIcon')" class="absoulte inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
-                        <i id="toggleConfirmIcon" class="fas fa-eye"></i>
-                    </button>
-                    <span id="senhaMatch" class="text-red-500 text-sm hidden">As senhas não coincidem.</span>
+                        <input name="confirm_senha" type="password" id="confirmPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
+                        <button type="button" onclick="togglepassword('confirmPassword', 'toggleConfirmIcon')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
+                            <i id="toggleConfirmIcon" class="fas fa-eye"></i>
+                        </button>
+                        <span id="senhaMatch" class="text-red-500 text-sm hidden">As senhas não coincidem.</span>
                     </div>
                 </div>
-
 
                 <div class="text-center">
                     <button type="submit" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">Alterar Senha</button>
@@ -71,27 +77,10 @@
     </section>
 
     <script>
-        function verificar() {
-            const email = document.getElementById('email').value;
-            if (email === '<?php echo $_SESSION["email"] ?>') {
-                Swal.fire({
-                    title: "Email verificado",
-                    text: "O email corresponde ao usuário logado.",
-                    icon: "success"
-                });
-            } else {
-                Swal.fire({
-                    title: "Email inválido",
-                    text: "O email não corresponde ao usuário logado.",
-                    icon: "error"
-                });
-            }
-        }
-
-        function togglePasswordVisibility(inputId, iconId) {
+       function togglepassword(inputId, iconId) {
             var passwordInput = document.getElementById(inputId);
             var toggleIcon = document.getElementById(iconId);
-            if (passwordInput.type === 'password') {
+            if (passwordInput.type === 'passowrd') {
                 passwordInput.type = 'text';
                 toggleIcon.classList.remove('fa-eye');
                 toggleIcon.classList.add('fa-eye-slash');
@@ -107,19 +96,16 @@
             var confirmPassword = document.getElementById('confirmPassword').value;
             var senhaMatch = document.getElementById('senhaMatch');
 
-        if (newPassword !== confirmPassword) {
-            // Exibe a mensagem de erro
-            senhaMatch.classList.remove('hidden');
-            // Impede o envio do formulário
-            return false;
-        } else {
-            // Esconde a mensagem de erro
-            senhaMatch.classList.add('hidden');
-            return true;
+            if (newPassword !== confirmPassword) {
+                senhaMatch.classList.remove('hidden');
+                return false;
+            } else {
+                senhaMatch.classList.add('hidden');
+                return true;
+            }
         }
-    }
     </script>
-    <footer class="bg-gray-800 text-white text-center md:text-left">
+    <footer class="bg-gray-800 text-white text-center md:text-left mt-auto">
         <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
                 <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>

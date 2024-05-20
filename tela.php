@@ -1,15 +1,7 @@
 <?php
+include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
-
-if (!isset($_SESSION['ID_Cliente'])) {
-    header("Location: tela.php");
-    exit;
-}
-
-$name = $_SESSION['nome'];
 ?>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -28,12 +20,24 @@ $name = $_SESSION['nome'];
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
     <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="index.php">VitalityVibe</a></h1>
-    <div>
-        <a href="#" class="text-gray-600 hover:text-blue-600" onclick="toggleProfileInfo()">
-            <i class="fas fa-user-circle fa-lg"></i> <?php echo htmlspecialchars($name); ?>
+    <div class="flex items-center">
+        <a href="#" class="text-gray-600 hover:text-blue-600 mr-4" onclick="toggleProfileInfo()">
+            <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
         </a>
     </div>
 </header>
+
+<!-- Elemento do perfil -->
+<div id="profileInfo" class="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded shadow-lg">
+        <p>Nome: <?php echo $_SESSION['nome']; ?></p>
+        <p>Email: <?php echo $_SESSION['email']; ?></p>
+        <button id="openProfileInfo" action="logout.php" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Deslogar</button>
+        <button id="editarperfil" onclick="editarperfil()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">Editar perfil</button>
+    </div>
+</div>
+
+
 
 <!-- Elemento do perfil -->
 <div id="profileInfo" style="display: none;">
@@ -126,17 +130,19 @@ $name = $_SESSION['nome'];
             timer: 1500
             });
     }
-    
+    function editarperfil(){
+        window.location.href = '/Projeto/Cliente/Cadastro/confirmarcadastro.php';
+    }
 
     
-        function toggleProfileInfo() {
-            var profileInfo = document.getElementById('profileInfo');
-            if (profileInfo.classList.contains('hidden')) {
-                profileInfo.classList.remove('hidden');
-            } else {
-                profileInfo.classList.add('hidden');
-            }
+    function toggleProfileInfo() {
+        var profileInfo = document.getElementById('profileInfo');
+        if (profileInfo.classList.contains('hidden')) {
+            profileInfo.classList.remove('hidden');
+        } else {
+            profileInfo.classList.add('hidden');
         }
+    }
     </script>
 
 </body>
