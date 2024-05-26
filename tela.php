@@ -112,7 +112,6 @@ session_start();
     </div>
 </footer>
 
-
 <!-- Seus scripts JavaScript -->
 <script>
     function showAlert() {

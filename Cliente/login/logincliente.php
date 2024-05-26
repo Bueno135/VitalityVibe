@@ -53,4 +53,3 @@ if (isset($erro)) {
         </div><br>";
     echo "<a href='entrarcliente.php'>Voltar</a>";
 }
-
