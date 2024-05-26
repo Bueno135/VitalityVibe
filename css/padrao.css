@@ -5,3 +5,65 @@
     margin-top: 4px;
     text-align: center;
 }
+/* Definições básicas de fonte e corpo */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f7fafc;
+    color: #4a5568;
+}
+
+/* Estilos para links */
+a {
+    color: #3182ce;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2b6cb0;
+}
+
+/* Estilo para títulos principais */
+h1, h2, h3, h4, h5, h6 {
+    color: #2d3748;
+}
+
+/* Container principal para padronizar o layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Estilo para botões */
+button {
+    background-color: #3182ce;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2b6cb0;
+}
+
+/* Footer */
+footer {
+    background-color: #0b1320;
+    color: white;
+    padding: 1rem 0;
+}
+
+footer a {
+    color: #63b3ed;
+}
+
+footer a:hover {
+    color: #3182ce;
+}
+
+/* Estilo para esconder elementos */
+.hidden {
+    display: none;
+}

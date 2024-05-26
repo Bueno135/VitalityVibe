@@ -17,18 +17,19 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     
+    
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
-
-    <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="tela.php">VitalityVibe</a></h1>
+    <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="tela.php">VitalityVibe</a></h1>
     <div class="flex items-center">
+        <div class="relative">
             <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
-                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']);; ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
                 <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
                 <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
                 <button id="editarperfil" onclick="editarperfil()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
@@ -36,16 +37,6 @@ session_start();
         </div>
     </div>
 </header>
-
-
-
-    <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="index.php">VitalityVibe</a></h1>
-    <div class="flex items-center">
-<!-- Elemento do perfil -->
-<div id="profileInfo" style="display: none;">
-    <p id="userName"></p>
-    <p id="userEmail"></p>
-</div>
 
 <div class="h-16"></div>
 
@@ -77,7 +68,7 @@ session_start();
 </main>
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
-    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
+    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 footer-info">
         <div>
             <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>
             <ul>
@@ -116,10 +107,11 @@ session_start();
         </div>
     </div>
 
-    <div class="footer-info">
+    <div class="text-center p-4 bg-gray-700 mt-4 footer-info">
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>
+
 
 <!-- Seus scripts JavaScript -->
 <script>
