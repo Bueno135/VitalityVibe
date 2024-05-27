@@ -2,6 +2,7 @@
 include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -48,6 +49,22 @@ session_start();
                     $duvida = $_POST['duvida'];
                     echo "<p><strong>Dúvida:</strong> $duvida</p>";
                     echo "<p>Dúvida recebida com sucesso!</p>";
+                    
+                    // Consulta para obter os atendimentos do cliente
+                    $sql_atendimentos = "SELECT * FROM mensagem WHERE duvida = '$duvida'";
+                    $result_atendimentos = $conn->query($sql_atendimentos);
+                    
+                    if ($result_atendimentos->num_rows > 0) {
+                        echo "<h3>Atendimentos:</h3>";
+                        while($row_atendimento = $result_atendimentos->fetch_assoc()) {
+                            $clienteID = $row_atendimento['clienteID'];
+                            $mensagem = $row_atendimento['mensagem'];
+                            // Aqui você pode exibir as informações do atendimento, como o nome do cliente, por exemplo
+                            echo "<p>Cliente ID: $clienteID - Mensagem: $mensagem</p>";
+                        }
+                    } else {
+                        echo "<p>Nenhum atendimento encontrado.</p>";
+                    }
                 } else {
                     echo "<p>Nenhuma dúvida recebida.</p>";
                 }
@@ -91,8 +108,7 @@ session_start();
             <h5 class="uppercase mb-2 font-bold">Mais</h5>
             <ul>
                 <li><a href="#dicas-saude" class="hover:text-blue-400">Dicas de Saúde</a></li>
-                <li><a href="#receitas-saudaveis" class="hover:text-blue-400">Receitas Saudáveis</a></li>
-                <li><a href="#parceiros" class="hover:text-blue-400">Parceiros de Saúde</a></li>
+                <li><a href="#receitas-saudaveis" class="hover:text-blue-400">Parceiros de Saúde</a></li>
                 <li><a href="#faq" class="hover:text-blue-400">Perguntas Frequentes</a></li>
             </ul>
         </div>

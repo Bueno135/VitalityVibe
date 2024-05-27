@@ -60,18 +60,21 @@ include '/xampp/htdocs/Projeto/bd/protect.php'
                             echo '<li class="cliente-item" onclick="showClienteDetails(this)" id="'.$row['ID_Cliente'].'">'.$row['nome'].'</li>';
                             // Div oculta de detalhes do cliente
                             echo '<div class="cliente-details" id="'.$row['ID_Cliente'].'_details">';
+                            echo '<p><strong>Email:</strong> ' . $row['email'] . '</p>';
                             echo '<p><strong>Telefone:</strong> ' . $row['telefone'] . '</p>';
                             echo '<p><strong>Data de Nascimento:</strong> ' . $row['dt_nasc'] . '</p>';
+                            echo '<p><strong>Sexo:</strong> ' . $row['sexo'] . '</p>';
                             echo '<p><strong>Altura:</strong> ' . $row['altura'] . '</p>';
                             echo '<p><strong>Frequência de Atividade Física:</strong> ' . $row['freq_atv_fisica'] . '</p>';
-                            echo '<p><strong>Email:</strong> ' . $row['email'] . '</p>';
+                            
                             echo '<p><strong>Alergias:</strong> ' . $row['alergias'] . '</p>';
                             echo '<p><strong>Problema de Saúde:</strong> ' . $row['problema_saude'] . '</p>';
-                            echo '<p><strong>Sexo:</strong> ' . $row['sexo'] . '</p>';
+                            
                             echo '<p><strong>Objetivo:</strong> ' . $row['fk_Objetivo_id_obj'] . '</p>';
                             // Adicionando botão Avançar
-                            echo '<div class="btn-avancar"><a href="criarplano.php" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
+                            echo '<div class="btn-avancar"><a href="criarplano.php?ID_Cliente=' . $row['ID_Cliente'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
                             echo '</div>';
+
                         }
                     } else {
                         echo '<li>Nenhum cliente encontrado</li>';

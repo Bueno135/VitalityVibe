@@ -1,6 +1,29 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
+echo '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verificar se foi passado o nome do nutricionista na URL
+    if (isset($_GET['nutricionista']) && !empty($_GET['nutricionista'])) {
+        $nutricionista = htmlspecialchars($_GET['nutricionista']);
+        
+        // Substitua esta linha pela consulta corrigida
+        $sql_nutricionista = "SELECT id_nutricionista FROM Nutricionista WHERE nome = '$nutricionista' LIMIT 1";
+        $result_nutricionista = $conn->query($sql_nutricionista);
+
+        if ($result_nutricionista->num_rows > 0) {
+            $row_nutricionista = $result_nutricionista->fetch_assoc();
+            $nutricionistaID = $row_nutricionista['id_nutricionista'];
+        } else {
+            echo "Nutricionista não encontrado.";
+        }
+
+        echo '<h3 class="text-lg mb-4">Escolha sobre o que você quere conversar com '.$nutricionista.'</h3>';
+    } else {
+        echo '<p class="text-red-500">Nutricionista não especificado.</p>';
+    }
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -14,6 +37,7 @@ session_start();
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <script src="/Projeto/js/botaoperfil.js"></script>
     <script src="/Projeto/js/menususpenso.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <script>
         function toggleTextarea() {
@@ -37,7 +61,7 @@ session_start();
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
-                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']);; ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
                 <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
                 <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
                 <button id="editarperfil" onclick="editarperfil()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
@@ -53,10 +77,9 @@ session_start();
         <div class="max-w-lg mx-auto nutricionista-box">
             <h2 class="text-xl font-bold mb-4">Avançar - Escolha o Tópico da Conversa</h2>
             <?php
-                // Verificar se foi passado o nome do nutricionista na URL
                 if (isset($_GET['nutricionista']) && !empty($_GET['nutricionista'])) {
                     $nutricionista = htmlspecialchars($_GET['nutricionista']);
-                    echo '<h3 class="text-lg mb-4">Escolha sobre o que você quere conversar com '.$nutricionista.'</h3>';
+                    echo '<h3 class="text-lg mb-4">Escolha sobre o que você quer conversar com '.$nutricionista.'</h3>';
                 } else {
                     echo '<p class="text-red-500">Nutricionista não especificado.</p>';
                 }
@@ -64,7 +87,6 @@ session_start();
             <div class="opcoes-conversa">
                 <form action="#" method="post">
                     <?php
-                        // Exibir campo oculto para enviar o nome do nutricionista
                         if (isset($nutricionista)) {
                             echo '<input type="hidden" name="nutricionista" value="'.$nutricionista.'">';
                         }
@@ -73,14 +95,14 @@ session_start();
                         <label for="opcaoConversa" class="block mb-2">Escolha um tópico:</label>
                         <select id="opcaoConversa" name="opcao_conversa" class="w-full p-2 border rounded" onchange="toggleTextarea()">
                             <option value="">Selecione um tópico</option>
-                            <option value="plano_alimentar">Sobre o seu plano alimentar</option>
+                            <option value="planoalimentar">Sobre o seu plano alimentar</option>
                             <option value="perda_peso">Sobre perda de peso</option>
                             <option value="ganho_peso">Sobre ganho de peso</option>
                             <option value="outro">Outro</option>
                         </select>
                     </div>
                     <textarea id="outroOpcao" name="outro_opcao" rows="4" placeholder="Digite sua mensagem aqui..." style="display:none;" class="w-full p-2 border rounded"></textarea>
-                    <button type="submit" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded">Enviar</button>
+                    <button type="submit" onclick="enviar()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded">Enviar</button>
                 </form>
             </div>
         </div>
@@ -131,7 +153,23 @@ session_start();
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>
+<script>
+    document.getElementById("profileDropdown").addEventListener("click", function() {
+        var dropdown = document.getElementById("profileInfo");
+        dropdown.classList.toggle("hidden");
+    });
 
+    function enviar() {
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Duvida enviada com sucesso',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.href = '/Projeto/tela.php'; // Redirecionar para login.php após o OK
+        });
+    }
+    </script>
 </body>
 </html>
 

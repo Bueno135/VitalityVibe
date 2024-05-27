@@ -58,9 +58,25 @@ CREATE TABLE CategoriaAlimentar (
 
 CREATE TABLE PlanoAlimentar (
     id_plano INT AUTO_INCREMENT PRIMARY KEY,
+    fk_Cliente_ID_Cliente INT,
+    fk_Nutricionista_id_nutricionista INT,
     refeicao VARCHAR(100),
     dia_semana DATE,
-    horario TIME
+    horario TIME,
+    observacoes VARCHAR(255),
+    FOREIGN KEY (fk_Cliente_ID_Cliente) REFERENCES Cliente (ID_Cliente),
+    FOREIGN KEY (fk_Nutricionista_id_nutricionista) REFERENCES Nutricionista (id_nutricionista)
+);
+
+CREATE TABLE Mensagem (
+    id_mensagem INT AUTO_INCREMENT PRIMARY KEY,
+    fk_Cliente_ID_Cliente INT,
+    fk_Nutricionista_id_nutricionista INT,
+    mensagem VARCHAR(255),
+    data_envio DATETIME,
+    lida BOOLEAN DEFAULT 0,
+    FOREIGN KEY (fk_Cliente_ID_Cliente) REFERENCES Cliente (ID_Cliente),
+    FOREIGN KEY (fk_Nutricionista_id_nutricionista) REFERENCES Nutricionista (id_nutricionista)
 );
 
 CREATE TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar (

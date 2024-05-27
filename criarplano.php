@@ -1,7 +1,28 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 include '/xampp/htdocs/Projeto/bd/protect.php';
+
+// Verifica se o ID do cliente está definido e é um número
+if(isset($_GET['ID_Cliente']) && is_numeric($_GET['ID_Cliente'])) {
+    $clienteID = $_GET['ID_Cliente'];
+
+    // Consulta o banco de dados para obter o nome do cliente
+    $sql = "SELECT nome FROM cliente WHERE ID_Cliente = $clienteID";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $nomeCliente = $row['nome'];
+    } else {
+        echo "Cliente não encontrado.";
+        exit; // Para a execução do script
+    }
+} else {
+    echo "ID de cliente inválido.";
+    exit; // Para a execução do script
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -41,7 +62,7 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
 <main class="flex-grow">
     <section class="my-1 p-10">
         <div class="max-w-lg mx-auto dieta-box">
-            <h2>Criar Dieta para o Cliente</h2>
+            <h2>Criar Dieta para o Cliente <?php echo $nomeCliente; ?></h2>
             <!-- Botão para adicionar alimento -->
             <button class="btn-adicionar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Alimento</button>
             <!-- Formulário para adicionar alimento -->
