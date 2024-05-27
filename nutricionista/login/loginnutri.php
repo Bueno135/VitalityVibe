@@ -18,18 +18,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantidade = $result->num_rows;
 
     if ($quantidade == 1) {
-        $cliente = $result->fetch_assoc();
+        $nutricionista = $result->fetch_assoc();
 
         // Verifica a senha usando password_verify
-        if (password_verify($senha, $cliente['senha'])) {
+        if (password_verify($senha, $nutricionista['senha'])) {
 
             if(!isset($_SESSION)){
                 session_start();
             }        
             // Senha correta, faça o login
-            $_SESSION['id'] = $cliente['id_nutricionista']; // Defina a ID do nutricionista na sessão
+            $_SESSION['id'] = $nutricionista['id_nutricionista']; // Defina a ID do nutricionista na sessão
             $_SESSION['email'] = $email;
-            $_SESSION['nome'] = $cliente['nome']; // Se 'nome' é o campo correto para o nome do cliente
+            $_SESSION['nome'] = $nutricionista['nome']; // Se 'nome' é o campo correto para o nome do cliente
 
             header('Location: /Projeto/telanutri.php');
             exit();

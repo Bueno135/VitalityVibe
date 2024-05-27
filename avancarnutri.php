@@ -1,28 +1,58 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
-echo '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar se foi passado o nome do nutricionista na URL
     if (isset($_GET['nutricionista']) && !empty($_GET['nutricionista'])) {
         $nutricionista = htmlspecialchars($_GET['nutricionista']);
         
-        // Substitua esta linha pela consulta corrigida
-        $sql_nutricionista = "SELECT id_nutricionista FROM Nutricionista WHERE nome = '$nutricionista' LIMIT 1";
-        $result_nutricionista = $conn->query($sql_nutricionista);
+        // Consulta para obter o ID do nutricionista
+        $sql_nutricionista = "SELECT id_nutricionista FROM Nutricionista WHERE nome = ? LIMIT 1";
+        $stmt_nutricionista = $conn->prepare($sql_nutricionista);
+        $stmt_nutricionista->bind_param("s", $nutricionista);
+        $stmt_nutricionista->execute();
+        $result_nutricionista = $stmt_nutricionista->get_result();
 
         if ($result_nutricionista->num_rows > 0) {
             $row_nutricionista = $result_nutricionista->fetch_assoc();
             $nutricionistaID = $row_nutricionista['id_nutricionista'];
         } else {
             echo "Nutricionista não encontrado.";
+            exit;
         }
 
-        echo '<h3 class="text-lg mb-4">Escolha sobre o que você quere conversar com '.$nutricionista.'</h3>';
+        $stmt_nutricionista->close();
+
+        // Preparar os dados para inserção na tabela mensagem
+        $opcao_conversa = $_POST['opcao_conversa'];
+        $outro_opcao = $_POST['outro_opcao'];
+        $mensagem = "Mensagem sobre $opcao_conversa";
+
+        // Inserir os dados na tabela mensagem
+        $sql_insert = "INSERT INTO mensagem (mensagem, opcao_conversa, outro_opcao, data_envio, fk_nutricionista_id_nutricionista) VALUES (?, ?, ?, NOW(), ?)";
+        $stmt = $conn->prepare($sql_insert);
+        $stmt->bind_param("sssi", $mensagem, $opcao_conversa, $outro_opcao, $nutricionistaID);
+
+        if ($stmt->execute()) {
+            echo '<script>
+                Swal.fire({
+                    position: "top",
+                    icon: "success",
+                    title: "Dúvida enviada com sucesso",
+                    confirmButtonText: "OK"
+                }).then(() => {
+                    window.location.href = "/Projeto/tela.php";
+                });
+            </script>';
+        } else {
+            echo '<p class="text-red-500">Erro ao enviar a dúvida: ' . $conn->error . '</p>';
+        }
+        
+        $stmt->close();
     } else {
         echo '<p class="text-red-500">Nutricionista não especificado.</p>';
     }
-
 }
 ?>
 <!DOCTYPE html>
@@ -43,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         function toggleTextarea() {
             var dropdown = document.getElementById('opcaoConversa');
             var textarea = document.getElementById('outroOpcao');
-            if (dropdown.value) {
+            if (dropdown.value === "outro") {
                 textarea.style.display = 'block';
             } else {
                 textarea.style.display = 'none';
@@ -61,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
-                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo ucwords($_SESSION['nome']); ?></p>
                 <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
                 <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
                 <button id="editarperfil" onclick="editarperfil()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
@@ -102,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </select>
                     </div>
                     <textarea id="outroOpcao" name="outro_opcao" rows="4" placeholder="Digite sua mensagem aqui..." style="display:none;" class="w-full p-2 border rounded"></textarea>
-                    <button type="submit" onclick="enviar()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded">Enviar</button>
+                    <button type="submit" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded">Enviar</button>
                 </form>
             </div>
         </div>
@@ -158,18 +188,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         var dropdown = document.getElementById("profileInfo");
         dropdown.classList.toggle("hidden");
     });
-
-    function enviar() {
-        Swal.fire({
-            position: 'top',
-            icon: 'success',
-            title: 'Duvida enviada com sucesso',
-            confirmButtonText: 'OK'
-        }).then(() => {
-            window.location.href = '/Projeto/tela.php'; // Redirecionar para login.php após o OK
-        });
-    }
-    </script>
+</script>
 </body>
 </html>
-

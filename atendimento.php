@@ -1,6 +1,16 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
+
+// Verifica se o nutricionista está logado
+if (!isset($_SESSION['id'])) {
+    echo "<p>Nutricionista não conectado. <a href='entrarnutri.php'>Login</a></p>";
+    exit();
+}
+
+// ID do nutricionista logado
+$nutricionistaID = $_SESSION['id'];
+
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +23,31 @@ session_start();
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="/Projeto/css/atendimento.css" rel="stylesheet">
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/Projeto/js/botaoperfil.js"></script>
     <script src="/Projeto/js/menususpenso.js"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
+    <style>
+        .message-preview {
+            cursor: pointer;
+        }
+
+        .message-content {
+            display: none;
+        }
+
+        .message-preview.active + .message-content {
+            display: block;
+        }
+
+        .message-actions {
+            display: none;
+        }
+
+        .message-preview.active + .message-content + .message-actions {
+            display: block;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
@@ -27,7 +59,7 @@ session_start();
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
-                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo ucwords($_SESSION['nome']); ?></p>
                 <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
                 <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
                 <button id="editarperfil" onclick="editarperfilnutri()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
@@ -43,31 +75,38 @@ session_start();
         <div class="max-w-lg mx-auto nutricionista-box">
             <h2>Atendimento - VitalityVibe</h2>
             <div class="opcoes-conversa">
-                <h3>Dúvida recebida:</h3>
+                <h3>Mensagens recebidas:</h3>
                 <?php
-                if(isset($_POST['duvida'])) {
-                    $duvida = $_POST['duvida'];
-                    echo "<p><strong>Dúvida:</strong> $duvida</p>";
-                    echo "<p>Dúvida recebida com sucesso!</p>";
-                    
-                    // Consulta para obter os atendimentos do cliente
-                    $sql_atendimentos = "SELECT * FROM mensagem WHERE duvida = '$duvida'";
-                    $result_atendimentos = $conn->query($sql_atendimentos);
-                    
-                    if ($result_atendimentos->num_rows > 0) {
-                        echo "<h3>Atendimentos:</h3>";
-                        while($row_atendimento = $result_atendimentos->fetch_assoc()) {
-                            $clienteID = $row_atendimento['clienteID'];
-                            $mensagem = $row_atendimento['mensagem'];
-                            // Aqui você pode exibir as informações do atendimento, como o nome do cliente, por exemplo
-                            echo "<p>Cliente ID: $clienteID - Mensagem: $mensagem</p>";
-                        }
-                    } else {
-                        echo "<p>Nenhum atendimento encontrado.</p>";
+                // Consulta para obter as mensagens do nutricionista logado
+                $sql_mensagens = "SELECT * FROM mensagem WHERE fk_nutricionista_id_nutricionista = ?";
+                $stmt = $conn->prepare($sql_mensagens);
+                $stmt->bind_param("i", $nutricionistaID);
+                $stmt->execute();
+                $result_mensagens = $stmt->get_result();
+
+                if ($result_mensagens->num_rows > 0) {
+                    while($row_mensagem = $result_mensagens->fetch_assoc()) {
+                        $id_mensagem = $row_mensagem['id_mensagem'];
+                        $mensagem = $row_mensagem['mensagem'];
+                        $data_envio = $row_mensagem['data_envio'];
+                        echo "<div class='message-preview' data-id='{$id_mensagem}'>";
+                        echo "<p><strong>Horário:</strong> $data_envio</p>";
+                        echo "</div>";
+                        echo "<div class='message-content'>";
+                        echo "<p><strong>Conteúdo:</strong> $mensagem</p>";
+                        echo "</div>";
+                        echo "<div class='message-actions'>";
+                        echo "<button class='accept-button' data-id='{$id_mensagem}'>Aceitar</button>";
+                        echo "<button class='reject-button' onclick='rejectMessage($id_mensagem)' data-id='{$id_mensagem}'>Rejeitar</button>";
+                        echo "</div>";
+                        echo "<hr>";
                     }
                 } else {
-                    echo "<p>Nenhuma dúvida recebida.</p>";
+                    echo "<p>Nenhuma mensagem encontrada.</p>";
                 }
+
+                $stmt->close();
+                $conn->close();
                 ?>
                 <button type="button" onclick="window.location.href='telanutri.php'">Voltar</button>
             </div>
@@ -91,7 +130,8 @@ session_start();
         <div>
             <h5 class="uppercase mb-2 font-bold">Legal</h5>
             <ul>
-                <li><a href="#termos-de-uso" class="hover:text-blue-400">Termos de Uso</a></li>
+                <li><a href="#termos-de-uso" class="
+hover:text-blue-400">Termos de Uso</a></li>
                 <li><a href="#privacidade" class="hover:text-blue-400">Política de Privacidade</a></li>
             </ul>
         </div>
@@ -115,10 +155,73 @@ session_start();
     </div>
 
     <script>
-    document.getElementById("profileDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("profileInfo");
-        dropdown.classList.toggle("hidden");
+    document.querySelectorAll('.message-preview').forEach(item => {
+            item.addEventListener('click', event => {
+                item.classList.toggle('active');
+            });
+        });
+
+        document.querySelectorAll('.accept-button').forEach(item => {
+            item.addEventListener('click', event => {
+                const messageId = item.getAttribute('data-id');
+                // Faça alguma ação com a mensagem aceita, por exemplo:
+                // window.location.href = `/Projeto/aceitar.php?id=${messageId}`;
+            });
+        });
+
+        document.querySelectorAll('.reject-button').forEach(item => {
+            item.addEventListener('click', event => {
+                const messageId = item.getAttribute('data-id');
+                // Faça alguma ação com a mensagem rejeitada, por exemplo:
+                // window.location.href = `/Projeto/rejeitar.php?id=${messageId}`;
+            });
+        });
+
+        function toggleMessage(messageId) {
+    var message = document.getElementById("message_" + messageId);
+    message.classList.toggle("active");
+}
+
+function rejectMessage(messageId) {
+    // Use o SweetAlert2 para confirmar a exclusão da mensagem
+    Swal.fire({
+        title: 'Tem certeza?',
+        text: "Esta ação não poderá ser revertida!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, rejeitar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Se confirmado, enviar requisição AJAX para excluir a mensagem
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "deletar_mensagem.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        Swal.fire(
+                            'Mensagem rejeitada!',
+                            '',
+                            'success'
+                        ).then(() => {
+                            location.reload(); // Recarrega a página para refletir a exclusão da mensagem
+                        });
+                    } else {
+                        Swal.fire(
+                            'Erro!',
+                            'Ocorreu um erro ao rejeitar a mensagem.',
+                            'error'
+                        );
+                    }
+                }
+            };
+            xhr.send("message_id=" + messageId);
+        }
     });
+}
     </script>
     <div class="footer-info">
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
