@@ -48,7 +48,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $resultado2 = mysqli_query($conn, $sql4);
 
         if($resultado2) {
+<<<<<<< HEAD
             header("Location: /Projeto/Cliente/login/entrarcliente");
+=======
+            echo "Usuário cadastrado!!<BR>";
+            echo "<a href=/Projeto/nutricionista/login/entrarnutri.php>Avançar</a>";
+>>>>>>> e56ac61286fda233ff13502995849e8125c44580
         } else {
             echo "Erro ao cadastrar usuário.";
         }

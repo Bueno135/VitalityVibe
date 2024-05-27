@@ -10,7 +10,11 @@ CREATE TABLE Cliente (
     altura VARCHAR(10),
     peso VARCHAR(10),
     sexo VARCHAR(10),
+<<<<<<< HEAD
     objetivo VARCHAR(100),
+=======
+    freq_atv_fisica VARCHAR(100),
+>>>>>>> e56ac61286fda233ff13502995849e8125c44580
     alergias VARCHAR(100),
     problema_saude VARCHAR(100),
     med_controlado VARCHAR(100)
