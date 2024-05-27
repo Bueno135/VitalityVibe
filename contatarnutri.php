@@ -162,6 +162,10 @@ session_start();
             detailsDiv.style.display = 'none';
         }
     }
+    document.getElementById("profileDropdown").addEventListener("click", function() {
+        var dropdown = document.getElementById("profileInfo");
+        dropdown.classList.toggle("hidden");
+    });
 </script>
 
 </body>

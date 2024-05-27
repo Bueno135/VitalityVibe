@@ -97,7 +97,7 @@ $nutricionistaID = $_SESSION['id'];
                         echo "</div>";
                         echo "<div class='message-actions'>";
                         echo "<button class='accept-button' data-id='{$id_mensagem}'>Aceitar</button>";
-                        echo "<button class='reject-button' onclick='rejectMessage($id_mensagem)' data-id='{$id_mensagem}'>Rejeitar</button>";
+                        echo "<button class='reject-button' onclick='deletarMensagem($id_mensagem)' data-id='{$id_mensagem}'>Rejeitar</button>";
                         echo "</div>";
                         echo "<hr>";
                     }
@@ -182,46 +182,40 @@ hover:text-blue-400">Termos de Uso</a></li>
     message.classList.toggle("active");
 }
 
-function rejectMessage(messageId) {
-    // Use o SweetAlert2 para confirmar a exclusão da mensagem
+function deletarMensagem(id_mensagem) {
     Swal.fire({
         title: 'Tem certeza?',
-        text: "Esta ação não poderá ser revertida!",
+        text: "Esta ação não pode ser revertida!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sim, rejeitar!',
+        confirmButtonText: 'Sim, deletar!',
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            // Se confirmado, enviar requisição AJAX para excluir a mensagem
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "deletar_mensagem.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        Swal.fire(
-                            'Mensagem rejeitada!',
-                            '',
-                            'success'
-                        ).then(() => {
-                            location.reload(); // Recarrega a página para refletir a exclusão da mensagem
-                        });
-                    } else {
-                        Swal.fire(
-                            'Erro!',
-                            'Ocorreu um erro ao rejeitar a mensagem.',
-                            'error'
-                        );
-                    }
+            // Requisição AJAX para deletar a mensagem
+            $.ajax({
+                type: 'POST',
+                url: '/Projeto/deletar_mensagem.php',
+                data: { id_mensagem: id_mensagem },
+                success: function(response) {
+                    // Atualiza a página após a deleção
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // Exibe um alerta em caso de erro
+                    Swal.fire('Erro!', 'Ocorreu um erro ao deletar a mensagem.', 'error');
                 }
-            };
-            xhr.send("message_id=" + messageId);
+            });
         }
     });
 }
+document.getElementById("profileDropdown").addEventListener("click", function() {
+        var dropdown = document.getElementById("profileInfo");
+        dropdown.classList.toggle("hidden");
+    });
+
     </script>
     <div class="footer-info">
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>

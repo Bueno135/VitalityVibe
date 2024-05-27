@@ -62,9 +62,8 @@ if(isset($_GET['ID_Cliente']) && is_numeric($_GET['ID_Cliente'])) {
 <main class="flex-grow">
     <section class="my-1 p-10">
         <div class="max-w-lg mx-auto dieta-box">
-            <h2>Criar Dieta para o Cliente <?php echo $nomeCliente; ?></h2>
-            <!-- Botão para adicionar alimento -->
-            <button class="btn-adicionar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Alimento</button>
+            <h1>Criar Dieta para o Cliente <?php echo $nomeCliente; ?></h1>
+            
             <!-- Formulário para adicionar alimento -->
             <form class="form-adicionar" id="formAdicionar">
                 <div class="form-group">
@@ -89,28 +88,22 @@ if(isset($_GET['ID_Cliente']) && is_numeric($_GET['ID_Cliente'])) {
                 </div>
                 <div class="form-group">
                     <label for="horarioRefeicao" class="block text-gray-700 font-bold mb-2">Horário da Refeição:</label>
-                    <select id="horarioRefeicao" name="horarioRefeicao" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option value="Café da Manhã">Café da Manhã</option>
-                        <option value="Lanche da Manhã">Lanche da Manhã</option>
-                        <option value="Almoço">Almoço</option>
-                        <option value="Lanche da Tarde">Lanche da Tarde</option>
-                        <option value="Janta">Janta</option>
-                    </select>
-                </div>
-                <!-- Adicione mais campos conforme necessário -->
-                <button type="button" class="btn-adicionar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Alimento</button>
-            </form>
-            <hr>
-            <h3 class="text-xl font-bold mt-4">Dieta do Cliente</h3>
-            <ul class="alimento-list">
-                <!-- Lista de alimentos adicionados à dieta -->
-            </ul>
-            <!-- Botão para salvar a dieta -->
-            <button class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
-        </div>
-    </section>
-</main>
+                    <input type="text" id="horarioRefeicao" name="horarioRefeicao" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focusfocus">
+                        </div>
+                        <!-- Adicione mais campos conforme necessário -->
+                        <button type="button" class="btn-adicionar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Alimento</button>
+                        </form>
+                        <hr>
+                        <h3 class="text-xl font-bold mt-4">Dieta do Cliente</h3>
+                        <ul class="alimento-list">
+                        <!-- Lista de alimentos adicionados à dieta -->
+                        </ul>
+                        <!-- Botão para salvar a dieta -->
+                        <button class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
+                        </div>
+                        </section>
 
+</main>
 <footer class="bg-gray-800 text-white text-center md:text-left">
     <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
         <div>
@@ -123,45 +116,39 @@ if(isset($_GET['ID_Cliente']) && is_numeric($_GET['ID_Cliente'])) {
                 <li><a href="/Projeto/cadastro/cadastrocliente.php" class="hover:text-blue-400">Cadastre-se</a></li>
             </ul>
         </div>
-
-        <div>
-            <h5 class="uppercase mb-2 font-bold">Legal</h5>
-            <ul>
-                <li><a href="#termos-de-uso" class="hover:text-blue-400">Termos de Uso</a></li>
-                <li><a href="#privacidade" class="hover:text-blue-400">Política de Privacidade</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h5 class="uppercase mb-2 font-bold">Contato</h5>
-            <ul>
-                <li><a href="mailto:info@clevereats.com" class="hover:text-blue-400">info@vitalityvibe.com</a></li>
-                <li><a href="tel:+123456789" class="hover:text-blue-400">+1 234 567 89</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h5 class="uppercase mb-2 font-bold">Mais</h5>
-            <ul>
-                <li><a href="#dicas-saude" class="hover:text-blue-400">Dicas de Saúde</a></li>
-                <li><a href="#receitas-saudaveis" class="hover:text-blue-400">Receitas Saudáveis</a></li>
-                <li><a href="#parceiros" class="hover:text-blue-400">Parceiros de Saúde</a></li>
-                <li><a href="#faq" class="hover:text-blue-400">Perguntas Frequentes</a></li>
-            </ul>
-        </div>
+    <div>
+        <h5 class="uppercase mb-2 font-bold">Legal</h5>
+        <ul>
+            <li><a href="#termos-de-uso" class="hover:text-blue-400">Termos de Uso</a></li>
+            <li><a href="#privacidade" class="hover:text-blue-400">Política de Privacidade</a></li>
+        </ul>
     </div>
 
-    <div class="footer-info">
-        <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
+    <div>
+        <h5 class="uppercase mb-2 font-bold">Contato</h5>
+        <ul>
+            <li><a href="mailto:info@clevereats.com" class="hover:text-blue-400">info@vitalityvibe.com</a></li>
+            <li><a href="tel:+123456789" class="hover:text-blue-400">+1 234 567 89</a></li>
+        </ul>
     </div>
+
+    <div>
+        <h5 class="uppercase mb-2 font-bold">Mais</h5>
+        <ul>
+            <li><a href="#dicas-saude" class="hover:text-blue-400">Dicas de Saúde</a></li>
+            <li><a href="#receitas-saudaveis" class="hover:text-blue-400">Receitas Saudáveis</a></li>
+            <li><a href="#parceiros" class="hover:text-blue-400">Parceiros de Saúde</a></li>
+            <li><a href="#faq" class="hover:text-blue-400">Perguntas Frequentes</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="footer-info">
+    <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
+</div>
 </footer>
-
 <script>
-    // Adicione evento de clique ao botão "Adicionar Alimento"
-    document.querySelector('.btn-adicionar').addEventListener('click', function() {
-        // Exibir o formulário de adição de alimento
-        document.querySelector('.form-adicionar').style.display = 'block';
-    });
+    
 
     // Adicionar evento de clique ao botão "Adicionar Alimento" dentro do formulário
     document.querySelector('#formAdicionar .btn-adicionar').addEventListener('click', function() {
@@ -198,20 +185,79 @@ if(isset($_GET['ID_Cliente']) && is_numeric($_GET['ID_Cliente'])) {
             timer: 1500
             });
         }
+    });
 
-    
     // Adicionar evento de clique ao botão "Salvar Dieta"
-    document.querySelector('.btn-salvar').addEventListener('click', function() {
-        // Simular salvamento da dieta
+    // Adicionar evento de clique ao botão "Salvar Dieta"
+document.querySelector('.btn-salvar').addEventListener('click', function() {
+    // Obter a descrição da dieta a partir dos alimentos adicionados
+    var alimentos = document.querySelectorAll('.alimento-list li');
+    var dieta = '';
+    alimentos.forEach(function(alimento) {
+        var texto = alimento.textContent.trim();
+        if (texto !== '') {
+            dieta += texto + '|';
+        }
+    });
+    dieta = dieta.slice(0, -1); // Remove o último caractere "|"
+
+    // Verificar se a dieta não está vazia antes de enviar
+    if (dieta !== '') {
+        // Adicionar a descrição da dieta ao formulário
+        document.querySelector('#dieta').value = dieta;
+
+        // Enviar o formulário via AJAX
+        var formData = new FormData(document.getElementById('formAdicionar'));
+        fetch('/Projeto/bd/salvar_dieta.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Exibir mensagem de sucesso ou erro
+            if (data === 'Dieta salva com sucesso!') {
+                Swal.fire({
+                    position: "top",
+                    icon: "success",
+                    title: data,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    position: "top",
+                    icon: "error",
+                    title: data,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao salvar a dieta:', error);
+            Swal.fire({
+                position: "top",
+                icon: "error",
+                title: "Erro ao salvar a dieta. Por favor, tente novamente.",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        });
+    } else {
+        // Exibir mensagem de erro se a dieta estiver vazia
         Swal.fire({
             position: "top",
-            icon: "sucess",
-            title: "Dieta salva com sucesso",
+            icon: "error",
+            title: "Adicione alimentos à dieta antes de salvar!",
             showConfirmButton: false,
             timer: 1500
-            });
-    });
+        });
+    }
 });
+document.getElementById("profileDropdown").addEventListener("click", function() {
+        var dropdown = document.getElementById("profileInfo");
+        dropdown.classList.toggle("hidden");
+    });
 </script>
 
 </body>

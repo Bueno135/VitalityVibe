@@ -66,11 +66,9 @@ include '/xampp/htdocs/Projeto/bd/protect.php'
                             echo '<p><strong>Sexo:</strong> ' . $row['sexo'] . '</p>';
                             echo '<p><strong>Altura:</strong> ' . $row['altura'] . '</p>';
                             echo '<p><strong>Frequência de Atividade Física:</strong> ' . $row['freq_atv_fisica'] . '</p>';
-                            
                             echo '<p><strong>Alergias:</strong> ' . $row['alergias'] . '</p>';
                             echo '<p><strong>Problema de Saúde:</strong> ' . $row['problema_saude'] . '</p>';
-                            
-                            echo '<p><strong>Objetivo:</strong> ' . $row['fk_Objetivo_id_obj'] . '</p>';
+                            echo '<p><strong>Objetivo:</strong> ' . $row['objetivo'] . '</p>';
                             // Adicionando botão Avançar
                             echo '<div class="btn-avancar"><a href="criarplano.php?ID_Cliente=' . $row['ID_Cliente'] . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Avançar</a></div>';
                             echo '</div>';
@@ -163,6 +161,10 @@ include '/xampp/htdocs/Projeto/bd/protect.php'
             detailsDiv.style.display = 'none';
         }
     }
+    document.getElementById("profileDropdown").addEventListener("click", function() {
+        var dropdown = document.getElementById("profileInfo");
+        dropdown.classList.toggle("hidden");
+    });
 </script>
 
 </body>
