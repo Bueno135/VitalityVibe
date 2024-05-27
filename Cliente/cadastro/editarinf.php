@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("UPDATE cliente SET problema_saude=?, alergias=?, altura=?, peso=?, med_controlado=? WHERE ID_cliente=?");
 
 
-    $stmt->bind_param("ssssssssssssi", $problema_saude, $alergias, $altura, $peso, $med_controlado, $ID_cliente );
+    $stmt->bind_param("ssssssi", $problema_saude, $alergias, $altura, $peso, $med_controlado, $ID_cliente );
 
    
     $problema_saude = $_POST['problema_saude'];

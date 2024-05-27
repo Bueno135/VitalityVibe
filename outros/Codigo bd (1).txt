@@ -99,6 +99,8 @@ CREATE TABLE Composicao (
 );
 
 CREATE TABLE PlanoAlimentarPrato (
+    quantidade INT,
+    horario TIME,
     fk_PlanoAlimentar_id_plano INT,
     fk_Prato_id_prato INT
 );

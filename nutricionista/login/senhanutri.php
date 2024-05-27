@@ -1,6 +1,6 @@
 <?php
     include '/xampp/htdocs/Projeto/bd/connection.php';
-
+    include '/xampp/htdocs/Projeto/bd/protect.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -18,17 +18,22 @@
 
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
-    <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">
-        <nav class="container mx-auto flex justify-between items-center">
-            <a href="/Projeto/index.php" class="text-xl font-bold text-blue-600">VitalityVibe</a>
-            <div>
-                <a href="#sobre" class="mx-2 hover:text-blue-500">Sobre</a>
-                <a href="#features" class="mx-2 hover:text-blue-500">Recursos</a>
-                <a href="#contato" class="mx-2 hover:text-blue-500">Contato</a>
-                <a href="#login" class="mx-2 hover:text-blue-500">Login</a>
+<header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="telanutri.php">VitalityVibe</a></h1>
+    <div class="flex items-center">
+        <div class="relative">
+            <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
+                <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
+            </button>
+            <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
+                <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
+                <button id="editarperfil" onclick="editarperfilnutri()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
             </div>
-        </nav>
-    </header>
+        </div>
+    </div>
+</header>
 
     <div class="h-16"></div>
     <div class="h-16"></div>
@@ -146,6 +151,11 @@
                 return true;
             }
         }
+
+        document.getElementById("profileDropdown").addEventListener("click", function() {
+    var dropdown = document.getElementById("profileInfo");
+    dropdown.classList.toggle("hidden");
+});
     </script>
 </body>
 </html>

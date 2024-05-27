@@ -9,46 +9,41 @@
 <body>
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-
+session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $stmt = $conn->prepare("UPDATE nutricionista SET nome=?, email=?, cpf=?, dt_nasc=?, sexo=?, cep=?, especialidade=?, formacao=? WHERE id_nutricionista=?");
+    $stmt = $conn->prepare("UPDATE nutricionista SET nome=?, email=?, cpf=?, CRN=?, sexo=?, cep=?, formacao=? WHERE id_nutricionista=?");
 
-
-    $stmt->bind_param("sssssssssi", $nome, $email, $cpf, $dt_nasc, $sexo, $cep, $especialidade, $formacao, $id_nutricionista);
+    $stmt->bind_param("sssssisi", $nome, $email, $cpf, $CRN, $sexo, $cep, $formacao, $id_nutricionista);
 
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $cpf = $_POST['cpf'];
-    $dt_nasc = $_POST['dt_nasc'];
     $sexo = $_POST['sexo'];
+    $CRN = $_POST['CRN'];
     $cep = $_POST['cep'];
-    $especialidade = $_POST['especialidade'];
     $formacao = $_POST['formacao'];
-   
-
+    $id_nutricionista = $_SESSION['id'];
 
     if ($stmt->execute()) {
-    echo "<script>
-    Swal.fire({
-        position: 'top',
-        icon: 'success',
-        title: 'Cadastro atualizado com sucesso',
-        showConfirmButton: false,
-        timer: 1500
-    });
-    setTimeout(function() {
-        window.location.href='/Projeto/login/entrarnutri.php';
-    }, 1500);
-    </script>";
-} else {
-    echo "Erro ao atualizar o cadastro: " . $conn->error;
-}
-
+        echo "<script>
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Cadastro atualizado com sucesso',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        setTimeout(function() {
+            window.location.href='/Projeto/telanutri.php';
+        }, 1500);
+        </script>";
+    } else {
+        echo "Erro ao atualizar o cadastro: " . $conn->error;
+    }
 
     $stmt->close();
     $conn->close();
 }
-
 ?>
 </body>
 </html>

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,24 +17,28 @@
 </head>
 <body class="bg-gray-100">
 
-    <header>
-        <nav class="container mx-auto flex justify-between items-center py-4">
-            <a href="/Projeto/index.php" class="text-xl font-bold text-blue-600">VitalityVibe</a>
-            <div>
-                <a href="#sobre" class="mx-2 hover:text-blue-500">Sobre</a>
-                <a href="#features" class="mx-2 hover:text-blue-500">Recursos</a>
-                <a href="#contato" class="mx-2 hover:text-blue-500">Contato</a>
-                <a href="/Projeto/login/entrarcliente.php" class="mx-2 hover:text-blue-500">Login</a>
-                <a href="/Projeto/cadastro/cadastrocliente.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cadastre-se</a>
+<header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="tela.php">VitalityVibe</a></h1>
+    <div class="flex items-center">
+        <div class="relative">
+            <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
+                <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
+            </button>
+            <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
+                <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
+                <button id="editarperfil" onclick="editarperfil()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
             </div>
-        </nav>
-    </header>
+        </div>
+    </div>
+</header>
 
     <div class="container mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
         <h1 class="text-2xl font-bold mb-4">Confirmação de Login</h1>
         <p class="mb-4">Por favor, confirme seus dados:</p>
         <?php
-        session_start();
+        
         if (isset($_SESSION['email'])){
             include '/xampp/htdocs/Projeto/bd/connection.php';
             
@@ -92,20 +100,24 @@
         <div class="mt-4 flex justify-between">
             <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="confirmar()">Confirmar</button>
             <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="mandarEditar()">Editar informações de cadastro</button>
-            <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="mandarEditaAdicionais()">Editar informações pessoais</button>
+            <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" onclick="mandarEditarAdicionais()">Editar informações pessoais</button>
         </div>
     </div>
 
     <script>
         function mandarEditar(){
-            window.location.href = "editarcadastro.php";
+            window.location.href = "/Projeto/Cliente/cadastro/editarcadastro.php";
         }
         function confirmar(){
             window.location.href = "/Projeto/tela.php";
         }
         function mandarEditarAdicionais(){
-            window.location.href = "editarcadastro.php";
+            window.location.href = "/Projeto/Cliente/cadastro/editarinfad.php";
         }
+        document.getElementById("profileDropdown").addEventListener("click", function() {
+    var dropdown = document.getElementById("profileInfo");
+    dropdown.classList.toggle("hidden");
+});
     </script>
 </body>
 </html>

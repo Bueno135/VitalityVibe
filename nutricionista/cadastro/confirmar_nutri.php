@@ -1,3 +1,23 @@
+<?php
+session_start(); // Inicia a sessão
+
+include '/xampp/htdocs/Projeto/bd/connection.php';
+
+// Verifica se o nutricionista está logado
+if (!isset($_SESSION['id'])) {
+    header("Location: /Projeto/nutricionista/login/entrarnutri.php"); // Redireciona para a página de login se não estiver logado
+    exit;
+}
+
+$id_nutricionista = $_SESSION['id'];
+
+$sql = "SELECT * FROM nutricionista WHERE id_nutricionista = $id_nutricionista";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc(); // Apenas um resultado esperado, então não é necessário um loop while
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,7 +30,6 @@
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <title>Confirmação de Login</title>
     <style>
-     
         body {
             margin: 0;
             padding: 0;
@@ -29,6 +48,36 @@
             margin-top: 4rem;
             padding: 1rem;
         }
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: 'Arial', sans-serif;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .styled-table th, .styled-table td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
     </style>
     <script>
         function confirmarUser() {
@@ -37,7 +86,6 @@
         function editarUser(){
             var naoLogadoComoModerador = true;
 
-            // Se o usuário não estiver logado como moderador, exiba o alerta
             if (naoLogadoComoModerador) {
                 Swal.fire({
                 position: "top",
@@ -46,7 +94,7 @@
                 showConfirmButton: false,
                 timer: 1500
                 });
-    }
+            }
         }
     </script>
 </head>
@@ -77,16 +125,20 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     echo "<table class='styled-table'>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>CPF</th>
-                <th>Sexo</th>
-                <th>CEP</th>
-                <th>Especialidade</th>
-                <th>Formação</th>
-            </tr>";
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>CPF</th>
+                    <th>Sexo</th>
+                    <th>CEP</th>
+                    <th>CRN</th>
+                    <th>Especialidade</th>
+                    <th>Formação</th>
+                </tr>
+            </thead>
+            <tbody>";
 
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
@@ -96,8 +148,9 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row["cpf"] . "</td>";
         echo "<td>" . $row["sexo"] . "</td>";
         echo "<td>" . $row["cep"] . "</td>";
+        echo "<td>". $row["CRN"] . "</td>";
+        echo "<td>" . $row["formacao"] . "</td>";
         
-        // Consulta SQL para obter a especialidade do nutricionista
         $sql_especialidade = "SELECT nome_especialidade FROM especialidade WHERE id_especialidade = " . $row["id_nutricionista"];
         $result_especialidade = $conn->query($sql_especialidade);
         if ($result_especialidade->num_rows > 0) {
@@ -106,20 +159,10 @@ if ($result->num_rows > 0) {
         } else {
             echo "<td>Não especificada</td>";
         }
-        
-        // Consulta SQL para obter a formação do nutricionista
-        $sql_formacao = "SELECT nome_formacao FROM formacao WHERE id_formacao = " . $row["id_nutricionista"];
-        $result_formacao = $conn->query($sql_formacao);
-        if ($result_formacao->num_rows > 0) {
-            $row_formacao = $result_formacao->fetch_assoc();
-            echo "<td>" . $row_formacao["nome_formacao"] . "</td>";
-        } else {
-            echo "<td>Não especificada</td>";
-        }
 
         echo "</tr>";
     }
-    echo "</table>";
+    echo "</tbody></table>";
 } else {
     echo "Nenhum nutricionista encontrado";
 }
@@ -135,6 +178,17 @@ $conn->close();
         </div>
     </div>
     
+
+    <script>
+        function confirmarUser() {
+        window.location.href = "/Projeto/telanutri.php";
+    }
+
+    function editarUser() {
+        window.location.href = "/Projeto/nutricionista/cadastro/editarcadastronutri.php";
+    }
+
+
+    </script>
 </body>
 </html>
-

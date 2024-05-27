@@ -48,10 +48,10 @@ if(isset($_GET['ID_Cliente']) && is_numeric($_GET['ID_Cliente'])) {
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
-                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']);; ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
                 <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
                 <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
-                <button id="editarperfil" onclick="editarperfil()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
+                <button id="editarperfil" onclick="editarperfilnutri()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
             </div>
         </div>
     </div>
@@ -89,21 +89,21 @@ if(isset($_GET['ID_Cliente']) && is_numeric($_GET['ID_Cliente'])) {
                 <div class="form-group">
                     <label for="horarioRefeicao" class="block text-gray-700 font-bold mb-2">Horário da Refeição:</label>
                     <input type="text" id="horarioRefeicao" name="horarioRefeicao" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focusfocus">
-                        </div>
-                        <!-- Adicione mais campos conforme necessário -->
-                        <button type="button" class="btn-adicionar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Alimento</button>
-                        </form>
-                        <hr>
-                        <h3 class="text-xl font-bold mt-4">Dieta do Cliente</h3>
-                        <ul class="alimento-list">
-                        <!-- Lista de alimentos adicionados à dieta -->
-                        </ul>
-                        <!-- Botão para salvar a dieta -->
-                        <button class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
-                        </div>
-                        </section>
-
+                </div>
+                <!-- Adicione mais campos conforme necessário -->
+                <button type="button" class="btn-adicionar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Alimento</button>
+            </form>
+            <hr>
+            <h3 class="text-xl font-bold mt-4">Dieta do Cliente</h3>
+            <ul class="alimento-list">
+                <!-- Lista de alimentos adicionados à dieta -->
+            </ul>
+            <!-- Botão para salvar a dieta -->
+            <button class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
+        </div>
+    </section>
 </main>
+
 <footer class="bg-gray-800 text-white text-center md:text-left">
     <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
         <div>
@@ -133,131 +133,118 @@ if(isset($_GET['ID_Cliente']) && is_numeric($_GET['ID_Cliente'])) {
     </div>
 
     <div>
-        <h5 class="uppercase mb-2 font-bold">Mais</h5>
-        <ul>
-            <li><a href="#dicas-saude" class="hover:text-blue-400">Dicas de Saúde</a></li>
-            <li><a href="#receitas-saudaveis" class="hover:text-blue-400">Receitas Saudáveis</a></li>
-            <li><a href="#parceiros" class="hover:text-blue-400">Parceiros de Saúde</a></li>
-            <li><a href="#faq" class="hover:text-blue-400">Perguntas Frequentes</a></li>
+        <h5 class="uppercase mb-2 font-bold">Siga-nos</h5>
+        <ul class="flex space-x-4">
+            <li><a href="#" class="hover:text-blue-400"><i class="fab fa-facebook fa-2x"></i></a></li>
+            <li><a href="#" class="hover:text-blue-400"><i class="fab fa-twitter fa-2x"></i></a></li>
+            <li><a href="#" class="hover:text-blue-400"><i class="fab fa-instagram fa-2x"></i></a></li>
         </ul>
     </div>
-</div>
-
-<div class="footer-info">
-    <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
-</div>
+    </div>
+    <div class="text-center mt-4">
+        <p>&copy; 2023 VitalityVibe. Todos os direitos reservados.</p>
+    </div>
 </footer>
+
 <script>
-    
+document.addEventListener("DOMContentLoaded", function() {
+    const btnAdicionar = document.querySelector('.btn-adicionar');
+    const btnSalvar = document.querySelector('.btn-salvar');
+    const alimentoList = document.querySelector('.alimento-list');
 
-    // Adicionar evento de clique ao botão "Adicionar Alimento" dentro do formulário
-    document.querySelector('#formAdicionar .btn-adicionar').addEventListener('click', function() {
-        // Obter os valores dos campos de entrada
-        var nomeAlimento = document.querySelector('#nomeAlimento').value;
-        var proteinasAlimento = document.querySelector('#proteinasAlimento').value;
-        var carboidratosAlimento = document.querySelector('#carboidratosAlimento').value;
-        var caloriasAlimento = document.querySelector('#caloriasAlimento').value;
-        var quantidadeAlimento = document.querySelector('#quantidadeAlimento').value;
-        var horarioRefeicao = document.querySelector('#horarioRefeicao').value;
+    // Array para armazenar alimentos adicionados
+    let alimentos = [];
 
-        // Validar se os campos não estão vazios
-        if (nomeAlimento && proteinasAlimento && carboidratosAlimento && caloriasAlimento && quantidadeAlimento && horarioRefeicao) {
-            // Criar uma string HTML para o novo item de alimento
-            var newItemHTML = '<li><strong>' + nomeAlimento + '</strong> - Proteínas: ' + proteinasAlimento + 'g, Carboidratos: ' + carboidratosAlimento + 'g, Calorias: ' + caloriasAlimento + ', Quantidade: ' + quantidadeAlimento + 'g, Horário: ' + horarioRefeicao + '</li>';
+    btnAdicionar.addEventListener('click', function() {
+        const nomeAlimento = document.getElementById('nomeAlimento').value;
+        const proteinasAlimento = document.getElementById('proteinasAlimento').value;
+        const carboidratosAlimento = document.getElementById('carboidratosAlimento').value;
+        const caloriasAlimento = document.getElementById('caloriasAlimento').value;
+        const quantidadeAlimento = document.getElementById('quantidadeAlimento').value;
+        const horarioRefeicao = document.getElementById('horarioRefeicao').value;
 
-            // Adicionar o novo item à lista de alimentos
-            document.querySelector('.alimento-list').innerHTML += newItemHTML;
+        // Adiciona o alimento ao array
+        alimentos.push({
+            nome: nomeAlimento,
+            proteinas: proteinasAlimento,
+            carboidratos: carboidratosAlimento,
+            calorias: caloriasAlimento,
+            quantidade: quantidadeAlimento,
+            horario: horarioRefeicao
+        });
 
-            // Limpar os campos do formulário após adicionar o alimento
-            document.querySelector('#nomeAlimento').value = '';
-            document.querySelector('#proteinasAlimento').value = '';
-            document.querySelector('#carboidratosAlimento').value = '';
-            document.querySelector('#caloriasAlimento').value = '';
-            document.querySelector('#quantidadeAlimento').value = '';
-            document.querySelector('#horarioRefeicao').value = '';
-        } else {
-            // Exibir uma mensagem de erro se algum campo estiver vazio
-            Swal.fire({
-            position: "top",
-            icon: "error",
-            title: "Por favor, preencha todos os campos!",
-            showConfirmButton: false,
-            timer: 1500
-            });
-        }
+        // Atualiza a lista de alimentos na interface
+        renderAlimentos();
     });
 
-    // Adicionar evento de clique ao botão "Salvar Dieta"
-    // Adicionar evento de clique ao botão "Salvar Dieta"
-document.querySelector('.btn-salvar').addEventListener('click', function() {
-    // Obter a descrição da dieta a partir dos alimentos adicionados
-    var alimentos = document.querySelectorAll('.alimento-list li');
-    var dieta = '';
-    alimentos.forEach(function(alimento) {
-        var texto = alimento.textContent.trim();
-        if (texto !== '') {
-            dieta += texto + '|';
-        }
-    });
-    dieta = dieta.slice(0, -1); // Remove o último caractere "|"
-
-    // Verificar se a dieta não está vazia antes de enviar
-    if (dieta !== '') {
-        // Adicionar a descrição da dieta ao formulário
-        document.querySelector('#dieta').value = dieta;
-
-        // Enviar o formulário via AJAX
-        var formData = new FormData(document.getElementById('formAdicionar'));
-        fetch('/Projeto/bd/salvar_dieta.php', {
+    btnSalvar.addEventListener('click', function() {
+        // Envia os dados do plano alimentar para o servidor
+        fetch('/Projeto/php/salvar_dieta.php', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                clienteID: <?php echo $clienteID; ?>,
+                alimentos: alimentos
+            })
         })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
-            // Exibir mensagem de sucesso ou erro
-            if (data === 'Dieta salva com sucesso!') {
+            if (data.success) {
                 Swal.fire({
-                    position: "top",
-                    icon: "success",
-                    title: data,
-                    showConfirmButton: false,
-                    timer: 1500
+                    icon: 'success',
+                    title: 'Sucesso!',
+                    text: 'Dieta salva com sucesso.',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    // Redireciona para a tela principal ou realiza outra ação desejada
+                    window.location.href = 'telanutri.php';
                 });
             } else {
                 Swal.fire({
-                    position: "top",
-                    icon: "error",
-                    title: data,
-                    showConfirmButton: false,
-                    timer: 1500
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Ocorreu um erro ao salvar a dieta. Tente novamente.',
+                    confirmButtonText: 'OK'
                 });
             }
         })
         .catch(error => {
-            console.error('Erro ao salvar a dieta:', error);
             Swal.fire({
-                position: "top",
-                icon: "error",
-                title: "Erro ao salvar a dieta. Por favor, tente novamente.",
-                showConfirmButton: false,
-                timer: 1500
+                icon: 'error',
+                title: 'Erro',
+                text: 'Ocorreu um erro ao salvar a dieta. Tente novamente.',
+                confirmButtonText: 'OK'
             });
         });
-    } else {
-        // Exibir mensagem de erro se a dieta estiver vazia
-        Swal.fire({
-            position: "top",
-            icon: "error",
-            title: "Adicione alimentos à dieta antes de salvar!",
-            showConfirmButton: false,
-            timer: 1500
+    });
+
+    function renderAlimentos() {
+        // Limpa a lista atual
+        alimentoList.innerHTML = '';
+
+        // Renderiza cada alimento na lista
+        alimentos.forEach(alimento => {
+            const li = document.createElement('li');
+            li.classList.add('mb-2', 'flex', 'justify-between');
+            li.innerHTML = `
+                <span>${alimento.nome} - ${alimento.quantidade}g/ml - ${alimento.horario}</span>
+                <button class="btn-remover text-red-500 hover:text-red-700" data-nome="${alimento.nome}">Remover</button>
+            `;
+            alimentoList.appendChild(li);
+        });
+
+        // Adiciona event listeners para os botões de remover
+        document.querySelectorAll('.btn-remover').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const nome = this.getAttribute('data-nome');
+                alimentos = alimentos.filter(alimento => alimento.nome !== nome);
+                renderAlimentos();
+            });
         });
     }
 });
-document.getElementById("profileDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("profileInfo");
-        dropdown.classList.toggle("hidden");
-    });
 </script>
 
 </body>

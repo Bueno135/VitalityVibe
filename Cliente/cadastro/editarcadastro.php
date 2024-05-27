@@ -25,8 +25,8 @@
         include '/xampp/htdocs/Projeto/bd/connection.php';
         session_start();
 
-        if (!isset($_SESSION['ID_Cliente'])) {
-            header("Location: tela.php");
+        if (!isset($_SESSION['id'])) {
+            header("Location: /Projeto/index.php");
             exit;
         }
 
