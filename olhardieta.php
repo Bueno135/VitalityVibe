@@ -35,12 +35,16 @@ if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
     <title>Dietas Disponíveis</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
+    <link href="/Projeto/css/olhardieta.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
-    <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="tela.php">VitalityVibe</a></h1>
+    <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="/Projeto/tela.php">VitalityVibe</a></h1>
     <div class="flex items-center">
+        <button id="notificationDropdown" onclick="noti()" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
+            <i class="fas fa-bell fa-lg"></i>
+        </button>
         <div class="relative">
             <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
@@ -127,7 +131,17 @@ if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
     var dropdown = document.getElementById("profileInfo");
     dropdown.classList.toggle("hidden");
 });
+document.getElementById("profileDropdown").addEventListener("click", function() {
+        var dropdown = document.getElementById("profileInfo");
+        var notificationDropdown = document.getElementById("notificationInfo");
+        dropdown.classList.toggle("hidden");
+        notificationDropdown.classList.add("hidden");
+    });
+function noti(){
+    window.location.href = 'notificacoes.php';
+}
 </script>
-
+<script src="/Projeto/js/botaoperfil.js"></script>
+<script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>

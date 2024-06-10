@@ -37,8 +37,8 @@
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result_select->num_rows > 0) {
-        $cliente = $result_select->fetch_assoc();
+    if ($result->num_rows > 0) {
+        $cliente = $result->fetch_assoc();
 
         $objetivo = $cliente["objetivo"];
         $peso = $cliente['peso'];
@@ -49,7 +49,7 @@
         echo "Cliente não encontrado";
     }
 
-$conn->close();
+    $conn->close();
 ?>
 
         <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4">
@@ -73,7 +73,7 @@ $conn->close();
                 
                 <div id="cadastroForm">
                     <h2 class="text-3xl font-bold text-center mb-6">Editar cadastro</h2>
-                    <form id="form-cadastro" method="POST" action="editar.php">
+                    <form id="form-cadastro" method="POST" action="editarinf.php">
                         <div class="mb-6">
                             <label for="obj" class="block text-sm font-medium text-gray-700">Objetivo</label>
                             <select id="obj" name="objetivo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
@@ -93,8 +93,8 @@ $conn->close();
                             <input type="text" id="problem" name="problema_saude" value="<?php echo $cliente['problema_saude']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
-                            <label for="med" class="block text-sm font-medium text-gray-700">Você utiliza de algum medicamento controlado? Se sim qual(s)?</label>
-                            <input type="text" id="med" name="medicamentoControlado" value="<?php echo $cliente['med_controlado']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <label for="med_controlado" class="block text-sm font-medium text-gray-700">Você utiliza de algum medicamento controlado? Se sim qual(s)?</label>
+                            <input type="text" id="med_controlado" name="med_controlado" value="<?php echo $cliente['med_controlado']; ?>" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
                             <label for="alergias" class="block text-sm font-medium text-gray-700">Você é alergico a algum alimento? Se sim, qual(s)?</label>

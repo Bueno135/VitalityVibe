@@ -1,12 +1,8 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-session_start();
-
+include '/xampp/htdocs/Projeto/bd/protect.php';
 // Verifica se o nutricionista está logado
-if (!isset($_SESSION['id'])) {
-    echo "<p>Nutricionista não conectado. <a href='entrarnutri.php'>Login</a></p>";
-    exit();
-}
+
 
 // ID do nutricionista logado
 $nutricionistaID = $_SESSION['id'];
@@ -138,7 +134,8 @@ $nutricionistaID = $_SESSION['id'];
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
 </footer>
-
+<script src="/Projeto/js/botaoperfil.js"></script>
+<script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>
 

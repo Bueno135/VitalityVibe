@@ -32,9 +32,7 @@ if (isset($_GET['ID_Cliente'])) {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <link href="/Projeto/css/olhardieta.css" rel="stylesheet">  
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
-    <script src="/Projeto/js/botaoperfil.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/Projeto/js/menususpenso.js"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
@@ -111,8 +109,6 @@ if (isset($_GET['ID_Cliente'])) {
                 <li><a href="#sobre" class="hover:text-blue-400">Sobre</a></li>
                 <li><a href="#features" class="hover:text-blue-400">Recursos</a></li>
                 <li><a href="#contato" class="hover:text-blue-400">Contato</a></li>
-                <li><a href="#login" class="hover:text-blue-400">Login</a></li>
-                <li><a href="/Projeto/cadastro/cadastrocliente.php" class="hover:text-blue-400">Cadastre-se</a></li>
             </ul>
         </div>
     <div>
@@ -178,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     btnSalvar.addEventListener('click', function() {
         // Envia os dados do plano alimentar para o servidor
-        fetch('/Projeto/php/salvar_dieta.php', {
+        fetch('/Projeto/bd/salvar_dieta.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -204,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Erro',
-                    text: 'Ocorreu um erro ao salvar a dieta. Tente novamente.',
+                    text: 'Ocorreu um erro ao salvar a dieta. Tente novamente!.',
                     confirmButtonText: 'OK'
                 });
             }
@@ -213,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function() {
             Swal.fire({
                 icon: 'error',
                 title: 'Erro',
-                text: 'Ocorreu um erro ao salvar a dieta. Tente novamente.',
+                text: 'Ocorreu um erro ao salvar a dieta. Tente novamente!!.',
                 confirmButtonText: 'OK'
             });
         });
@@ -245,6 +241,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 </script>
-
+<script src="/Projeto/js/botaoperfil.js"></script>
+<script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>

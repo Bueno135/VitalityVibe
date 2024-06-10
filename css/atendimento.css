@@ -56,3 +56,24 @@
 .opcoes-conversa button:hover {
     background-color: #45a049;
 }
+
+
+.message-preview {
+    cursor: pointer;
+}
+
+.message-content {
+    display: none;
+}
+
+.message-preview.active + .message-content {
+    display: block;
+}
+
+.message-actions {
+    display: none;
+}
+
+.message-preview.active + .message-content + .message-actions {
+    display: block;
+}

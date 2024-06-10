@@ -1,6 +1,6 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-session_start();
+include '/xampp/htdocs/Projeto/bd/protect.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -12,8 +12,7 @@ session_start();
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <link href="/Projeto/css/tela.css" rel="stylesheet">  
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
-    <script src="/Projeto/js/botaoperfil.js"></script>
-    <script src="/Projeto/js/menususpenso.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     
@@ -22,36 +21,11 @@ session_start();
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
-    <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="tela.php">VitalityVibe</a></h1>
+    <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="/Projeto/tela.php">VitalityVibe</a></h1>
     <div class="flex items-center">
-        <button id="notificationDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
+        <button id="notificationDropdown" onclick="noti()" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
             <i class="fas fa-bell fa-lg"></i>
         </button>
-        <div id="notificationInfo" class="absolute top-12 right-0 mt-2 w-48 bg-white rounded-md shadow-lg flex flex-col">
-            <?php
-            // Consulta para obter as mensagens do nutricionista logado
-            $sql_mensagens_nutri = "SELECT * FROM mensagem WHERE fk_nutricionista_id_nutricionista = ?";
-            $stmt_nutri = $conn->prepare($sql_mensagens_nutri);
-            $stmt_nutri->bind_param("i", $nutricionistaID);
-            $stmt_nutri->execute();
-            $result_mensagens_nutri = $stmt_nutri->get_result();
-
-            if ($result_mensagens_nutri->num_rows > 0) {
-                echo "<ul>";
-                while($row_mensagem_nutri = $result_mensagens_nutri->fetch_assoc()) {
-                    $mensagem_nutri = $row_mensagem_nutri['mensagem'];
-                    echo "<li>$mensagem_nutri</li>";
-                }
-                echo "</ul>";
-            } else {
-                echo "<p>Nenhuma mensagem dos nutricionistas.</p>";
-            }
-
-            $stmt_nutri->close();
-            ?>
-        </div>
-
-
         <div class="relative">
             <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
@@ -65,6 +39,8 @@ session_start();
         </div>
     </div>
 </header>
+
+
 
 <div class="h-16"></div>
 
@@ -151,21 +127,11 @@ session_start();
             timer: 1500
         });
     }
-    document.getElementById("profileDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("profileInfo");
-        var notificationDropdown = document.getElementById("notificationInfo");
-        dropdown.classList.toggle("hidden");
-        notificationDropdown.classList.add("hidden");
-    });
-
-    document.getElementById("notificationDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("notificationInfo");
-        var profileDropdown = document.getElementById("profileInfo");
-        dropdown.classList.toggle("hidden");
-        profileDropdown.classList.add("hidden");
-    });
-
-    </script>
-
+    function noti() {
+        window.location.href = 'notificacoes.php';
+    }
+</script>
+<script src="/Projeto/js/botaoperfil.js"></script>
+<script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
-    <link href="C:\xampp\htdocs\Projeto\css\confirmarcadastro.css" rel="stylesheet">
+    <link href="C:\xampp\htdocs\Projeto\css\confirmar_nutri.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <title>Confirmação de Login</title>
 </head>
@@ -114,10 +114,9 @@ session_start();
         function mandarEditarAdicionais(){
             window.location.href = "/Projeto/Cliente/cadastro/editarinfad.php";
         }
-        document.getElementById("profileDropdown").addEventListener("click", function() {
-    var dropdown = document.getElementById("profileInfo");
-    dropdown.classList.toggle("hidden");
-});
+        
     </script>
+    <script src="/Projeto/js/botaoperfil.js"></script>
+<script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>

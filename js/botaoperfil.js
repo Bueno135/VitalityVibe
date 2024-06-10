@@ -30,3 +30,7 @@ function deslogar(){
         console.error('Erro ao fazer logout:', error);
     });
 }
+
+function noti(){
+    window.location.href = '/Projeto/notificacoes.php';
+}

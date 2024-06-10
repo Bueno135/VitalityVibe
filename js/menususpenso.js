@@ -1,13 +1,24 @@
-document.getElementById("profileDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("profileInfo");
-        var notificationDropdown = document.getElementById("notificationInfo");
-        dropdown.classList.toggle("hidden");
-        notificationDropdown.classList.add("hidden");
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    var profileDropdown = document.getElementById("profileDropdown");
+    var profileInfo = document.getElementById("profileInfo");
+    var notificationDropdown = document.getElementById("notificationDropdown");
+    var notificationInfo = document.getElementById("notificationInfo");
 
-    document.getElementById("notificationDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("notificationInfo");
-        var profileDropdown = document.getElementById("profileInfo");
-        dropdown.classList.toggle("hidden");
-        profileDropdown.classList.add("hidden");
-    });
+    if (profileDropdown) {
+        profileDropdown.addEventListener("click", function() {
+            profileInfo.classList.toggle("hidden");
+            if (notificationInfo) {
+                notificationInfo.classList.add("hidden");
+            }
+        });
+    }
+
+    if (notificationDropdown) {
+        notificationDropdown.addEventListener("click", function() {
+            notificationInfo.classList.toggle("hidden");
+            if (profileInfo) {
+                profileInfo.classList.add("hidden");
+            }
+        });
+    }
+});

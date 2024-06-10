@@ -11,7 +11,7 @@ $alimentos = $data['alimentos'];
 $sqlPlano = "INSERT INTO PlanoAlimentar (ID_Cliente) VALUES ($clienteID)";
 if ($conn->query($sqlPlano) === TRUE) {
     $planoID = $conn->insert_id;
-
+    
     // Insere cada alimento como um prato
     foreach ($alimentos as $alimento) {
         $nomeAlimento = $alimento['nome'];
@@ -25,7 +25,7 @@ if ($conn->query($sqlPlano) === TRUE) {
         $sqlPrato = "INSERT INTO Prato (nome, proteinas, carboidratos, calorias) VALUES ('$nomeAlimento', $proteinas, $carboidratos, $calorias)";
         if ($conn->query($sqlPrato) === TRUE) {
             $pratoID = $conn->insert_id;
-
+            
             // Associa o prato ao plano alimentar
             $sqlPlanoPrato = "INSERT INTO PlanoAlimentarPrato (ID_PlanoAlimentar, ID_Prato, horario, quantidade) VALUES ($planoID, $pratoID, '$horario', $quantidade)";
             if ($conn->query($sqlPlanoPrato) !== TRUE) {

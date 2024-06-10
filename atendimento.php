@@ -1,6 +1,6 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-session_start();
+include '/xampp/htdocs/Projeto/bd/protect.php';
 
 // Verifica se o nutricionista está logado
 if (!isset($_SESSION['id'])) {
@@ -43,66 +43,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mensagem_id']) && isse
             $stmt_excluir_mensagem->bind_param("i", $mensagemID);
             $stmt_excluir_mensagem->execute();
     
-            // Exibir SweetAlert de sucesso
+            // Exibir mensagem de sucesso e redirecionar
             echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Atendimento aceito!',
-                        text: 'Aviso enviado para o cliente e mensagem excluída.',
-                        timer: 3000,
-                        timerProgressBar: true,
-                        showConfirmButton: false
-                    });
-                    setTimeout(function(){
-                        window.location.href = 'atendimento.php';
-                    }, 3000);
+                    alert('Atendimento aceito! Aviso enviado para o cliente e mensagem excluída.');
+                    window.location.href = 'atendimento.php';
                   </script>";
         }
-    }
-    
     } elseif ($acao == 'rejeitar') {
-        // Exibir caixa de diálogo para inserir o motivo da rejeição
-        echo "<script>
-            Swal.fire({
-                title: 'Motivo da Rejeição',
-                input: 'text',
-                inputLabel: 'Insira o motivo da rejeição',
-                inputPlaceholder: 'Motivo...',
-                showCancelButton: true,
-                confirmButtonText: 'Rejeitar',
-                cancelButtonText: 'Cancelar',
-                showLoaderOnConfirm: true,
-                preConfirm: function(motivo) {
-                    if (!motivo) {
-                        Swal.showValidationMessage('Por favor, insira um motivo');
-                    }
-                    return motivo;
-                }
-            }).then(function(result) {
-                if (result.isConfirmed) {
-                    const motivo = result.value;
-                    // Requisição AJAX para processar a ação de rejeitar a mensagem
-                    $.ajax({
-                        type: 'POST',
-                        url: 'atendimento.php',
-                        data: { mensagem_id: $mensagemID, acao: 'rejeitar', motivo: motivo },
-                        success: function(response) {
-                            // Atualiza a página após a rejeição
-                            location.reload();
-                        },
-                        error: function(xhr, status, error) {
-                            // Exibe um alerta em caso de erro
-                            Swal.fire('Erro!', 'Ocorreu um erro ao rejeitar a mensagem.', 'error');
-                        }
-                    });
-                }
-            });
-          </script>";
+        if (isset($_POST['motivo'])) {
+            $motivo = $_POST['motivo'];
+
+            // Enviar mensagem de rejeição para o cliente
+            $sql_cliente = "SELECT fk_Cliente_ID_Cliente FROM mensagem WHERE id_mensagem = ?";
+            $stmt_cliente = $conn->prepare($sql_cliente);
+            $stmt_cliente->bind_param("i", $mensagemID);
+            $stmt_cliente->execute();
+            $result_cliente = $stmt_cliente->get_result();
+
+            if ($result_cliente->num_rows > 0) {
+                $row_cliente = $result_cliente->fetch_assoc();
+                $clienteID = $row_cliente['fk_Cliente_ID_Cliente'];
+
+                $mensagem_rejeicao = "Seu atendimento foi rejeitado.";
+                $motivo_mensagem = "$motivo";
+                $sql_enviar_mensagem = "INSERT INTO mensagem (fk_Cliente_ID_Cliente, fk_Nutricionista_id_nutricionista, mensagem, data_envio, lida, opcao_conversa, outro_opcao) VALUES (?, ?, ?, NOW(), 'N', 'Resposta', ?)";
+                $stmt_enviar_mensagem = $conn->prepare($sql_enviar_mensagem);
+                $stmt_enviar_mensagem->bind_param("iiss", $clienteID, $nutricionistaID, $mensagem_rejeicao, $motivo_mensagem);
+                $stmt_enviar_mensagem->execute();
+
+                // Excluir a mensagem rejeitada
+                $sql_excluir_mensagem = "DELETE FROM mensagem WHERE id_mensagem = ?";
+                $stmt_excluir_mensagem = $conn->prepare($sql_excluir_mensagem);
+                $stmt_excluir_mensagem->bind_param("i", $mensagemID);
+                $stmt_excluir_mensagem->execute();
+
+                // Exibir mensagem de sucesso e redirecionar
+                echo "<script>
+                        alert('Atendimento rejeitado! Aviso enviado para o cliente e mensagem excluída.');
+                        window.location.href = 'atendimento.php';
+                      </script>";
+            }
+        }
     }
-
-
-
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -114,31 +99,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mensagem_id']) && isse
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="/Projeto/css/atendimento.css" rel="stylesheet">
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/Projeto/js/botaoperfil.js"></script>
-    <script src="/Projeto/js/menususpenso.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
-    <style>
-        .message-preview {
-            cursor: pointer;
-        }
-
-        .message-content {
-            display: none;
-        }
-
-        .message-preview.active + .message-content {
-            display: block;
-        }
-
-        .message-actions {
-            display: none;
-        }
-
-        .message-preview.active + .message-content + .message-actions {
-            display: block;
-        }
-    </style>
+   
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
@@ -192,110 +157,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mensagem_id']) && isse
                             echo "<div class='message-actions'>";
                             echo "<form method='POST' action='atendimento.php'>";
                             echo "<input type='hidden' name='mensagem_id' value='{$id_mensagem}'>";
-                            echo "<button type='submit' class='accept-button' name='acao' value='aceitar'>Aceitar</button>";
-                            echo "<button type='submit' class='reject-button' name='acao' value='rejeitar'>Rejeitar</button>";
+                            echo "<button type='submit' name='acao' value='aceitar' class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Aceitar</button>";
+                            echo "<button type='button' class='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' onclick='showRejectionModal($id_mensagem)'>Rejeitar</button>";
                             echo "</form>";
                             echo "</div>";
                             echo "<hr>";
                         }
                     }
                 } else {
-                    echo "<p>Nenhuma mensagem encontrada.</p>";
+                    echo "<p>Nenhuma mensagem recebida.</p>";
                 }
-                
-
-                $stmt->close();
-                $conn->close();
                 ?>
-                <button type="button" onclick="window.location.href='telanutri.php'">Voltar</button>
             </div>
         </div>
     </section>
 </main>
 
-<footer class="bg-gray-800 text-white text-center md:text-left">
-    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div>
-            <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>
-            <ul>
-                <li><a href="#sobre" class="hover:text-blue-400">Sobre</a></li>
-                <li><a href="#features" class="hover:text-blue-400">Recursos</a></li>
-                <li><a href="#contato" class="hover:text-blue-400">Contato</a></li>
-                <li><a href="#login" class="hover:text-blue-400">Login</a></li>
-                <li><a href="/Projeto/cadastro/cadastronutri.php" class="hover:text-blue-400">Cadastre-se</a></li>
-            </ul>
-        </div>
+<footer class="bg-gray-200 text-center py-4 mt-auto">
+    <p>&copy; 2023 VitalityVibe. Todos os direitos reservados.</p>
+</footer>
 
-        <div>
-            <h5 class="uppercase mb-2 font-bold">Legal</h5>
-            <ul>
-                <li><a href="#termos-de-uso" class="
-hover:text-blue-400">Termos de Uso</a></li>
-                <li><a href="#privacidade" class="hover:text-blue-400">Política de Privacidade</a></li>
-            </ul>
-        </div>
+<script>
+$(document).ready(function() {
+    $(".message-preview").click(function() {
+        var id = $(this).data('id');
+        $(".message-preview").removeClass('active');
+        $(".message-content").hide();
+        $(".message-actions").hide();
+        $(this).addClass('active');
+        $(this).next(".message-content").show();
+        $(this).next(".message-content").next(".message-actions").show();
+    });
+});
 
-        <div>
-            <h5 class="uppercase mb-2 font-bold">Contato</h5>
-            <ul>
-                <li><a href="mailto:info@clevereats.com" class="hover:text-blue-400">info@vitalityvibe.com</a></li>
-                <li><a href="tel:+123456789" class="hover:text-blue-400">+1 234 567 89</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h5 class="uppercase mb-2 font-bold">Mais</h5>
-            <ul>
-                <li><a href="#dicas-saude" class="hover:text-blue-400">Dicas de Saúde</a></li>
-                <li><a href="#receitas-saudaveis" class="hover:text-blue-400">Parceiros de Saúde</a></li>
-                <li><a href="#faq" class="hover:text-blue-400">Perguntas Frequentes</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <script>
-    document.querySelectorAll('.message-preview').forEach(item => {
-            item.addEventListener('click', event => {
-                item.classList.toggle('active');
-            });
-        });
-
-        document.querySelectorAll('.accept-button').forEach(item => {
-            item.addEventListener('click', event => {
-                const messageId = item.getAttribute('data-id');
-                // Faça alguma ação com a mensagem aceita, por exemplo:
-                    window.location.href = `/Projeto/aceitar.php?id=${messageId}`;
-            });
-        });
-
-        function toggleMessage(messageId) {
-    var message = document.getElementById("message_" + messageId);
-    message.classList.toggle("active");
+function deslogar() {
+    window.location.href = "logout.php";
 }
 
-function deletarMensagem(id_mensagem) {
+function editarperfilnutri() {
+    window.location.href = "editar_perfil.php";
+}
+
+function showRejectionModal(mensagemId) {
     Swal.fire({
-        title: 'Tem certeza?',
-        text: "Esta ação não pode ser revertida!",
-        icon: 'warning',
+        title: 'Motivo da Rejeição',
+        input: 'text',
+        inputLabel: 'Insira o motivo da rejeição',
+        inputPlaceholder: 'Motivo...',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sim, deletar!',
-        cancelButtonText: 'Cancelar'
+        confirmButtonText: 'Rejeitar',
+        cancelButtonText: 'Cancelar',
+        showLoaderOnConfirm: true,
+        preConfirm: (motivo) => {
+            if (!motivo) {
+                Swal.showValidationMessage('Por favor, insira um motivo');
+            }
+            return motivo;
+        }
     }).then((result) => {
         if (result.isConfirmed) {
-            // Requisição AJAX para processar a ação de rejeitar a mensagem
+            const motivo = result.value;
             $.ajax({
                 type: 'POST',
-                url: '/Projeto/processar_mensagem.php',
-                data: { mensagem_id: id_mensagem, acao: 'rejeitar' },
+                url: 'atendimento.php',
+                data: { mensagem_id: mensagemId, acao: 'rejeitar', motivo: motivo },
                 success: function(response) {
-                    // Atualiza a página após a deleção
-                    location.reload();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Atendimento rejeitado!',
+                        text: 'Aviso enviado para o cliente e mensagem excluída.',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
                 },
                 error: function(xhr, status, error) {
-                    // Exibe um alerta em caso de erro
                     Swal.fire('Erro!', 'Ocorreu um erro ao rejeitar a mensagem.', 'error');
                 }
             });
@@ -303,19 +241,8 @@ function deletarMensagem(id_mensagem) {
     });
 }
 
-document.getElementById("profileDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("profileInfo");
-        dropdown.classList.toggle("hidden");
-    });
-
-    </script>
-    <div class="footer-info">
-        <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
-    </div>
-</footer>
-
+</script>
+<script src="/Projeto/js/botaoperfil.js"></script>
+<script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>
-<?
-
-?>

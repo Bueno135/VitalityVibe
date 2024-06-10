@@ -1,6 +1,6 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-session_start();
+include '/xampp/htdocs/Projeto/bd/protect.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -124,6 +124,7 @@ session_start();
         dropdown.classList.toggle("hidden");
     });
 </script>
-
+<script src="/Projeto/js/botaoperfil.js"></script>
+<script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>

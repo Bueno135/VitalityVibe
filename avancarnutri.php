@@ -1,7 +1,6 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-session_start();
-
+include '/xampp/htdocs/Projeto/bd/protect.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar se o nutricionista está logado
     if (!isset($_SESSION['id'])) {
@@ -34,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_nutricionista->close();
 
         // ID do cliente da sessão
-        $clienteID = $_SESSION['ID_Cliente'];
+        $clienteID = $_SESSION['id'];
 
         // Preparar os dados para inserção na tabela mensagem
         $opcao_conversa = $_POST['opcao_conversa'];
@@ -47,36 +46,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sssii", $mensagem, $opcao_conversa, $outro_opcao, $nutricionistaID, $clienteID);
 
         if ($stmt->execute()) {
-            echo '<script>
-                Swal.fire({
-                    position: "top",
-                    icon: "success",
-                    title: "Dúvida enviada com sucesso",
-                    confirmButtonText: "OK"
-                }).then(() => {
-                    window.location.href = "/Projeto/tela.php";
-                });
-            </script>';
-
+            echo "<p>Dúvida enviada com sucesso. <a href='/Projeto/tela.php'>Voltar</a></p>";
         } else {
-            echo '<script>
-                Swal.fire({
-                    icon: "error",
-                    title: "Erro ao enviar a dúvida",
-                    text: "' . $stmt->error . '"
-                }).then(() => {
-                    window.location.href = "/Projeto/escolhanutri.php?nutricionista=' . $nutricionista . '";
-                });
-            </script>';
-
+            echo "<p>Erro ao enviar a dúvida: " . $stmt->error . ". <a href='/Projeto/escolhanutri.php?nutricionista=" . $nutricionista . "'>Tentar novamente</a></p>";
         }
-
 
         return;
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -86,10 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Avançar - VitalityVibe</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link href="/Projeto/css/avancarnutri.css" rel="stylesheet"> 
+    <link href="/Projeto/css/avancarnutri.css" rel="stylesheet">
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <script src="/Projeto/js/botaoperfil.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <script>
         function toggleTextarea() {
@@ -106,36 +83,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
-    <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="tela.php">VitalityVibe</a></h1>
+    <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="/Projeto/tela.php">VitalityVibe</a></h1>
     <div class="flex items-center">
-        <button  id="notificationDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
+        <button id="notificationDropdown" onclick="noti()" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
             <i class="fas fa-bell fa-lg"></i>
         </button>
-        <div id="notificationInfo" class="absolute top-12 right-0 mt-2 w-48 bg-white rounded-md shadow-lg flex flex-col ">
-            <?php
-            // Consulta para obter as mensagens do nutricionista logado
-            $sql_mensagens_nutri = "SELECT * FROM mensagem WHERE fk_nutricionista_id_nutricionista = ?";
-            $stmt_nutri = $conn->prepare($sql_mensagens_nutri);
-            $stmt_nutri->bind_param("i", $nutricionistaID);
-            $stmt_nutri->execute();
-            $result_mensagens_nutri = $stmt_nutri->get_result();
-
-            if ($result_mensagens_nutri->num_rows > 0) {
-                echo "<ul>";
-                while($row_mensagem_nutri = $result_mensagens_nutri->fetch_assoc()) {
-                    $mensagem_nutri = $row_mensagem_nutri['mensagem'];
-                    echo "<li>$mensagem_nutri</li>";
-                }
-                echo "</ul>";
-            } else {
-                echo "<p>Nenhuma mensagem dos nutricionistas.</p>";
-            }
-
-            $stmt_nutri->close();
-            ?>
-        </div>
-
-
         <div class="relative">
             <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
@@ -205,49 +157,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div>
             <h5 class="uppercase mb-2 font-bold">Legal</h5>
             <ul>
-                <li><a href="#termos-de-uso" class="hover:text-blue-400">Termos de Uso</a></li>
+                <li><a href="#termos" class="hover:text-blue-400">Termos de Serviço</a></li>
                 <li><a href="#privacidade" class="hover:text-blue-400">Política de Privacidade</a></li>
+                <li><a href="#cookies" class="hover:text-blue-400">Política de Cookies</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h5 class="uppercase mb-2 font-bold">Redes Sociais</h5>
+            <ul class="flex space-x-4">
+                <li><a href="#facebook" class="hover:text-blue-400"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="#instagram" class="hover:text-blue-400"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#twitter" class="hover:text-blue-400"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#linkedin" class="hover:text-blue-400"><i class="fab fa-linkedin"></i></a></li>
             </ul>
         </div>
 
         <div>
             <h5 class="uppercase mb-2 font-bold">Contato</h5>
             <ul>
-                <li><a href="mailto:info@clevereats.com" class="hover:text-blue-400">info@vitalityvibe.com</a></li>
-                <li><a href="tel:+123456789" class="hover:text-blue-400">+1 234 567 89</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h5 class="uppercase mb-2 font-bold">Mais</h5>
-            <ul>
-                <li><a href="#dicas-saude" class="hover:text-blue-400">Dicas de Saúde</a></li>
-                <li><a href="#receitas-saudaveis" class="hover:text-blue-400">Receitas Saudáveis</a></li>
-                <li><a href="#parceiros" class="hover:text-blue-400">Parceiros de Saúde</a></li>
-                <li><a href="#faq" class="hover:text-blue-400">Perguntas Frequentes</a></li>
+                <li><i class="fas fa-envelope"></i> contato@vitalityvibe.com</li>
+                <li><i class="fas fa-phone"></i> +1 234 567 890</li>
+                <li><i class="fas fa-map-marker-alt"></i> 1234 Main St, Anytown, USA</li>
             </ul>
         </div>
     </div>
-
-    <div class="footer-info">
-        <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
+    <div class="bg-gray-900 text-gray-500 text-center p-4">
+        &copy; 2024 VitalityVibe. Todos os direitos reservados.
     </div>
 </footer>
-<script>
-    document.getElementById("profileDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("profileInfo");
-        var notificationDropdown = document.getElementById("notificationInfo");
-        dropdown.classList.toggle("hidden");
-        notificationDropdown.classList.add("hidden");
-    });
-
-    document.getElementById("notificationDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("notificationInfo");
-        var profileDropdown = document.getElementById("profileInfo");
-        dropdown.classList.toggle("hidden");
-        profileDropdown.classList.add("hidden");
-    });
-
-</script>
+<script src="/Projeto/js/botaoperfil.js"></script>
+<script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>

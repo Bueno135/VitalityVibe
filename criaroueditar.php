@@ -105,6 +105,7 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
 </footer>
 
     <!-- Seu JavaScript -->
-    
+    <script src="/Projeto/js/botaoperfil.js"></script>
+<script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>
