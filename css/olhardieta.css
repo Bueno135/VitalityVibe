@@ -1,0 +1,52 @@
+.dieta-box {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.dieta-box ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dieta-box li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.dieta-box li:last-child {
+    border-bottom: none;
+}
+
+.dieta-box li strong {
+    display: block;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.footer-info {
+    padding: 10px 0;
+    background: #333;
+    color: white;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+footer li {
+    margin: 8px 0;
+}
+
+footer a {
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #fff;
+}
