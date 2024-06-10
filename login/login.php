@@ -8,30 +8,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $conn->real_escape_string($_POST['email']);
     $senha = $conn->real_escape_string($_POST['senha']);
+    $userType = $conn->real_escape_string($_POST['user_type']);
 
-    // Adiciona um echo para verificar se os dados estão sendo recebidos
-    // echo "Email: $email, Senha: $senha";
-    $stmt = $conn->prepare("SELECT * FROM cliente WHERE email=?");
+    // Determinar a tabela correta com base no tipo de usuário
+    $table = ($userType === 'cliente') ? 'cliente' : 'nutricionista';
+    $idField = ($userType === 'cliente') ? 'ID_Cliente' : 'id_nutricionista';
+
+    $stmt = $conn->prepare("SELECT * FROM $table WHERE email=?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
     $quantidade = $result->num_rows;
 
     if ($quantidade == 1) {
-        $cliente = $result->fetch_assoc();
+        $user = $result->fetch_assoc();
 
         // Verifica a senha usando password_verify
-        if (password_verify($senha, $cliente['senha'])) {
-
-            if(!isset($_SESSION)){
+        if (password_verify($senha, $user['senha'])) {
+            if (!isset($_SESSION)) {
                 session_start();
-            }        
+            }
             // Senha correta, faça o login
-            $_SESSION['id'] = $cliente['ID_Cliente']; // Defina a ID do cliente na sessão
+            $_SESSION['id'] = $user[$idField]; // Defina a ID do usuário na sessão
             $_SESSION['email'] = $email;
-            $_SESSION['nome'] = $cliente['nome']; // Se 'nome' é o campo correto para o nome do cliente
+            $_SESSION['nome'] = $user['nome']; // Se 'nome' é o campo correto para o nome do usuário
 
-            header('Location: /Projeto/tela.php');
+            // Redirecionar para a página correta após login bem-sucedido
+            if ($userType === 'cliente') {
+                header('Location: /Projeto/tela.php');
+            } else {
+                header('Location: /Projeto/telanutri.php');
+            }
             exit();
         } else {
             // Senha incorreta
@@ -51,5 +58,6 @@ if (isset($erro)) {
     echo "<div class='message'>
         <p>{$erro}</p>
         </div><br>";
-    echo "<a href='entrarcliente.php'>Voltar</a>";
+    echo "<a href='login.php?user_type=" . htmlspecialchars($userType) . "'>Voltar</a>";
 }
+?>

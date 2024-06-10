@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$conn) {
         die("Conexão falhou: " . $conn->connect_error);
     }
-    $cpf = $_POST['cpf'] ?? '';
+    $cpf = $_POST['cpf'];
     $cpf = mysqli_real_escape_string($conn, $cpf);
-    $email = $_POST['email'] ?? '';
+    $email = $_POST['email'];
     $email = mysqli_real_escape_string($conn, $email);
 
     $sql = "SELECT cpf FROM nutricionista WHERE cpf= '$cpf'";
@@ -32,14 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<a href=cadastronutri.php>Voltar</a>";
         exit();
     } else {
-        $nome = $_POST['nome'] ?? '';
-        $senha = $_POST['senha'] ?? '';
-        $sexo = $_POST['sexo'] ?? '';
-        $telefone = $_POST['telefone']?? '';
-        $cep = $_POST['cep'] ?? '';
-        $crn = $_POST['crn'] ?? '';
-        $formacao = $_POST['formacao'] ?? '';
-        $especialidade = $_POST['especialidade'] ?? '';
+        $nome = $_POST['nome'];
+        $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT); // Hash da senha
+        $sexo = $_POST['sexo'];
+        $telefone = $_POST['telefone'];
+        $cep = $_POST['cep'];
+        $crn = $_POST['crn'];
+        $formacao = $_POST['formacao'];
+        $especialidade = $_POST['especialidade'];
         
         $sql5 = "INSERT INTO especialidade (nome_especialidade) VALUES ('$especialidade')";
         $resultado4 = mysqli_query($conn, $sql5);
