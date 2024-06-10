@@ -62,7 +62,7 @@ CREATE TABLE CategoriaAlimentar (
 
 CREATE TABLE PlanoAlimentar (
     refeicao VARCHAR(255),
-    dia_semana VARCHAR(255),
+    nome_dieta VARCHAR(255),
     horario TIME,
     descricao VARCHAR(255),
     id_plano INT PRIMARY KEY UNIQUE AUTO_INCREMENT
