@@ -46,7 +46,7 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
             <ul class="cliente-list" id="clienteList">
                 <?php
                     // Incluindo o arquivo de conexão com o banco de dados
-                    include 'bd/connection.php';
+                    
 
                     // Query para buscar todos os clientes
                     $sql = "SELECT * FROM cliente";

@@ -1,11 +1,15 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 include '/xampp/htdocs/Projeto/bd/protect.php';
+
 // Verifica se o nutricionista está logado
+if (!isset($_SESSION['id']) || !is_numeric($_SESSION['id'])) {
+    echo "ID de nutricionista inválido.";
+    exit; // Para a execução do script
+}
 
 // ID do nutricionista logado
 $nutricionistaID = $_SESSION['id'];
-
 ?>
 
 <!DOCTYPE html>
@@ -48,14 +52,16 @@ $nutricionistaID = $_SESSION['id'];
             <div class="opcoes-conversa">
                 <h3>Dietas criadas:</h3>
                 <?php
-                if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
-                    // Consulta o banco de dados para obter as dietas do contrato do nutricionista
-                    $sql = "SELECT p.nome_dieta, p.descricao
-                            FROM contrato_cliente_nutricionista_planoalimentar ccnp
-                            JOIN planoalimentar p ON ccnp.fk_PlanoAlimentar_id_plano = p.id_plano
-                            WHERE ccnp.fk_Nutricionista_ID_Nutricionista = $nutricionistaID";
-
-                    $result = $conn->query($sql);
+                // Consulta o banco de dados para obter as dietas do contrato do nutricionista
+                $sql = "SELECT p.nome_dieta, p.descricao
+                        FROM contrato_cliente_nutricionista_planoalimentar ccnp
+                        JOIN planoalimentar p ON ccnp.fk_PlanoAlimentar_id_plano = p.id_plano
+                        WHERE ccnp.fk_Nutricionista_ID_Nutricionista = ?";
+                
+                if ($stmt = $conn->prepare($sql)) {
+                    $stmt->bind_param("i", $nutricionistaID);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
 
                     if ($result->num_rows > 0) {
                         // Exibir as dietas do contrato
@@ -70,11 +76,13 @@ $nutricionistaID = $_SESSION['id'];
                     } else {
                         echo "<p>Nenhuma dieta encontrada para este nutricionista.</p>";
                     }
+
+                    $stmt->close();
                 } else {
-                    echo "ID de nutricionista inválido.";
-                    exit; // Para a execução do script
+                    echo "Erro na preparação da consulta: " . $conn->error;
                 }
 
+                $conn->close();
                 ?>
             </div>
         </div>
