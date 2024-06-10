@@ -3,28 +3,31 @@ include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
 
 // Verifica se o ID do cliente está definido e é um número
-if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
+if (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
     $clienteID = $_SESSION['id'];
 
-    // Consulta o banco de dados para obter os IDs da tabela contrato_cliente_nutricionista_planoalimentar
-    $sql = "SELECT id_contrato, fk_nutricionista_id_nutricionista FROM contrato_cliente_nutricionista_planoalimentar WHERE fk_cliente_id_cliente = $clienteID";
+    // Consulta o banco de dados para obter as dietas associadas ao cliente
+    $sql = "
+        SELECT 
+            c.id_contrato, 
+            n.nome AS nome_nutricionista, 
+            p.nome_dieta AS planoalimentar, 
+            p.descricao 
+        FROM 
+            contrato_cliente_nutricionista_planoalimentar c
+        JOIN 
+            nutricionista n ON c.fk_nutricionista_id_nutricionista = n.id_nutricionista
+        JOIN 
+            planoalimentar p ON c.fk_PlanoAlimentar_id_plano = p.id_plano
+        WHERE 
+            c.fk_cliente_id_cliente = $clienteID";
     $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // Exibir os IDs e o nutricionista associado
-        while($row = $result->fetch_assoc()) {
-            $id_contrato = $row['id_contrato'];
-            $id_nutricionista = $row['fk_nutricionista_id_nutricionista'];
-            echo "ID do Contrato: $id_contrato, ID do Nutricionista: $id_nutricionista <br>";
-        }
-    } else {
-        echo "Nenhum contrato encontrado para este cliente.";
-    }
 } else {
     echo "ID de cliente inválido.";
     exit; // Para a execução do script
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -34,6 +37,65 @@ if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link href="/Projeto/css/olhardieta.css" rel="stylesheet">
+    <style>
+        .dieta-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .dieta-box ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dieta-box li {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .dieta-box li:last-child {
+            border-bottom: none;
+        }
+
+        .dieta-box li strong {
+            display: block;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .dieta-box li p {
+            margin-top: 5px;
+            color: #555;
+        }
+
+        .footer-info {
+            padding: 10px 0;
+            background: #333;
+            color: white;
+        }
+
+        footer ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        footer li {
+            margin: 8px 0;
+        }
+
+        footer a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
@@ -63,13 +125,13 @@ if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
     <section class="my-1 p-10">
         <div class="max-w-lg mx-auto dieta-box">
             <?php
-            if ($result->num_rows > 0) {
+            if (isset($result) && $result->num_rows > 0) {
                 echo "<ul>";
                 while ($row = $result->fetch_assoc()) {
-                    $nomeCliente = $row['nome_cliente'];
                     $nomeNutricionista = $row['nome_nutricionista'];
                     $planoalimentar = $row['planoalimentar'];
-                    echo "<li><strong>Cliente:</strong> $nomeCliente | <strong>Nutricionista:</strong> $nomeNutricionista | <strong>Dieta:</strong> $planoalimentar</li>";
+                    $descricao = $row['descricao'];
+                    echo "<li><strong>Nutricionista:</strong> $nomeNutricionista <br> <strong>Dieta:</strong> $planoalimentar <p><strong>Descrição:</strong> $descricao</p></li>";
                 }
                 echo "</ul>";
             } else {
@@ -124,18 +186,18 @@ if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
 </footer>
 <script>
     document.getElementById("profileDropdown").addEventListener("click", function() {
-    var dropdown = document.getElementById("profileInfo");
-    dropdown.classList.toggle("hidden");
-});
-document.getElementById("profileDropdown").addEventListener("click", function() {
+        var dropdown = document.getElementById("profileInfo");
+        dropdown.classList.toggle("hidden");
+    });
+    document.getElementById("profileDropdown").addEventListener("click", function() {
         var dropdown = document.getElementById("profileInfo");
         var notificationDropdown = document.getElementById("notificationInfo");
         dropdown.classList.toggle("hidden");
         notificationDropdown.classList.add("hidden");
     });
-function noti(){
-    window.location.href = 'notificacoes.php';
-}
+    function noti() {
+        window.location.href = 'notificacoes.php';
+    }
 </script>
 <script src="/Projeto/js/botaoperfil.js"></script>
 <script src="/Projeto/js/menususpenso.js"></script>

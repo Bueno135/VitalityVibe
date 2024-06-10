@@ -7,7 +7,7 @@ if (!isset($_SESSION['id'])) {
     echo "<p>Nutricionista não conectado. <a href='entrarnutri.php'>Login</a></p>";
     exit();
 }
-
+echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
 // ID do nutricionista logado
 $nutricionistaID = $_SESSION['id'];
 
@@ -42,12 +42,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mensagem_id']) && isse
             $stmt_excluir_mensagem = $conn->prepare($sql_excluir_mensagem);
             $stmt_excluir_mensagem->bind_param("i", $mensagemID);
             $stmt_excluir_mensagem->execute();
-    
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
             // Exibir mensagem de sucesso e redirecionar
             echo "<script>
-                    alert('Atendimento aceito! Aviso enviado para o cliente e mensagem excluída.');
+                    Swal.fire({
+                    title: 'Atendimento aceito!',
+                    text: 'Aviso enviado para o cliente e mensagem excluída.',
+                    icon: 'success'
+                    }).then(function() {
                     window.location.href = 'atendimento.php';
-                  </script>";
+                    });
+                </script>";
+
         }
     } elseif ($acao == 'rejeitar') {
         if (isset($_POST['motivo'])) {
@@ -76,12 +82,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mensagem_id']) && isse
                 $stmt_excluir_mensagem = $conn->prepare($sql_excluir_mensagem);
                 $stmt_excluir_mensagem->bind_param("i", $mensagemID);
                 $stmt_excluir_mensagem->execute();
-
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@10'></script>";
                 // Exibir mensagem de sucesso e redirecionar
                 echo "<script>
-                        alert('Atendimento rejeitado! Aviso enviado para o cliente e mensagem excluída.');
+                        Swal.fire({
+                        title: 'Atendimento rejeitado!',
+                        text: 'Aviso enviado para o cliente e mensagem excluída.',
+                        icon: 'error'
+                        }).then(function() {
                         window.location.href = 'atendimento.php';
-                      </script>";
+                        });
+                    </script>";
+
             }
         }
     }
@@ -100,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mensagem_id']) && isse
     <link href="/Projeto/css/atendimento.css" rel="stylesheet">
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
    
@@ -190,13 +202,6 @@ $(document).ready(function() {
     });
 });
 
-function deslogar() {
-    window.location.href = "logout.php";
-}
-
-function editarperfilnutri() {
-    window.location.href = "editar_perfil.php";
-}
 
 function showRejectionModal(mensagemId) {
     Swal.fire({

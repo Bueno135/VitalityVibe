@@ -88,7 +88,7 @@
                         </div> 
                         <div class="mb-6">
                             <label for="obj" class="block text-sm font-medium text-gray-700">Objetivo</label>
-                            <select id="obj" name="objetivo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                            <select id="objetivo" name="objetivo" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                                 <option value="" disabled selected>Selecione...</option>
                                 <option value="perda">Perda de Peso</option>
                                 <option value="ganho">Ganho de Peso</option>

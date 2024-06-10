@@ -2,76 +2,57 @@
 include '/xampp/htdocs/Projeto/bd/connection.php';
 include '/xampp/htdocs/Projeto/bd/protect.php';
 
-// Verifica se o ID do cliente está definido e é um número
 if (isset($_POST['clienteID']) && is_numeric($_POST['clienteID'])) {
     $clienteID = $_POST['clienteID'];
+    $nutricionistaID = $_SESSION['id'];
+    $nomePlano = $_POST['nomePlano']; // Receba o nome do plano do formulário
 
-    // Cria o plano alimentar
-    $sqlPlano = "INSERT INTO contrato_cliente_nutricionista_planoalimentar (fk_Cliente_ID_Cliente) VALUES ($clienteID)";
-    if ($conn->query($sqlPlano) === TRUE) {
+    $descricaoPlano = '';
+    if (isset($_POST['alimentos']) && is_array($_POST['alimentos'])) {
+        foreach ($_POST['alimentos'] as $alimento) {
+            $nomeAlimento = $alimento['nome'];
+            $proteinas = $alimento['proteinas'];
+            $carboidratos = $alimento['carboidratos'];
+            $calorias = $alimento['calorias'];
+            $quantidade = $alimento['quantidade'];
+            $horario = $alimento['refeicao'];
+
+            $descricaoPlano .= "Nome: $nomeAlimento, Proteínas: $proteinas, Carboidratos: $carboidratos, Calorias: $calorias, Quantidade: $quantidade, Horário: $horario\n";
+        }
+    }
+
+    $conn->begin_transaction();
+
+    // Insere o plano alimentar na tabela PlanoAlimentar
+    $sqlPlanoAlimentar = "INSERT INTO PlanoAlimentar (nome_dieta, descricao) VALUES (?, ?)";
+    $stmtPlanoAlimentar = $conn->prepare($sqlPlanoAlimentar);
+    $stmtPlanoAlimentar->bind_param("ss", $nomePlano, $descricaoPlano);
+
+    if ($stmtPlanoAlimentar->execute()) {
         $planoID = $conn->insert_id;
 
-        // Insere cada alimento como um prato
-        if (isset($_POST['alimentos']) && is_array($_POST['alimentos'])) {
-            foreach ($_POST['alimentos'] as $alimento) {
-                $nomeAlimento = $alimento['nome'];
-                $proteinas = $alimento['proteinas'];
-                $carboidratos = $alimento['carboidratos'];
-                $calorias = $alimento['calorias'];
-                $quantidade = $alimento['quantidade'];
-                $horario = $alimento['refeicao'];
+        // Associa o plano alimentar ao cliente e nutricionista na tabela contrato_cliente_nutricionista_planoalimentar
+        $sqlContrato = "INSERT INTO contrato_cliente_nutricionista_planoalimentar (fk_Cliente_ID_Cliente, fk_Nutricionista_ID_Nutricionista, fk_PlanoAlimentar_id_plano) VALUES (?, ?, ?)";
+        $stmtContrato = $conn->prepare($sqlContrato);
+        $stmtContrato->bind_param("iii", $clienteID, $nutricionistaID, $planoID);
 
-                // Insere o prato
-                $sqlPrato = "INSERT INTO Prato (nome, modo_preparo) VALUES ('$nomeAlimento', '')";
-                if ($conn->query($sqlPrato) === TRUE) {
-                    $pratoID = $conn->insert_id;
-
-                    // Associa o prato ao plano alimentar
-                    $sqlPlanoPrato = "INSERT INTO PlanoAlimentarPrato (fk_PlanoAlimentar_id_plano, fk_Prato_id_prato, horario, quantidade) VALUES ($planoID, $pratoID, '$horario', $quantidade)";
-                    if ($conn->query($sqlPlanoPrato) !== TRUE) {
-                        echo "Erro ao associar prato ao plano alimentar.";
-                        exit;
-                    }
-
-                    if (isset($alimento['ingredientes']) && is_array($alimento['ingredientes'])) {
-                        foreach ($alimento['ingredientes'] as $ingrediente) {
-                            $nomeIngrediente = $ingrediente['nome'];
-                            $gordura = $ingrediente['gordura'];
-                            $proteina = $ingrediente['proteina'];
-                            $carboidratos = $ingrediente['carboidratos'];
-                            $unidade_medida = $ingrediente['unidade_medida'];
-                            $calorias = $ingrediente['calorias'];
-                            $categoria = $ingrediente['categoria'];
-
-                            // Insere o ingrediente
-                            $sqlIngrediente = "INSERT INTO Ingredientes (nome, gordura, proteina, carboidratos, unidade_medida, calorias, fk_CategoriaAlimentar_id_categoria) 
-                                                VALUES ('$nomeIngrediente', $gordura, $proteina, $carboidratos, '$unidade_medida', $calorias, $categoria)";
-                            if ($conn->query($sqlIngrediente) !== TRUE) {
-                                echo "Erro ao inserir ingrediente.";
-                                exit;
-                            }
-
-                            $ingredienteID = $conn->insert_id;
-
-                            // Associa o ingrediente ao prato na tabela Composicao
-                            $sqlComposicao = "INSERT INTO Composicao (fk_Prato_id_prato, fk_Ingredientes_id_ingrediente, Quantidade) 
-                                                VALUES ($pratoID, $ingredienteID, 1)";
-                            if ($conn->query($sqlComposicao) !== TRUE) {
-                                echo "Erro ao associar ingrediente ao prato.";
-                                exit;
-                            }
-                        }
-                    }
-                } else {
-                    echo "Erro ao inserir prato.";
-                    exit;
-                }
-            }
+        if ($stmtContrato->execute()) {
+            $conn->commit();
+            echo "Plano alimentar criado com sucesso.";
+            header("Location: /Projeto/telanutri.php");
+            exit();
+        } else {
+            $conn->rollback();
+            echo "Erro ao associar plano alimentar ao contrato.";
+            exit();
         }
-
-        echo "Plano alimentar criado com sucesso.";
-        header("Location: /Projeto/telanutri.php");
+    } else {
+        $conn->rollback();
+        echo "Erro ao criar plano alimentar.";
         exit();
     }
+} else {
+    echo "ID de cliente inválido.";
+    exit;
 }
 ?>

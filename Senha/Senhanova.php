@@ -26,12 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $updateQueryCliente = "UPDATE cliente SET senha='$hashedSenha' WHERE email='$email'";
         if (mysqli_query($conn, $updateQueryCliente)) {
             echo "<script>
-                window.location.href = '/Projeto/index.php';
+                window.location.href = '/Projeto/login/entrar.php';
             </script>";
             exit();
         } else {
             echo "<script>
-                window.location.href = '/Projeto/index.php';
+                window.location.href = '/Projeto/login/entrar.php';
             </script>";
             exit();
         }
@@ -45,18 +45,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $updateQueryNutricionista = "UPDATE nutricionista SET senha='$hashedSenha' WHERE email='$email'";
             if (mysqli_query($conn, $updateQueryNutricionista)) {
                 echo "<script>
-                    window.location.href = '/Projeto/index.php';
+                    window.location.href = '/Projeto/login/entrar.php';
                 </script>";
                 exit();
             } else {
                 echo "<script>
-                    window.location.href = '/Projeto/index.php';
+                    window.location.href = '/Projeto/login/entrar.php';
                 </script>";
                 exit();
             }
         } else {
             echo "<script>
-                window.location.href = '/Projeto/index.php';
+                window.location.href = '/Projeto/login/entrar.php';
             </script>";
             exit();
         }

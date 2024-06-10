@@ -149,8 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <li><a href="#sobre" class="hover:text-blue-400">Sobre</a></li>
                 <li><a href="#features" class="hover:text-blue-400">Recursos</a></li>
                 <li><a href="#contato" class="hover:text-blue-400">Contato</a></li>
-                <li><a href="#login" class="hover:text-blue-400">Login</a></li>
-                <li><a href="/Projeto/cadastro/cadastrocliente.php" class="hover:text-blue-400">Cadastre-se</a></li>
+            
             </ul>
         </div>
 

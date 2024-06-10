@@ -66,6 +66,10 @@ if (isset($_GET['ID_Cliente'])) {
                 <!-- Adicione um input hidden para enviar o ID do cliente -->
                 <input type="hidden" name="clienteID" value="<?php echo $clienteID; ?>">
                 <div class="form-group">
+                    <label for="nomePlano" class="block text-gray-700 font-bold mb-2">Nome do plano alimentar:</label>
+                    <input type="text" id="nomePlano" name="nomePlano" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="form-group">
                     <label for="nomeAlimento" class="block text-gray-700 font-bold mb-2">Nome do Alimento:</label>
                     <input type="text" id="nomeAlimento" name="nomeAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
@@ -86,6 +90,11 @@ if (isset($_GET['ID_Cliente'])) {
                     <input type="number" id="quantidadeAlimento" name="quantidadeAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div class="form-group">
+                    <label for="horarioAlimento" class="block text-gray-700 font-bold mb-2">Horário:</label>
+                    <input type="time" id="horarioAlimento" name="horarioAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+
+                <div class="form-group">
                     <label for="refeicao" class="block text-gray-700 font-bold mb-2">Refeição:</label>
                     <select id="refeicao" name="refeicao" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         <option value="Café da Manhã">Café da Manhã</option>
@@ -103,9 +112,6 @@ if (isset($_GET['ID_Cliente'])) {
             </ul>
                 <button type="submit" id="btnSalvar" class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
             </form>
-           
-            <!-- Botão para salvar a dieta -->
-            
         </div>
     </section>
 </main>

@@ -1,60 +1,52 @@
-/* Adicione estilos CSS personalizados aqui */
-.logo {
-            font-size: 2rem;
-            text-align: center;
-        }
-
-        .footer-info {
-            font-size: 0.875rem;
-        }
-
-.subtitulo {
-    font-size: 24px; /* Tamanho do subtitulo */
-    text-align: center;
-    margin-top: 20px;
-}
-
-.image-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-}
-
-.image-container a {
-    text-align: center;
-    position: relative;
-}
-
-.image-container img {
-    height: 300px;
-    width: 400px; /* Largura padrão das imagens */
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    margin-bottom: 10px; /* Espaçamento entre a imagem e o texto */
-}
-
-.image-container img:hover {
-    transform: scale(1.05);
-}
 .dieta-box {
-    background-color: #f7fafc;
+    background: white;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
 }
-.dieta-box h2 {
-    color: #2d3748;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+
 .dieta-box ul {
     list-style-type: none;
     padding: 0;
-    margin: 0;
 }
+
 .dieta-box li {
-    margin-bottom: 5px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.dieta-box li:last-child {
+    border-bottom: none;
+}
+
+.dieta-box li strong {
+    display: block;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.footer-info {
+    padding: 10px 0;
+    background: #333;
+    color: white;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+footer li {
+    margin: 8px 0;
+}
+
+footer a {
+    color: #ddd;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    color: #fff;
 }

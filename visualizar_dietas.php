@@ -3,7 +3,6 @@ include '/xampp/htdocs/Projeto/bd/connection.php';
 include '/xampp/htdocs/Projeto/bd/protect.php';
 // Verifica se o nutricionista está logado
 
-
 // ID do nutricionista logado
 $nutricionistaID = $_SESSION['id'];
 
@@ -49,37 +48,34 @@ $nutricionistaID = $_SESSION['id'];
             <div class="opcoes-conversa">
                 <h3>Dietas criadas:</h3>
                 <?php
-            if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
-                $clienteID = $_SESSION['id'];
-            
-                // Consulta o banco de dados para obter as dietas do contrato do cliente
-                $sql = "SELECT p.refeicao, p.descricao
-                        FROM contrato_cliente_nutricionista_planoalimentar ccnp
-                        JOIN planoalimentar p ON ccnp.fk_PlanoAlimentar_id_plano = p.id_plano
-                        WHERE ccnp.fk_Cliente_ID_Cliente = $clienteID";
-            
-                $result = $conn->query($sql);
-            
-                if ($result->num_rows > 0) {
-                    // Exibir as dietas do contrato
-                    while($row = $result->fetch_assoc()) {
-                        $refeicao = $row['refeicao'];
-                        $descricao = $row['descricao'];
-                        echo "<div class='dieta'>";
-                        echo "<p><strong>Refeição:</strong> $refeicao</p>";
-                        echo "<p><strong>Descrição:</strong> $descricao</p>";
-                        echo "</div>";
+                if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
+                    // Consulta o banco de dados para obter as dietas do contrato do nutricionista
+                    $sql = "SELECT p.nome_dieta, p.descricao
+                            FROM contrato_cliente_nutricionista_planoalimentar ccnp
+                            JOIN planoalimentar p ON ccnp.fk_PlanoAlimentar_id_plano = p.id_plano
+                            WHERE ccnp.fk_Nutricionista_ID_Nutricionista = $nutricionistaID";
+
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        // Exibir as dietas do contrato
+                        while($row = $result->fetch_assoc()) {
+                            $nomeDieta = $row['nome_dieta'];
+                            $descricao = $row['descricao'];
+                            echo "<div class='dieta'>";
+                            echo "<p><strong>Nome da Dieta:</strong> $nomeDieta</p>";
+                            echo "<p><strong>Descrição:</strong> $descricao</p>";
+                            echo "</div>";
+                        }
+                    } else {
+                        echo "<p>Nenhuma dieta encontrada para este nutricionista.</p>";
                     }
                 } else {
-                    echo "<p>Nenhuma dieta encontrada para este cliente.</p>";
+                    echo "ID de nutricionista inválido.";
+                    exit; // Para a execução do script
                 }
-            } else {
-                echo "ID de cliente inválido.";
-                exit; // Para a execução do script
-            }
-            
-                ?>
 
+                ?>
             </div>
         </div>
     </section>
@@ -118,16 +114,11 @@ $nutricionistaID = $_SESSION['id'];
                 <li><a href="#dicas-saude" class="hover:text-blue-400">Dicas de Saúde</a></li>
                 <li><a href="#receitas-saudaveis" class="hover:text-blue-400">Parceiros de Saúde</a></li>
                 <li><a href="#faq" class="hover:text-blue-400">Perguntas Frequentes</a></li>
-            </ul>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <script>
-    document.getElementById("profileDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("profileInfo");
-        dropdown.classList.toggle("hidden");
-    });
-    </script>
     <div class="footer-info">
         <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
     </div>
@@ -136,4 +127,3 @@ $nutricionistaID = $_SESSION['id'];
 <script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>
-
