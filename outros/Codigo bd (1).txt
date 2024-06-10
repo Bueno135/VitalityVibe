@@ -1,110 +1,101 @@
 CREATE TABLE Cliente (
-    ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    email VARCHAR(100) UNIQUE,
-    cpf VARCHAR(14) UNIQUE,
-    senha VARCHAR(100),
-    telefone VARCHAR(30),
+    ID_Cliente INT PRIMARY KEY,
+    telefone VARCHAR(50),
     dt_nasc DATE,
-    cep VARCHAR(10),
-    altura VARCHAR(10),
-    peso VARCHAR(10),
-    sexo VARCHAR(10),
-<<<<<<< HEAD
-    objetivo VARCHAR(100),
-=======
-    freq_atv_fisica VARCHAR(100),
->>>>>>> e56ac61286fda233ff13502995849e8125c44580
-    alergias VARCHAR(100),
-    problema_saude VARCHAR(100),
-    med_controlado VARCHAR(100)
+    altura VARCHAR(100),
+    cpf VARCHAR(21),
+    sexo VARCHAR(20),
+    senha VARHCAR(255),
+    freq_atv_fisica VARHCAR(255),
+    email VARHCAR(255),
+    nome VARHCAR(255),
+    alergias VARHCAR(255),
+    problema_saude VARHCAR(255),
+    med_controlado VARHCAR(255),
+    peso VARHCAR(20),
+    UNIQUE (ID_Cliente, email, cpf)
 );
 
 CREATE TABLE Nutricionista (
-    id_nutricionista INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    cpf VARCHAR(14) UNIQUE,
-    email VARCHAR(100) UNIQUE,
-    telefone VARCHAR(30),
-    senha VARCHAR(100),
-    cep VARCHAR(10),
-    sexo VARCHAR(15),
-    CRN VARCHAR(10),
-    formacao VARCHAR(100),
-    fk_Especialidade_id_especialidade INT
+    id_nutricionista INT PRIMARY KEY,
+    nome VARHCAR(255),
+    cpf VARHCAR(25),
+    email VARHCAR(255),
+    senha VARHCAR(255),
+    sexo VARHCAR(20),
+    formacao VARHCAR(255),
+    CRN VARHCAR(20),
+    telefone VARHCAR(50),
+    fk_Especialidade_id_especialidade INT,
+    UNIQUE (id_nutricionista, email)
 );
 
 CREATE TABLE Prato (
-    id_prato INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100),
-    modo_preparo VARCHAR(300)
+    id_prato INT PRIMARY KEY UNIQUE,
+    nome VARHCAR(255),
+    modo_preparo VARHCAR(255)
 );
 
 CREATE TABLE Ingredientes (
-    id_ingrediente INT AUTO_INCREMENT PRIMARY KEY,
+    id_ingrediente INT PRIMARY KEY UNIQUE,
     gordura FLOAT,
     proteina FLOAT,
     carboidratos FLOAT,
     unidade_medida FLOAT,
     calorias FLOAT,
-    fk_CategoriaAlimentar_id_categoria INT
-);
-
-CREATE TABLE Especialidade (
-    id_especialidade INT AUTO_INCREMENT PRIMARY KEY,
-    nome_especialidade VARCHAR(100)
-);
-
-CREATE TABLE CategoriaAlimentar (
-    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    fk_CategoriaAlimentar_id_categoria INT,
     nome VARCHAR(100)
 );
 
-CREATE TABLE PlanoAlimentar (
-    id_plano INT AUTO_INCREMENT PRIMARY KEY,
-    fk_Cliente_ID_Cliente INT,
-    fk_Nutricionista_id_nutricionista INT,
-    refeicao VARCHAR(100),
-    dia_semana DATE,
-    horario TIME,
-    observacoes VARCHAR(255),
-    FOREIGN KEY (fk_Cliente_ID_Cliente) REFERENCES Cliente (ID_Cliente),
-    FOREIGN KEY (fk_Nutricionista_id_nutricionista) REFERENCES Nutricionista (id_nutricionista)
+CREATE TABLE Especialidade (
+    id_especialidade INT PRIMARY KEY UNIQUE,
+    nome_especialidade VARHCAR(255)
 );
 
-CREATE TABLE Mensagem (
-    id_mensagem INT AUTO_INCREMENT PRIMARY KEY,
-    fk_Cliente_ID_Cliente INT,
-    fk_Nutricionista_id_nutricionista INT,
-    mensagem VARCHAR(255),
-    data_envio DATETIME,
-    lida BOOLEAN DEFAULT 0,
-    FOREIGN KEY (fk_Cliente_ID_Cliente) REFERENCES Cliente (ID_Cliente),
-    FOREIGN KEY (fk_Nutricionista_id_nutricionista) REFERENCES Nutricionista (id_nutricionista)
+CREATE TABLE CategoriaAlimentar (
+    id_categoria INT PRIMARY KEY UNIQUE,
+    nome VARHCAR(255)
+);
+
+CREATE TABLE PlanoAlimentar (
+    refeicao VARHCAR(255),
+    dia_semana VARHCAR(255),
+    horario TIME,
+    descricao VARCHAR(255),
+    id_plano INT PRIMARY KEY UNIQUE
 );
 
 CREATE TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar (
-    id_contrato INT AUTO_INCREMENT PRIMARY KEY,
     fk_Cliente_ID_Cliente INT,
     fk_Nutricionista_id_nutricionista INT,
     fk_PlanoAlimentar_id_plano INT,
     dt_inic DATE,
-    dt_fim DATE
+    dt_fim DATE,
+    id_contrato INT PRIMARY KEY UNIQUE
 );
 
 CREATE TABLE Composicao (
     fk_Prato_id_prato INT,
     fk_Ingredientes_id_ingrediente INT,
-    Quantidade FLOAT
+    Quantidade FLOAT,
+    id_composicao INT PRIMARY KEY UNIQUE
 );
 
 CREATE TABLE PlanoAlimentarPrato (
-    quantidade INT,
-    horario TIME,
     fk_PlanoAlimentar_id_plano INT,
     fk_Prato_id_prato INT
 );
 
+CREATE TABLE Mensagem (
+    fk_Cliente_ID_Cliente INT,
+    fk_Nutricionista_id_nutricionista INT,
+    mensagem VARCHAR(255),
+    data_envio DATE,
+    lida CHAR,
+    id_mensagem INT PRIMARY KEY UNIQUE,
+    opcao_conversa VARCHAR(50)
+);
+ 
 ALTER TABLE Nutricionista ADD CONSTRAINT FK_Nutricionista_2
     FOREIGN KEY (fk_Especialidade_id_especialidade)
     REFERENCES Especialidade (id_especialidade)
@@ -148,4 +139,14 @@ ALTER TABLE PlanoAlimentarPrato ADD CONSTRAINT FK_PlanoAlimentarPrato_1
 ALTER TABLE PlanoAlimentarPrato ADD CONSTRAINT FK_PlanoAlimentarPrato_2
     FOREIGN KEY (fk_Prato_id_prato)
     REFERENCES Prato (id_prato)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Mensagem ADD CONSTRAINT FK_Mensagem_1
+    FOREIGN KEY (fk_Cliente_ID_Cliente)
+    REFERENCES Cliente (ID_Cliente)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Mensagem ADD CONSTRAINT FK_Mensagem_2
+    FOREIGN KEY (fk_Nutricionista_id_nutricionista)
+    REFERENCES Nutricionista (id_nutricionista)
     ON DELETE SET NULL;

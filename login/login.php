@@ -58,6 +58,6 @@ if (isset($erro)) {
     echo "<div class='message'>
         <p>{$erro}</p>
         </div><br>";
-    echo "<a href='login.php?user_type=" . htmlspecialchars($userType) . "'>Voltar</a>";
+    echo "<a href='entrar.php?user_type=" . htmlspecialchars($userType) . "'>Voltar</a>";
 }
 ?>

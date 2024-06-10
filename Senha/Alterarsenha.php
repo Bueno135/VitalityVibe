@@ -10,7 +10,9 @@ include '/xampp/htdocs/Projeto/bd/connection.php';
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/profile.js" defer></script>
+    <script src="/Projeto/js/formatarcampos.js" defer></script>
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
 </head>
@@ -33,15 +35,15 @@ include '/xampp/htdocs/Projeto/bd/connection.php';
 
         <form id="changePasswordForm" method="post" action="Senhanova.php" onsubmit="return validarSenha()">
             <div class="mb-4">
-                <label for="email" class="block text-sm font-medium text-gray-700">Coloque seu email</label>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <input name="email" onblur="verificar()" type="email" id="email" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm" required>
             </div>
             <div class="mb-4">
                 <label for="cpf" class="block text-sm font-medium text-gray-700">CPF</label>
-                <input name="cpf" type="text" id="cpf" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm" required>
+                <input name="cpf" type="text" id="cpf" inputmode="numeric" maxlength="11" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm" required>
             </div>
             <div class="mb-4 relative">
-                <label for="newPassword" class="block text-sm font-medium text-gray-700">Insira sua nova Senha</label>
+                <label for="newPassword" class="block text-sm font-medium text-gray-700">Insira sua nova senha</label>
                 <div class="relative">
                     <input name="nova_senha" type="password" id="newPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
                     <button type="button" onclick="togglePasswordVisibility('newPassword', 'toggleIcon')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
@@ -50,7 +52,7 @@ include '/xampp/htdocs/Projeto/bd/connection.php';
                 </div>
             </div>
             <div class="mb-4 relative">
-                <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirme sua nova Senha</label>
+                <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirme sua nova senha</label>
                 <div class="relative">
                     <input name="confirm_senha" type="password" id="confirmPassword" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-sm pr-10" required>
                     <button type="button" onclick="togglePasswordVisibility('confirmPassword', 'toggleConfirmIcon')" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">

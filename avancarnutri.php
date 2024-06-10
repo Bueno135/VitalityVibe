@@ -45,16 +45,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     window.location.href = "/Projeto/tela.php";
                 });
             </script>';
+            exit();
         } else {
-            echo '<p class="text-red-500">Erro ao enviar a dúvida: ' . $conn->error . '</p>';
+            echo '<script>
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro ao enviar a dúvida",
+                    text: "' . $stmt->error . '"
+                }).then(() => {
+                    window.location.href = "/Projeto/contatarnutri.php?nutricionista=' . $nutricionista . '";
+                });
+            </script>';
+            exit();
         }
         
         $stmt->close();
     } else {
-        echo '<p class="text-red-500">Nutricionista não especificado.</p>';
+        echo '<script>
+            Swal.fire({
+                icon: "error",
+                title: "Nutricionista não especificado"
+            }).then(() => {
+                window.location.href = "/Projeto/tela.php";
+            });
+        </script>';
+        exit();
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -84,14 +103,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
-    <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="tela.php">VitalityVibe</a></h1>
+    <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="tela.php">VitalityVibe</a></h1>
     <div class="flex items-center">
+        <button  id="notificationDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
+            <i class="fas fa-bell fa-lg"></i>
+        </button>
+        <div id="notificationInfo" class="absolute top-12 right-0 mt-2 w-48 bg-white rounded-md shadow-lg flex flex-col hidden">
+            <?php
+            // Consulta para obter as mensagens do nutricionista logado
+            $sql_mensagens_nutri = "SELECT * FROM mensagem WHERE fk_nutricionista_id_nutricionista = ?";
+            $stmt_nutri = $conn->prepare($sql_mensagens_nutri);
+            $stmt_nutri->bind_param("i", $nutricionistaID);
+            $stmt_nutri->execute();
+            $result_mensagens_nutri = $stmt_nutri->get_result();
+
+            if ($result_mensagens_nutri->num_rows > 0) {
+                echo "<ul>";
+                while($row_mensagem_nutri = $result_mensagens_nutri->fetch_assoc()) {
+                    $mensagem_nutri = $row_mensagem_nutri['mensagem'];
+                    echo "<li>$mensagem_nutri</li>";
+                }
+                echo "</ul>";
+            } else {
+                echo "<p>Nenhuma mensagem dos nutricionistas.</p>";
+            }
+
+            $stmt_nutri->close();
+            ?>
+        </div>
+
+
         <div class="relative">
             <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
-                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo ucwords($_SESSION['nome']); ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
                 <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
                 <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
                 <button id="editarperfil" onclick="editarperfil()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>

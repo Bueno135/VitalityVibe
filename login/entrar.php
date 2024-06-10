@@ -1,3 +1,28 @@
+<?php
+include '/xampp/htdocs/Projeto/bd/connection.php';
+
+// Definir um valor padrão para $userType
+$userType = isset($_POST['user_type']) ? $_POST['user_type'] : '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['user_type'])) {
+        $userType = $_POST['user_type'];
+        
+        if ($userType === 'cliente') {
+            // Ações para o tipo de usuário cliente
+            echo "Usuário é cliente";
+        } elseif ($userType === 'nutricionista') {
+            // Ações para o tipo de usuário nutricionista
+            echo "Usuário é nutricionista";
+        } else {
+            // Tipo de usuário inválido
+            echo "Tipo de usuário inválido";
+        }
+    } else {
+        echo "Tipo de usuário não especificado.";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -30,7 +55,7 @@
                 
                 <div id="loginForm">
                     <h2 class="text-3xl font-bold text-center mb-6">Login no VitalityVibe</h2>
-                    <form action="/Projeto/Cliente/login/logincliente.php"  method="POST" id="submit">
+                    <form action="/Projeto/login/login.php"  method="POST" id="submit">
                     <input type="hidden" name="user_type" value="<?php echo htmlspecialchars($userType); ?>">
                         <div id="mensagem" class="mb-4">
                             <label for="emailLogin" class="block text-sm font-medium text-gray-700">E-mail</label>

@@ -9,13 +9,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verifica se a nova senha e a confirmação coincidem
     if ($novaSenha !== $confirmSenha) {
-        echo "<div class='message'>
-        <p>A nova senha e a confirmação não coincidem.</p>
-        </div> <BR>";
-        echo "<a href='Senhanova.php'>Voltar</a>";
+        echo "<script>
+            window.location.href = '/Projeto/login.php';
+        </script>";
         exit(); // Encerra o script
     }
-
     // Hashear a nova senha antes de salvar
     $hashedSenha = password_hash($novaSenha, PASSWORD_DEFAULT);
 
@@ -27,14 +25,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Atualizar a senha na tabela cliente
         $updateQueryCliente = "UPDATE cliente SET senha='$hashedSenha' WHERE email='$email'";
         if (mysqli_query($conn, $updateQueryCliente)) {
-            echo 'Senha alterada com sucesso para o cliente';
-            header('Location: /Projeto/login/entrar.php');
+            echo "<script>
+                window.location.href = '/Projeto/index.php';
+            </script>";
             exit();
         } else {
-            echo "<div class='message'>
-            <p>Ocorreu um erro ao alterar a senha do cliente. Tente novamente.</p>
-            </div> <BR>";
-            echo "<a href='Senhanova.php'>Voltar</a>";
+            echo "<script>
+                window.location.href = '/Projeto/index.php';
+            </script>";
+            exit();
         }
     } else {
         // Verificar se o email e o CPF correspondem na tabela nutricionista
@@ -45,20 +44,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Atualizar a senha na tabela nutricionista
             $updateQueryNutricionista = "UPDATE nutricionista SET senha='$hashedSenha' WHERE email='$email'";
             if (mysqli_query($conn, $updateQueryNutricionista)) {
-                echo 'Senha alterada com sucesso para o nutricionista';
-                header('Location: /Projeto/login/entrar.php');
+                echo "<script>
+                    window.location.href = '/Projeto/index.php';
+                </script>";
                 exit();
             } else {
-                echo "<div class='message'>
-                <p>Ocorreu um erro ao alterar a senha do nutricionista. Tente novamente.</p>
-                </div> <BR>";
-                echo "<a href='Senhanova.php'>Voltar</a>";
+                echo "<script>
+                    window.location.href = '/Projeto/index.php';
+                </script>";
+                exit();
             }
         } else {
-            echo "<div class='message'>
-            <p>Email ou CPF incorretos.</p>
-            </div> <BR>";
-            echo "<a href='Senhanova.php'>Voltar</a>";
+            echo "<script>
+                window.location.href = '/Projeto/index.php';
+            </script>";
+            exit();
         }
     }
 }

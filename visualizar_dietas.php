@@ -53,36 +53,35 @@ $nutricionistaID = $_SESSION['id'];
             <div class="opcoes-conversa">
                 <h3>Dietas criadas:</h3>
                 <?php
+            if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
+                $clienteID = $_SESSION['id'];
             
-                // Verifica se o ID do cliente está definido e é um número
-                if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
-                    $clienteID = $_SESSION['id'];
-
-                    // Consulta o banco de dados para obter as dietas do contrato do cliente
-                    $sql = "SELECT p.refeicao, p.descricao
-                            FROM contrato_cliente_nutricionista_planoalimentar ccnp
-                            JOIN planoalimentar p ON ccnp.fk_planoalimentar_id_planoalimentar = p.id_planoalimentar
-                            WHERE ccnp.fk_cliente_id_cliente = $clienteID";
-
-                    $result = $conn->query($sql);
-
-                    if ($result->num_rows > 0) {
-                        // Exibir as dietas do contrato
-                        while($row = $result->fetch_assoc()) {
-                            $nome_dieta = $row['refeicao'];
-                            $descricao = $row['descricao'];
-                            echo "<div class='dieta'>";
-                            echo "<p><strong>Nome da Dieta:</strong> $nome_dieta</p>";
-                            echo "<p><strong>Descrição:</strong> $descricao</p>";
-                            echo "</div>";
-                        }
-                    } else {
-                        echo "<p>Nenhuma dieta encontrada.</p>";
+                // Consulta o banco de dados para obter as dietas do contrato do cliente
+                $sql = "SELECT p.refeicao, p.descricao
+                        FROM contrato_cliente_nutricionista_planoalimentar ccnp
+                        JOIN planoalimentar p ON ccnp.fk_PlanoAlimentar_id_plano = p.id_plano
+                        WHERE ccnp.fk_Cliente_ID_Cliente = $clienteID";
+            
+                $result = $conn->query($sql);
+            
+                if ($result->num_rows > 0) {
+                    // Exibir as dietas do contrato
+                    while($row = $result->fetch_assoc()) {
+                        $refeicao = $row['refeicao'];
+                        $descricao = $row['descricao'];
+                        echo "<div class='dieta'>";
+                        echo "<p><strong>Refeição:</strong> $refeicao</p>";
+                        echo "<p><strong>Descrição:</strong> $descricao</p>";
+                        echo "</div>";
                     }
                 } else {
-                    echo "ID de cliente inválido.";
-                    exit; // Para a execução do script
+                    echo "<p>Nenhuma dieta encontrada para este cliente.</p>";
                 }
+            } else {
+                echo "ID de cliente inválido.";
+                exit; // Para a execução do script
+            }
+            
                 ?>
 
             </div>

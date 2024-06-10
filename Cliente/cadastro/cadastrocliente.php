@@ -7,11 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
-<<<<<<< HEAD
     <script src="/Projeto/js/formatarCampos.js" defer></script>
-=======
-    <script src="Projeto/js/formatarCampos.js" defer></script>
->>>>>>> e56ac61286fda233ff13502995849e8125c44580
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <style>
     .mb-6{
@@ -163,8 +159,21 @@
                 event.preventDefault();
             }
         });
-    </script>
-    <script>
+        
+        function validarSenha() {
+        var newPassword = document.getElementById('newPassword').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        var senhaMatch = document.getElementById('senhaMatch');
+
+        if (newPassword !== confirmPassword) {
+            senhaMatch.classList.remove('hidden');
+            return false;
+        } else {
+            senhaMatch.classList.add('hidden');
+            return true;
+        }
+    }
+
         const campoAltura = document.getElementById('Altura');
 
         campoAltura.addEventListener('input', function() {

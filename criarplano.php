@@ -1,9 +1,8 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-include '/xampp/htdocs/Projeto/bd/protect.php';
-
+session_start();
 // Verifica se o ID do cliente está definido e é um número
-if(isset($_GET['ID_Cliente']) && is_numeric($_GET['ID_Cliente'])) {
+if (isset($_GET['ID_Cliente'])) {
     $clienteID = $_GET['ID_Cliente'];
 
     // Consulta o banco de dados para obter o nome do cliente
@@ -99,7 +98,7 @@ if(isset($_GET['ID_Cliente']) && is_numeric($_GET['ID_Cliente'])) {
                 <!-- Lista de alimentos adicionados à dieta -->
             </ul>
             <!-- Botão para salvar a dieta -->
-            <button class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
+            <button type="submit" class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
         </div>
     </section>
 </main>

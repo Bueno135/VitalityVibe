@@ -11,6 +11,86 @@ if (!isset($_SESSION['id'])) {
 // ID do nutricionista logado
 $nutricionistaID = $_SESSION['id'];
 
+// Processa a ação de aceitar ou rejeitar a mensagem
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mensagem_id']) && isset($_POST['acao'])) {
+    $mensagemID = $_POST['mensagem_id'];
+    $acao = $_POST['acao'];
+
+    if ($acao == 'aceitar') {
+        // Ação de aceitar a mensagem
+        // Enviar aviso para o cliente
+        $sql_cliente = "SELECT fk_Cliente_ID_Cliente FROM mensagem WHERE id_mensagem = ?";
+        $stmt_cliente = $conn->prepare($sql_cliente);
+        $stmt_cliente->bind_param("i", $mensagemID);
+        $stmt_cliente->execute();
+        $result_cliente = $stmt_cliente->get_result();
+
+        if ($result_cliente->num_rows > 0) {
+            $row_cliente = $result_cliente->fetch_assoc();
+            $clienteID = $row_cliente['fk_Cliente_ID_Cliente'];
+
+            // Aqui você pode enviar a mensagem para o cliente
+            // Por exemplo, se tiver uma tabela de mensagens para o cliente, insira a mensagem lá
+            $mensagem_cliente = "Seu atendimento foi aceito.";
+            $sql_enviar_mensagem = "INSERT INTO mensagem (fk_Cliente_ID_Cliente, fk_Nutricionista_id_nutricionista, mensagem, data_envio, lida, opcao_conversa) VALUES (?, ?, ?, NOW(), 'N', 'Resposta')";
+            $stmt_enviar_mensagem = $conn->prepare($sql_enviar_mensagem);
+            $stmt_enviar_mensagem->bind_param("iis", $clienteID, $nutricionistaID, $mensagem_cliente);
+            $stmt_enviar_mensagem->execute();
+
+            // Exibir SweetAlert de sucesso
+            echo "<script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Atendimento aceito!',
+                        text: 'Aviso enviado para o cliente.',
+                        timer: 3000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+                    setTimeout(function(){
+                        window.location.href = 'atendimento.php';
+                    }, 3000);
+                  </script>";
+        }
+    } elseif ($acao == 'rejeitar') {
+        // Ação de rejeitar a mensagem
+        // Enviar aviso para o cliente
+        $sql_cliente = "SELECT fk_Cliente_ID_Cliente FROM mensagem WHERE id_mensagem = ?";
+        $stmt_cliente = $conn->prepare($sql_cliente);
+        $stmt_cliente->bind_param("i", $mensagemID);
+        $stmt_cliente->execute();
+        $result_cliente = $stmt_cliente->get_result();
+
+        if ($result_cliente->num_rows > 0) {
+            $row_cliente = $result_cliente->fetch_assoc();
+            $clienteID = $row_cliente['fk_Cliente_ID_Cliente'];
+
+            // Aqui você pode enviar a mensagem para o cliente
+            // Por exemplo, se tiver uma tabela de mensagens para o cliente, insira a mensagem lá
+            $mensagem_cliente = "Seu atendimento foi recusado.";
+            $sql_enviar_mensagem = "INSERT INTO mensagem (fk_Cliente_ID_Cliente, fk_Nutricionista_id_nutricionista, mensagem, data_envio, lida, opcao_conversa) VALUES (?, ?, ?, NOW(), 'N', 'Resposta')";
+            $stmt_enviar_mensagem = $conn->prepare($sql_enviar_mensagem);
+            $stmt_enviar_mensagem->bind_param("iis", $clienteID, $nutricionistaID, $mensagem_cliente);
+            $stmt_enviar_mensagem->execute();
+
+            // Exibir SweetAlert de sucesso
+            echo "<script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Atendimento recusado!',
+                        text: 'Aviso enviado para o cliente.',
+                        timer: 3000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+                    setTimeout(function(){
+                        window.location.href = 'atendimento.php';
+                    }, 3000);
+                  </script>";
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -89,21 +169,29 @@ $nutricionistaID = $_SESSION['id'];
                         $id_mensagem = $row_mensagem['id_mensagem'];
                         $mensagem = $row_mensagem['mensagem'];
                         $data_envio = $row_mensagem['data_envio'];
-                        echo "<div class='message-preview' data-id='{$id_mensagem}'>";
-                        echo "<p><strong>Horário:</strong> $data_envio</p>";
-                        echo "</div>";
-                        echo "<div class='message-content'>";
-                        echo "<p><strong>Conteúdo:</strong> $mensagem</p>";
-                        echo "</div>";
-                        echo "<div class='message-actions'>";
-                        echo "<button class='accept-button' data-id='{$id_mensagem}'>Aceitar</button>";
-                        echo "<button class='reject-button' onclick='deletarMensagem($id_mensagem)' data-id='{$id_mensagem}'>Rejeitar</button>";
-                        echo "</div>";
-                        echo "<hr>";
+                
+                        // Verifica se a opção de conversa não é "Resposta"
+                        if ($row_mensagem['opcao_conversa'] !== 'Resposta') {
+                            echo "<div class='message-preview' data-id='{$id_mensagem}'>";
+                            echo "<p><strong>Horário:</strong> $data_envio</p>";
+                            echo "</div>";
+                            echo "<div class='message-content'>";
+                            echo "<p><strong>Conteúdo:</strong> $mensagem</p>";
+                            echo "</div>";
+                            echo "<div class='message-actions'>";
+                            echo "<form method='POST' action='atendimento.php'>";
+                            echo "<input type='hidden' name='mensagem_id' value='{$id_mensagem}'>";
+                            echo "<button type='submit' class='accept-button' name='acao' value='aceitar'>Aceitar</button>";
+                            echo "<button type='submit' class='reject-button' name='acao' value='rejeitar'>Rejeitar</button>";
+                            echo "</form>";
+                            echo "</div>";
+                            echo "<hr>";
+                        }
                     }
                 } else {
                     echo "<p>Nenhuma mensagem encontrada.</p>";
                 }
+                
 
                 $stmt->close();
                 $conn->close();
@@ -169,14 +257,6 @@ hover:text-blue-400">Termos de Uso</a></li>
             });
         });
 
-        document.querySelectorAll('.reject-button').forEach(item => {
-            item.addEventListener('click', event => {
-                const messageId = item.getAttribute('data-id');
-                // Faça alguma ação com a mensagem rejeitada, por exemplo:
-                    window.location.href = `/Projeto/rejeitar.php?id=${messageId}`;
-            });
-        });
-
         function toggleMessage(messageId) {
     var message = document.getElementById("message_" + messageId);
     message.classList.toggle("active");
@@ -194,23 +274,24 @@ function deletarMensagem(id_mensagem) {
         cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            // Requisição AJAX para deletar a mensagem
+            // Requisição AJAX para processar a ação de rejeitar a mensagem
             $.ajax({
                 type: 'POST',
-                url: '/Projeto/deletar_mensagem.php',
-                data: { id_mensagem: id_mensagem },
+                url: '/Projeto/processar_mensagem.php',
+                data: { mensagem_id: id_mensagem, acao: 'rejeitar' },
                 success: function(response) {
                     // Atualiza a página após a deleção
                     location.reload();
                 },
                 error: function(xhr, status, error) {
                     // Exibe um alerta em caso de erro
-                    Swal.fire('Erro!', 'Ocorreu um erro ao deletar a mensagem.', 'error');
+                    Swal.fire('Erro!', 'Ocorreu um erro ao rejeitar a mensagem.', 'error');
                 }
             });
         }
     });
 }
+
 document.getElementById("profileDropdown").addEventListener("click", function() {
         var dropdown = document.getElementById("profileInfo");
         dropdown.classList.toggle("hidden");
