@@ -1,27 +1,5 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
-
-// Definir um valor padrão para $userType
-$userType = isset($_POST['user_type']) ? $_POST['user_type'] : '';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['user_type'])) {
-        $userType = $_POST['user_type'];
-        
-        if ($userType === 'cliente') {
-            // Ações para o tipo de usuário cliente
-            echo "Usuário é cliente";
-        } elseif ($userType === 'nutricionista') {
-            // Ações para o tipo de usuário nutricionista
-            echo "Usuário é nutricionista";
-        } else {
-            // Tipo de usuário inválido
-            echo "Tipo de usuário inválido";
-        }
-    } else {
-        echo "Tipo de usuário não especificado.";
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

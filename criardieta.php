@@ -12,15 +12,13 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> 
     <link href="/Projeto/css/criardieta.css" rel="stylesheet">  
-    <script src="/Projeto/js/botaoperfil.js"></script>
-    <script src="/Projeto/js/menususpenso.js"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
 
 <header class="fixed top-0 w-full z-10 bg-white shadow-md p-4 flex justify-between items-center">
-    <h1 class="text-3xl font-bold text-center text-blue-600 logo"><a href="telanutri.php">VitalityVibe</a></h1>
+    <h1 class="text-3xl font-bold text-center text-blue-600 "><a href="telanutri.php">VitalityVibe</a></h1>
     <div class="flex items-center">
         <div class="relative">
             <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">

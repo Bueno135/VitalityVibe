@@ -62,7 +62,9 @@ if (isset($_GET['ID_Cliente'])) {
             <h1>Criar Dieta para o Cliente <?php echo $nomeCliente; ?></h1>
             
             <!-- Formulário para adicionar alimento -->
-            <form class="form-adicionar" id="formAdicionar">
+            <form class="form-adicionar" id="formAdicionar" method="POST" action="/Projeto/bd/salvar_dieta.php">
+                <!-- Adicione um input hidden para enviar o ID do cliente -->
+                <input type="hidden" name="clienteID" value="<?php echo $clienteID; ?>">
                 <div class="form-group">
                     <label for="nomeAlimento" class="block text-gray-700 font-bold mb-2">Nome do Alimento:</label>
                     <input type="text" id="nomeAlimento" name="nomeAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
@@ -84,11 +86,16 @@ if (isset($_GET['ID_Cliente'])) {
                     <input type="number" id="quantidadeAlimento" name="quantidadeAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div class="form-group">
-                    <label for="horarioRefeicao" class="block text-gray-700 font-bold mb-2">Horário da Refeição:</label>
-                    <input type="text" id="horarioRefeicao" name="horarioRefeicao" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focusfocus">
+                    <label for="refeicao" class="block text-gray-700 font-bold mb-2">Refeição:</label>
+                    <select id="refeicao" name="refeicao" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="Café da Manhã">Café da Manhã</option>
+                        <option value="Almoço">Almoço</option>
+                        <option value="Café da Tarde">Café da Tarde</option>
+                        <option value="Jantar">Jantar</option>
+                    </select>
                 </div>
                 <!-- Adicione mais campos conforme necessário -->
-                <button type="button" class="btn-adicionar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Alimento</button>
+                <button type="button" id="btnAdicionar" class="btn-adicionar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Alimento</button>
             </form>
             <hr>
             <h3 class="text-xl font-bold mt-4">Dieta do Cliente</h3>
@@ -96,10 +103,11 @@ if (isset($_GET['ID_Cliente'])) {
                 <!-- Lista de alimentos adicionados à dieta -->
             </ul>
             <!-- Botão para salvar a dieta -->
-            <button type="submit" class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
+            <button type="submit" id="btnSalvar" class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
         </div>
     </section>
 </main>
+
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
     <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
@@ -142,37 +150,39 @@ if (isset($_GET['ID_Cliente'])) {
 </footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const btnAdicionar = document.querySelector('.btn-adicionar');
-    const btnSalvar = document.querySelector('.btn-salvar');
-    const alimentoList = document.querySelector('.alimento-list');
+let alimentos = [];
+const alimentoList = document.querySelector('.alimento-list');
 
-    // Array para armazenar alimentos adicionados
-    let alimentos = [];
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('btnAdicionar').addEventListener('click', function() {
+    // Coleta os valores dos campos do formulário
+    const nomeAlimento = document.getElementById('nomeAlimento').value;
+    const proteinasAlimento = document.getElementById('proteinasAlimento').value;
+    const carboidratosAlimento = document.getElementById('carboidratosAlimento').value;
+    const caloriasAlimento = document.getElementById('caloriasAlimento').value;
+    const quantidadeAlimento = document.getElementById('quantidadeAlimento').value;
+    const refeicao = document.getElementById('refeicao').value; // Nova linha para obter o valor da refeição
 
-    btnAdicionar.addEventListener('click', function() {
-        const nomeAlimento = document.getElementById('nomeAlimento').value;
-        const proteinasAlimento = document.getElementById('proteinasAlimento').value;
-        const carboidratosAlimento = document.getElementById('carboidratosAlimento').value;
-        const caloriasAlimento = document.getElementById('caloriasAlimento').value;
-        const quantidadeAlimento = document.getElementById('quantidadeAlimento').value;
-        const horarioRefeicao = document.getElementById('horarioRefeicao').value;
+    // Cria um objeto representando o alimento
+    const alimento = {
+        nome: nomeAlimento,
+        proteinas: proteinasAlimento,
+        carboidratos: carboidratosAlimento,
+        calorias: caloriasAlimento,
+        quantidade: quantidadeAlimento,
+        refeicao: refeicao // Alterado para incluir a refeição
+    };
 
-        // Adiciona o alimento ao array
-        alimentos.push({
-            nome: nomeAlimento,
-            proteinas: proteinasAlimento,
-            carboidratos: carboidratosAlimento,
-            calorias: caloriasAlimento,
-            quantidade: quantidadeAlimento,
-            horario: horarioRefeicao
-        });
+    // Adiciona o alimento à lista de alimentos
+    alimentos.push(alimento);
 
-        // Atualiza a lista de alimentos na interface
-        renderAlimentos();
-    });
+    // Atualiza a lista de alimentos na interface
+    renderAlimentos();
+});
 
-    btnSalvar.addEventListener('click', function() {
+
+    // Adiciona evento de clique para o botão de salvar
+    document.getElementById('btnSalvar').addEventListener('click', function() {
         // Envia os dados do plano alimentar para o servidor
         fetch('/Projeto/bd/salvar_dieta.php', {
             method: 'POST',
@@ -205,15 +215,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             }
         })
-        .catch(error => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro',
-                text: 'Ocorreu um erro ao salvar a dieta. Tente novamente!!.',
-                confirmButtonText: 'OK'
-            });
+        
         });
     });
+
+
 
     function renderAlimentos() {
         // Limpa a lista atual
@@ -239,9 +245,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     }
-});
+
 </script>
 <script src="/Projeto/js/botaoperfil.js"></script>
 <script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>
+

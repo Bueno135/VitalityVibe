@@ -32,10 +32,8 @@
         <div class="text-white bg-black bg-opacity-50 p-6 rounded-lg">
             <h1 class="text-5xl font-bold mb-4">Alimentação Saudável Simplificada</h1>
             <p class="text-xl mb-8">Me diga sobre você, como deseja ingressar em nossa plataforma?</p>
-            <form method="POST" action="/Projeto/login/entrar.php">
-                <button type="submit" name="user_type" value="cliente" class="bg-white text-blue-500 py-3 px-6 rounded-lg font-semibold hover:bg-gray-100">Sou(a) Cliente</button>
-                <button type="submit" name="user_type" value="nutricionista" class="bg-white text-blue-500 py-3 px-6 rounded-lg font-semibold hover:bg-gray-100">Sou(a) Nutricionista</button>
-            </form>
+            <a href="/Projeto/login/entrar.php" class="bg-white text-blue-500 py-4 px-12 rounded-lg font-semibold hover:bg-gray-100">Login</a>
+
         </div>
     </div>
 </section>

@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $resultado2 = mysqli_query($conn, $sql4);
 
         if($resultado2) {
-            header("Location: /Projeto/Cliente/login/entrarcliente");
+            header("Location: /Projeto/login/entrar.php");
         } else {
             echo "Erro ao cadastrar usuário.";
         }

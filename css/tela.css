@@ -1,12 +1,12 @@
 /* Adicione estilos CSS personalizados aqui */
 .logo {
-            font-size: 2rem;
-            text-align: center;
-        }
+    font-size: 2rem;
+    text-align: center;
+}
 
-        .footer-info {
-            font-size: 0.875rem;
-        }
+.footer-info {
+    font-size: 0.875rem;
+}
 
 .footer-info {
     font-size: 14px; /* Tamanho do texto do rodapé */   
