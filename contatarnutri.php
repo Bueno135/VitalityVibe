@@ -46,18 +46,7 @@ $result = mysqli_query($conn, $sql);
 <main class="flex-grow flex items-center justify-center">
     <section class="my-1 p-10">
         <div class="max-w-lg mx-auto nutricionista-box">
-        <label for="especialidade">Especialidade:</label>
-<select name="especialidade" id="especialidade" onchange="filterNutricionistas()">
-    <option value="">Todas as especialidades</option>
-    <?php
-    $sqlEspecialidades = "SELECT * FROM Especialidade";
-    $resultEspecialidades = mysqli_query($conn, $sqlEspecialidades);
-    while ($rowEspecialidade = mysqli_fetch_assoc($resultEspecialidades)) {
-        echo '<option value="' . $rowEspecialidade['id_especialidade'] . '">' . $rowEspecialidade['nome_especialidade'] . '</option>';
-    }
-    ?>
-</select>
-
+        
 
             <h2>Escolha o Nutricionista que você quer ser atendido</h2>
             <div class="search-bar">
