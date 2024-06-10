@@ -21,6 +21,9 @@ if (isset($_POST['clienteID']) && is_numeric($_POST['clienteID'])) {
         }
     }
 
+    // Verificação para depuração
+    error_log("Descrição do Plano: " . $descricaoPlano);
+
     $conn->begin_transaction();
 
     // Insere o plano alimentar na tabela PlanoAlimentar
