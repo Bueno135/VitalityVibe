@@ -2,12 +2,6 @@
 include '/xampp/htdocs/Projeto/bd/connection.php';
 include '/xampp/htdocs/Projeto/bd/protect.php';
 
-$sql = "SELECT * FROM Nutricionista";
-if (isset($_GET['especialidade']) && !empty($_GET['especialidade'])) {
-    $especialidade = $_GET['especialidade'];
-    $sql .= " WHERE fk_Especialidade_id_especialidade = $especialidade";
-}
-$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +35,7 @@ $result = mysqli_query($conn, $sql);
             </div>
         </div>
     </div>
-</header>
+</header>   
 
 <main class="flex-grow flex items-center justify-center">
     <section class="my-1 p-10">
@@ -54,7 +48,6 @@ $result = mysqli_query($conn, $sql);
             </div>
             <ul class="nutricionista-list" id="nutricionistaList">
                 <?php
-                    include '/xampp/htdocs/Projeto/bd/connection.php';
 
                     // Query para buscar todos os nutricionistas
                     $sql = "SELECT * FROM nutricionista";
@@ -171,32 +164,7 @@ $result = mysqli_query($conn, $sql);
             detailsDiv.style.display = 'none';
         }
     }
-    function filterNutricionistas() {
-    var selectEspecialidade = document.getElementById('especialidade');
-    var especialidadeSelecionada = selectEspecialidade.value;
-
-    // Armazena a especialidade selecionada no localStorage
-    localStorage.setItem('especialidadeSelecionada', especialidadeSelecionada);
-
-    var nutricionistas = document.getElementsByClassName('nutricionista-item');
-    for (var i = 0; i < nutricionistas.length; i++) {
-        var nutricionista = nutricionistas[i];
-        var especialidadeNutricionista = nutricionista.getAttribute('data-especialidade');
-        if (especialidadeSelecionada === '' || especialidadeSelecionada === especialidadeNutricionista) {
-            nutricionista.style.display = 'block';
-        } else {
-            nutricionista.style.display = 'none';
-        }
-    }
-}
-document.addEventListener('DOMContentLoaded', function() {
-    var especialidadeSelecionada = localStorage.getItem('especialidadeSelecionada');
-    if (especialidadeSelecionada) {
-        var selectEspecialidade = document.getElementById('especialidade');
-        selectEspecialidade.value = especialidadeSelecionada;
-    }
-});
-
+   
 
 
     function noti(){

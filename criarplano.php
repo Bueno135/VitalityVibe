@@ -67,7 +67,7 @@ if (isset($_GET['ID_Cliente'])) {
                 <input type="hidden" name="clienteID" value="<?php echo $clienteID; ?>">
                 <div class="form-group">
                     <label for="nomePlano" class="block text-gray-700 font-bold mb-2">Nome do plano alimentar:</label>
-                    <input type="text" id="nomePlano" name="nomePlano" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="text" id="nome_dieta" name="nome_dieta" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div class="form-group">
                     <label for="nomeAlimento" class="block text-gray-700 font-bold mb-2">Nome do Alimento:</label>

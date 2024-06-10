@@ -13,8 +13,6 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="/Projeto/css/padrao.css" rel="stylesheet"> <!-- Link para o arquivo de estilo padronizado -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/Projeto/js/botaoperfil.js"></script>
-    <script src="/Projeto/js/menususpenso.js"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
