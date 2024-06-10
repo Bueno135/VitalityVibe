@@ -22,8 +22,6 @@
                 <a href="#sobre" class="mx-2 hover:text-blue-500">Sobre</a>
                 <a href="#features" class="mx-2 hover:text-blue-500">Recursos</a>
                 <a href="#contato" class="mx-2 hover:text-blue-500">Contato</a>
-                <a href="/Projeto/Cliente/login/entrarcliente.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Cliente</a>
-                <a href="/Projeto/nutricionista/login/entrarnutri.php" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Nutricionista</a>
             </div>
         </nav>
     </header>

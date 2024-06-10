@@ -24,11 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mensagem_id']) && isse
         $stmt_cliente->bind_param("i", $mensagemID);
         $stmt_cliente->execute();
         $result_cliente = $stmt_cliente->get_result();
-
+    
         if ($result_cliente->num_rows > 0) {
             $row_cliente = $result_cliente->fetch_assoc();
             $clienteID = $row_cliente['fk_Cliente_ID_Cliente'];
-
+    
             // Aqui você pode enviar a mensagem para o cliente
             // Por exemplo, se tiver uma tabela de mensagens para o cliente, insira a mensagem lá
             $mensagem_cliente = "Seu atendimento foi aceito.";
@@ -36,49 +36,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mensagem_id']) && isse
             $stmt_enviar_mensagem = $conn->prepare($sql_enviar_mensagem);
             $stmt_enviar_mensagem->bind_param("iis", $clienteID, $nutricionistaID, $mensagem_cliente);
             $stmt_enviar_mensagem->execute();
-
+    
+            // Excluir a mensagem aceita
+            $sql_excluir_mensagem = "DELETE FROM mensagem WHERE id_mensagem = ?";
+            $stmt_excluir_mensagem = $conn->prepare($sql_excluir_mensagem);
+            $stmt_excluir_mensagem->bind_param("i", $mensagemID);
+            $stmt_excluir_mensagem->execute();
+    
             // Exibir SweetAlert de sucesso
             echo "<script>
                     Swal.fire({
                         icon: 'success',
                         title: 'Atendimento aceito!',
-                        text: 'Aviso enviado para o cliente.',
-                        timer: 3000,
-                        timerProgressBar: true,
-                        showConfirmButton: false
-                    });
-                    setTimeout(function(){
-                        window.location.href = 'atendimento.php';
-                    }, 3000);
-                  </script>";
-        }
-    } elseif ($acao == 'rejeitar') {
-        // Ação de rejeitar a mensagem
-        // Enviar aviso para o cliente
-        $sql_cliente = "SELECT fk_Cliente_ID_Cliente FROM mensagem WHERE id_mensagem = ?";
-        $stmt_cliente = $conn->prepare($sql_cliente);
-        $stmt_cliente->bind_param("i", $mensagemID);
-        $stmt_cliente->execute();
-        $result_cliente = $stmt_cliente->get_result();
-
-        if ($result_cliente->num_rows > 0) {
-            $row_cliente = $result_cliente->fetch_assoc();
-            $clienteID = $row_cliente['fk_Cliente_ID_Cliente'];
-
-            // Aqui você pode enviar a mensagem para o cliente
-            // Por exemplo, se tiver uma tabela de mensagens para o cliente, insira a mensagem lá
-            $mensagem_cliente = "Seu atendimento foi recusado.";
-            $sql_enviar_mensagem = "INSERT INTO mensagem (fk_Cliente_ID_Cliente, fk_Nutricionista_id_nutricionista, mensagem, data_envio, lida, opcao_conversa) VALUES (?, ?, ?, NOW(), 'N', 'Resposta')";
-            $stmt_enviar_mensagem = $conn->prepare($sql_enviar_mensagem);
-            $stmt_enviar_mensagem->bind_param("iis", $clienteID, $nutricionistaID, $mensagem_cliente);
-            $stmt_enviar_mensagem->execute();
-
-            // Exibir SweetAlert de sucesso
-            echo "<script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Atendimento recusado!',
-                        text: 'Aviso enviado para o cliente.',
+                        text: 'Aviso enviado para o cliente e mensagem excluída.',
                         timer: 3000,
                         timerProgressBar: true,
                         showConfirmButton: false
@@ -89,7 +59,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mensagem_id']) && isse
                   </script>";
         }
     }
-}
+    
+    } elseif ($acao == 'rejeitar') {
+        // Exibir caixa de diálogo para inserir o motivo da rejeição
+        echo "<script>
+            Swal.fire({
+                title: 'Motivo da Rejeição',
+                input: 'text',
+                inputLabel: 'Insira o motivo da rejeição',
+                inputPlaceholder: 'Motivo...',
+                showCancelButton: true,
+                confirmButtonText: 'Rejeitar',
+                cancelButtonText: 'Cancelar',
+                showLoaderOnConfirm: true,
+                preConfirm: function(motivo) {
+                    if (!motivo) {
+                        Swal.showValidationMessage('Por favor, insira um motivo');
+                    }
+                    return motivo;
+                }
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    const motivo = result.value;
+                    // Requisição AJAX para processar a ação de rejeitar a mensagem
+                    $.ajax({
+                        type: 'POST',
+                        url: 'atendimento.php',
+                        data: { mensagem_id: $mensagemID, acao: 'rejeitar', motivo: motivo },
+                        success: function(response) {
+                            // Atualiza a página após a rejeição
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            // Exibe um alerta em caso de erro
+                            Swal.fire('Erro!', 'Ocorreu um erro ao rejeitar a mensagem.', 'error');
+                        }
+                    });
+                }
+            });
+          </script>";
+    }
+
+
 
 ?>
 
@@ -305,3 +316,6 @@ document.getElementById("profileDropdown").addEventListener("click", function() 
 
 </body>
 </html>
+<?
+
+?>

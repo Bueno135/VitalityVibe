@@ -3,10 +3,19 @@ include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verificar se o nutricionista está logado
+    if (!isset($_SESSION['id'])) {
+        echo "<p>Nutricionista não conectado. <a href='entrarnutri.php'>Login</a></p>";
+        exit();
+    }
+
+    // ID do nutricionista logado
+    $nutricionistaID = $_SESSION['id'];
+
     // Verificar se foi passado o nome do nutricionista na URL
     if (isset($_GET['nutricionista']) && !empty($_GET['nutricionista'])) {
         $nutricionista = htmlspecialchars($_GET['nutricionista']);
-        
+
         // Consulta para obter o ID do nutricionista
         $sql_nutricionista = "SELECT id_nutricionista FROM Nutricionista WHERE nome = ? LIMIT 1";
         $stmt_nutricionista = $conn->prepare($sql_nutricionista);
@@ -24,15 +33,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $stmt_nutricionista->close();
 
+        // ID do cliente da sessão
+        $clienteID = $_SESSION['ID_Cliente'];
+
         // Preparar os dados para inserção na tabela mensagem
         $opcao_conversa = $_POST['opcao_conversa'];
         $outro_opcao = $_POST['outro_opcao'];
         $mensagem = "Mensagem sobre $opcao_conversa";
 
         // Inserir os dados na tabela mensagem
-        $sql_insert = "INSERT INTO mensagem (mensagem, opcao_conversa, outro_opcao, data_envio, fk_nutricionista_id_nutricionista) VALUES (?, ?, ?, NOW(), ?)";
+        $sql_insert = "INSERT INTO mensagem (mensagem, opcao_conversa, outro_opcao, data_envio, fk_nutricionista_id_nutricionista, fk_Cliente_ID_Cliente) VALUES (?, ?, ?, NOW(), ?, ?)";
         $stmt = $conn->prepare($sql_insert);
-        $stmt->bind_param("sssi", $mensagem, $opcao_conversa, $outro_opcao, $nutricionistaID);
+        $stmt->bind_param("sssii", $mensagem, $opcao_conversa, $outro_opcao, $nutricionistaID, $clienteID);
 
         if ($stmt->execute()) {
             echo '<script>
@@ -45,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     window.location.href = "/Projeto/tela.php";
                 });
             </script>';
-            exit();
+
         } else {
             echo '<script>
                 Swal.fire({
@@ -53,26 +65,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     title: "Erro ao enviar a dúvida",
                     text: "' . $stmt->error . '"
                 }).then(() => {
-                    window.location.href = "/Projeto/contatarnutri.php?nutricionista=' . $nutricionista . '";
+                    window.location.href = "/Projeto/escolhanutri.php?nutricionista=' . $nutricionista . '";
                 });
             </script>';
-            exit();
+
         }
-        
-        $stmt->close();
-    } else {
-        echo '<script>
-            Swal.fire({
-                icon: "error",
-                title: "Nutricionista não especificado"
-            }).then(() => {
-                window.location.href = "/Projeto/tela.php";
-            });
-        </script>';
-        exit();
+
+
+        return;
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -85,7 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="/Projeto/css/avancarnutri.css" rel="stylesheet"> 
     <link href="/Projeto/css/padrao.css" rel="stylesheet">
     <script src="/Projeto/js/botaoperfil.js"></script>
-    <script src="/Projeto/js/menususpenso.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="icon" href="imagens/logo.jpeg" type="image/x-icon">
     <script>
@@ -108,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button  id="notificationDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
             <i class="fas fa-bell fa-lg"></i>
         </button>
-        <div id="notificationInfo" class="absolute top-12 right-0 mt-2 w-48 bg-white rounded-md shadow-lg flex flex-col hidden">
+        <div id="notificationInfo" class="absolute top-12 right-0 mt-2 w-48 bg-white rounded-md shadow-lg flex flex-col ">
             <?php
             // Consulta para obter as mensagens do nutricionista logado
             $sql_mensagens_nutri = "SELECT * FROM mensagem WHERE fk_nutricionista_id_nutricionista = ?";
@@ -233,8 +236,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script>
     document.getElementById("profileDropdown").addEventListener("click", function() {
         var dropdown = document.getElementById("profileInfo");
+        var notificationDropdown = document.getElementById("notificationInfo");
         dropdown.classList.toggle("hidden");
+        notificationDropdown.classList.add("hidden");
     });
+
+    document.getElementById("notificationDropdown").addEventListener("click", function() {
+        var dropdown = document.getElementById("notificationInfo");
+        var profileDropdown = document.getElementById("profileInfo");
+        dropdown.classList.toggle("hidden");
+        profileDropdown.classList.add("hidden");
+    });
+
 </script>
 </body>
 </html>
