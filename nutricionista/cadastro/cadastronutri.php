@@ -88,8 +88,19 @@
                             <input type="text" id="formacao" name="formacao" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
                         </div>
                         <div class="mb-6">
-                            <label for="espec" class="block text-sm font-medium text-gray-700">Especialidade</label>
-                            <input type="text" id="especialidade" name="especialidade" class="bg-gray-50 mt-1 block w-full rounded-md border border-gray-300 shadow-md" required>
+                        <label for="especialidade" class="block mt-4">Especialidade:</label>
+                            <select name="especialidade" id="especialidade" class="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                                <option value="">Selecione a especialidade</option>
+                                <?php
+                                include '/xampp/htdocs/Projeto/bd/connection.php';
+                                $sql = "SELECT * FROM Especialidade";
+                                $result = mysqli_query($conn, $sql);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<option value="' . $row['id_especialidade'] . '">' . $row['nome_especialidade'] . '</option>';
+                                }
+                                ?>
+                            </select>
+                        
                         </div>
                        
                         <div class="text-center">

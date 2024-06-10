@@ -71,6 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Exibição de erro genérico
 if (isset($erro)) {
     echo "<div>{$erro}</div>";
-    echo "<a href=''>Voltar</a>";
+    echo "<a href='/Projeto/login/entrar.php'>Voltar</a>";
 }
 ?>

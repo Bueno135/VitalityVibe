@@ -25,8 +25,6 @@ if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
     exit; // Para a execução do script
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -46,7 +44,7 @@ if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
             <i class="fas fa-bell fa-lg"></i>
         </button>
         <div class="relative">
-            <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
+            <button id="profileDropdown" class="text-gray-600 hover:text-white-600 mr-4 focus:outline-none">
                 <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
@@ -90,8 +88,6 @@ if(isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
                 <li><a href="#sobre" class="hover:text-blue-400">Sobre</a></li>
                 <li><a href="#features" class="hover:text-blue-400">Recursos</a></li>
                 <li><a href="#contato" class="hover:text-blue-400">Contato</a></li>
-                <li><a href="#login" class="hover:text-blue-400">Login</a></li>
-                <li><a href="/Projeto/cadastro/cadastrocliente.php" class="hover:text-blue-400">Cadastre-se</a></li>
             </ul>
         </div>
 

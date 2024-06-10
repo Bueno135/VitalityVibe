@@ -96,14 +96,16 @@ if (isset($_GET['ID_Cliente'])) {
                 </div>
                 <!-- Adicione mais campos conforme necessário -->
                 <button type="button" id="btnAdicionar" class="btn-adicionar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Alimento</button>
-            </form>
-            <hr>
+                <hr>
             <h3 class="text-xl font-bold mt-4">Dieta do Cliente</h3>
-            <ul class="alimento-list">
+            <ul id="alimentolist" class="alimento-list">
                 <!-- Lista de alimentos adicionados à dieta -->
             </ul>
+                <button type="submit" id="btnSalvar" class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
+            </form>
+           
             <!-- Botão para salvar a dieta -->
-            <button type="submit" id="btnSalvar" class="btn-salvar bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4">Salvar Dieta</button>
+            
         </div>
     </section>
 </main>
@@ -182,41 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Adiciona evento de clique para o botão de salvar
-    document.getElementById('btnSalvar').addEventListener('click', function() {
-        // Envia os dados do plano alimentar para o servidor
-        fetch('/Projeto/bd/salvar_dieta.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                clienteID: <?php echo $clienteID; ?>,
-                alimentos: alimentos
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Sucesso!',
-                    text: 'Dieta salva com sucesso.',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    // Redireciona para a tela principal ou realiza outra ação desejada
-                    window.location.href = 'telanutri.php';
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erro',
-                    text: 'Ocorreu um erro ao salvar a dieta. Tente novamente!.',
-                    confirmButtonText: 'OK'
-                });
-            }
-        })
-        
-        });
+    
     });
 
 

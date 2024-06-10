@@ -1,7 +1,15 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 include '/xampp/htdocs/Projeto/bd/protect.php';
+
+$sql = "SELECT * FROM Nutricionista";
+if (isset($_GET['especialidade']) && !empty($_GET['especialidade'])) {
+    $especialidade = $_GET['especialidade'];
+    $sql .= " WHERE fk_Especialidade_id_especialidade = $especialidade";
+}
+$result = mysqli_query($conn, $sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -40,6 +48,19 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
 <main class="flex-grow flex items-center justify-center">
     <section class="my-1 p-10">
         <div class="max-w-lg mx-auto nutricionista-box">
+        <label for="especialidade">Especialidade:</label>
+<select name="especialidade" id="especialidade" onchange="filterNutricionistas()">
+    <option value="">Todas as especialidades</option>
+    <?php
+    $sqlEspecialidades = "SELECT * FROM Especialidade";
+    $resultEspecialidades = mysqli_query($conn, $sqlEspecialidades);
+    while ($rowEspecialidade = mysqli_fetch_assoc($resultEspecialidades)) {
+        echo '<option value="' . $rowEspecialidade['id_especialidade'] . '">' . $rowEspecialidade['nome_especialidade'] . '</option>';
+    }
+    ?>
+</select>
+
+
             <h2>Escolha o Nutricionista que você quer ser atendido</h2>
             <div class="search-bar">
                 <input type="text" id="searchInput" onkeyup="filterNutricionistas()" placeholder="Pesquisar nutricionista...">
@@ -164,10 +185,33 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
             detailsDiv.style.display = 'none';
         }
     }
-    document.getElementById("profileDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("profileInfo");
-        dropdown.classList.toggle("hidden");
-    });
+    function filterNutricionistas() {
+    var selectEspecialidade = document.getElementById('especialidade');
+    var especialidadeSelecionada = selectEspecialidade.value;
+
+    // Armazena a especialidade selecionada no localStorage
+    localStorage.setItem('especialidadeSelecionada', especialidadeSelecionada);
+
+    var nutricionistas = document.getElementsByClassName('nutricionista-item');
+    for (var i = 0; i < nutricionistas.length; i++) {
+        var nutricionista = nutricionistas[i];
+        var especialidadeNutricionista = nutricionista.getAttribute('data-especialidade');
+        if (especialidadeSelecionada === '' || especialidadeSelecionada === especialidadeNutricionista) {
+            nutricionista.style.display = 'block';
+        } else {
+            nutricionista.style.display = 'none';
+        }
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    var especialidadeSelecionada = localStorage.getItem('especialidadeSelecionada');
+    if (especialidadeSelecionada) {
+        var selectEspecialidade = document.getElementById('especialidade');
+        selectEspecialidade.value = especialidadeSelecionada;
+    }
+});
+
+
 
     function noti(){
     window.location.href = 'notificacoes.php';

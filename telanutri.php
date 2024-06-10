@@ -117,10 +117,6 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
         });
     }
 
-    document.getElementById("profileDropdown").addEventListener("click", function() {
-        var dropdown = document.getElementById("profileInfo");
-        dropdown.classList.toggle("hidden");
-    });
 </script>
 <script src="/Projeto/js/botaoperfil.js"></script>
 <script src="/Projeto/js/menususpenso.js"></script>
