@@ -1,6 +1,7 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 session_start();
+
 // Verifica se o ID do cliente está definido e é um número
 if (isset($_GET['ID_Cliente'])) {
     $clienteID = $_GET['ID_Cliente'];
@@ -19,6 +20,46 @@ if (isset($_GET['ID_Cliente'])) {
 } else {
     echo "ID de cliente inválido.";
     exit; // Para a execução do script
+}
+
+// Adiciona um var_dump para verificar os dados recebidos pelo POST
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    var_dump($_POST);
+
+    // Captura e valida os dados
+    $nomeDieta = $_POST["nome_dieta"] ?? '';
+    $nomeAlimento = $_POST["nomeAlimento"] ?? '';
+    $proteinasAlimento = $_POST["proteinasAlimento"] ?? 0;
+    $carboidratosAlimento = $_POST["carboidratosAlimento"] ?? 0;
+    $caloriasAlimento = $_POST["caloriasAlimento"] ?? 0;
+    $quantidadeAlimento = $_POST["quantidadeAlimento"] ?? 0;
+    $horarioAlimento = $_POST["horarioAlimento"] ?? '00:00:00';
+    $refeicao = $_POST["refeicao"] ?? '';
+
+    // Insere os dados no banco de dados
+    $sql = "INSERT INTO PlanoAlimentar (nome_dieta, horario, descricao, refeicao) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $nomeDieta, $horarioAlimento, $nomeAlimento, $refeicao);
+
+    if($stmt->execute()){
+        $planoID = $stmt->insert_id;
+
+        $sqlIngrediente = "INSERT INTO PlanoAlimentarIngrediente (fk_plano_alimentar_id, nome_ingrediente, proteinas, carboidratos, calorias, quantidade, refeicao) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmtIngrediente = $conn->prepare($sqlIngrediente);
+        $stmtIngrediente->bind_param("isdddis", $planoID, $nomeAlimento, $proteinasAlimento, $carboidratosAlimento, $caloriasAlimento, $quantidadeAlimento, $refeicao);
+
+        if($stmtIngrediente->execute()){
+            echo "Plano alimentar e ingredientes inseridos com sucesso.";
+        } else {
+            echo "Erro ao inserir ingredientes: " . $stmtIngrediente->error;
+        }
+
+        $stmtIngrediente->close();
+    } else {
+        echo "Erro ao inserir plano alimentar: " . $stmt->error;
+    }
+
+    $stmt->close();
 }
 ?>
 
@@ -62,7 +103,7 @@ if (isset($_GET['ID_Cliente'])) {
             <h1>Criar Dieta para o Cliente <?php echo $nomeCliente; ?></h1>
             
             <!-- Formulário para adicionar alimento -->
-            <form class="form-adicionar" id="formAdicionar" method="POST" action="/Projeto/bd/salvar_dieta.php">
+            <form class="form-adicionar" id="formAdicionar" method="POST" action="">
                 <!-- Adicione um input hidden para enviar o ID do cliente -->
                 <input type="hidden" name="clienteID" value="<?php echo $clienteID; ?>">
                 <div class="form-group">
@@ -93,7 +134,6 @@ if (isset($_GET['ID_Cliente'])) {
                     <label for="horarioAlimento" class="block text-gray-700 font-bold mb-2">Horário:</label>
                     <input type="time" id="horarioAlimento" name="horarioAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
-
                 <div class="form-group">
                     <label for="refeicao" class="block text-gray-700 font-bold mb-2">Refeição:</label>
                     <select id="refeicao" name="refeicao" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
@@ -115,7 +155,6 @@ if (isset($_GET['ID_Cliente'])) {
         </div>
     </section>
 </main>
-
 
 <footer class="bg-gray-800 text-white text-center md:text-left">
     <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
@@ -188,12 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderAlimentos();
 });
 
-
-    // Adiciona evento de clique para o botão de salvar
-    
     });
-
-
 
     function renderAlimentos() {
         // Limpa a lista atual
@@ -204,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const li = document.createElement('li');
             li.classList.add('mb-2', 'flex', 'justify-between');
             li.innerHTML = `
-                <span>${alimento.nome} - ${alimento.quantidade}g/ml - ${alimento.horario}</span>
+                <span>${alimento.nome} - ${alimento.quantidade}g/ml - ${alimento.refeicao}</span>
                 <button class="btn-remover text-red-500 hover:text-red-700" data-nome="${alimento.nome}">Remover</button>
             `;
             alimentoList.appendChild(li);
@@ -219,10 +253,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
 </script>
 <script src="/Projeto/js/botaoperfil.js"></script>
 <script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>
+
 
