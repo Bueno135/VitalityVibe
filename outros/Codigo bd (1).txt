@@ -153,3 +153,15 @@ ALTER TABLE Mensagem ADD CONSTRAINT FK_Mensagem_2
     FOREIGN KEY (fk_Nutricionista_id_nutricionista)
     REFERENCES Nutricionista (id_nutricionista)
     ON DELETE SET NULL;
+
+CREATE TABLE PlanoAlimentarIngrediente (
+    id_plano_ingrediente INT PRIMARY KEY AUTO_INCREMENT,
+    fk_plano_alimentar_id INT,
+    nome_ingrediente VARCHAR(255),
+    proteinas FLOAT,
+    carboidratos FLOAT,
+    calorias FLOAT,
+    quantidade FLOAT,
+    refeicao VARCHAR(255),
+    FOREIGN KEY (fk_plano_alimentar_id) REFERENCES PlanoAlimentar(id_plano) ON DELETE CASCADE
+);
