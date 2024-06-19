@@ -53,7 +53,7 @@ $nutricionistaID = $_SESSION['id'];
                 <h3>Dietas criadas:</h3>
                 <?php
                 // Consulta o banco de dados para obter as dietas do contrato do nutricionista
-                $sql = "SELECT p.nome_dieta, p.descricao
+                $sql = "SELECT p.id_plano, p.nome_dieta, p.descricao
                         FROM contrato_cliente_nutricionista_planoalimentar ccnp
                         JOIN planoalimentar p ON ccnp.fk_PlanoAlimentar_id_plano = p.id_plano
                         WHERE ccnp.fk_Nutricionista_ID_Nutricionista = ?";
@@ -66,11 +66,43 @@ $nutricionistaID = $_SESSION['id'];
                     if ($result->num_rows > 0) {
                         // Exibir as dietas do contrato
                         while($row = $result->fetch_assoc()) {
+                            $idPlano = $row['id_plano'];
                             $nomeDieta = $row['nome_dieta'];
                             $descricao = $row['descricao'];
                             echo "<div class='dieta'>";
                             echo "<p><strong>Nome da Dieta:</strong> $nomeDieta</p>";
                             echo "<p><strong>Descrição:</strong> $descricao</p>";
+
+                            // Consulta para obter os alimentos do plano alimentar
+                            $sqlAlimentos = "SELECT nome_ingrediente, proteinas, carboidratos, calorias, quantidade, refeicao 
+                                             FROM planoalimentaringrediente 
+                                             WHERE fk_plano_alimentar_id = ?";
+                            if ($stmtAlimentos = $conn->prepare($sqlAlimentos)) {
+                                $stmtAlimentos->bind_param("i", $idPlano);
+                                $stmtAlimentos->execute();
+                                $resultAlimentos = $stmtAlimentos->get_result();
+
+                                if ($resultAlimentos->num_rows > 0) {
+                                    echo "<ul>";
+                                    while ($rowAlimento = $resultAlimentos->fetch_assoc()) {
+                                        $nomeIngrediente = $rowAlimento['nome_ingrediente'];
+                                        $proteinas = $rowAlimento['proteinas'];
+                                        $carboidratos = $rowAlimento['carboidratos'];
+                                        $calorias = $rowAlimento['calorias'];
+                                        $quantidade = $rowAlimento['quantidade'];
+                                        $refeicao = $rowAlimento['refeicao'];
+                                        echo "<li><strong>Ingrediente:</strong> $nomeIngrediente - <strong>Proteínas:</strong> $proteinas g - <strong>Carboidratos:</strong> $carboidratos g - <strong>Calorias:</strong> $calorias kcal - <strong>Quantidade:</strong> $quantidade g/ml - <strong>Refeição:</strong> $refeicao</li>";
+                                    }
+                                    echo "</ul>";
+                                } else {
+                                    echo "<p>Nenhum alimento encontrado para esta dieta.</p>";
+                                }
+
+                                $stmtAlimentos->close();
+                            } else {
+                                echo "Erro na preparação da consulta de alimentos: " . $conn->error;
+                            }
+
                             echo "</div>";
                         }
                     } else {
@@ -122,8 +154,7 @@ $nutricionistaID = $_SESSION['id'];
                 <li><a href="#dicas-saude" class="hover:text-blue-400">Dicas de Saúde</a></li>
                 <li><a href="#receitas-saudaveis" class="hover:text-blue-400">Parceiros de Saúde</a></li>
                 <li><a href="#faq" class="hover:text-blue-400">Perguntas Frequentes</a></li>
-                </ul>
-            </div>
+            </ul>
         </div>
     </div>
 
@@ -135,3 +166,4 @@ $nutricionistaID = $_SESSION['id'];
 <script src="/Projeto/js/menususpenso.js"></script>
 </body>
 </html>
+
