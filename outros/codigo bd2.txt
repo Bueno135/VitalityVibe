@@ -1,0 +1,78 @@
+/* Lógico_1: */
+
+CREATE TABLE Cliente (
+    ID_Cliente INT PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    cpf VARCHAR(21),
+    senha VARCHAR(100),
+    telefone VARCHAR(30),
+    dt_nasc DATE,
+    cep VARCHAR(15),
+    altura VARCHAR(10),
+    peso VARCHAR(10),
+    sexo VARCHAR(10),
+    freq_atv_fisica VARCHAR(100),
+    alergias VARCHAR(100),
+    problema_saude VARCHAR(100),
+    med_controlado VARCHAR(100),
+    UNIQUE (ID_Cliente, cpf, email)
+);
+
+CREATE TABLE Nutricionista (
+    id_nutricionista INT PRIMARY KEY,
+    nome VARCHAR(100),
+    cpf VARCHAR(21),
+    email VARCHAR(100),
+    telefone VARCHAR(30),
+    senha VARCHAR(100),
+    cep VARCHAR(15),
+    sexo VARCHAR(15),
+    CRN VARCHAR(20),
+    formacao VARCHAR(100),
+    fk_Especialidade_id_especialidade INT,
+    UNIQUE (id_nutricionista, cpf, email)
+);
+
+CREATE TABLE Especialidade (
+    id_especialidade INT PRIMARY KEY UNIQUE,
+    nome_especialidade VARCHAR(100)
+);
+
+CREATE TABLE PlanoAlimentar (
+    id_plano INT PRIMARY KEY UNIQUE,
+    nome_pratos VARCHAR(255),
+    nome_dieta VARCHAR(255),
+    refeicao VARCHAR(100),
+    dia_semana DATE,
+    horario TIME,
+    observacoes VARCHAR(255)
+);
+
+CREATE TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar (
+    fk_Cliente_ID_Cliente INT,
+    fk_Nutricionista_id_nutricionista INT,
+    fk_PlanoAlimentar_id_plano INT,
+    dt_inic DATE,
+    dt_fim DATE
+);
+ 
+ALTER TABLE Nutricionista ADD CONSTRAINT FK_Nutricionista_2
+    FOREIGN KEY (fk_Especialidade_id_especialidade)
+    REFERENCES Especialidade (id_especialidade)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Contrato_Cliente_Nutricionista_PlanoAlimentar_1
+    FOREIGN KEY (fk_Cliente_ID_Cliente)
+    REFERENCES Cliente (ID_Cliente)
+    ON DELETE NO ACTION;
+ 
+ALTER TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Contrato_Cliente_Nutricionista_PlanoAlimentar_2
+    FOREIGN KEY (fk_Nutricionista_id_nutricionista)
+    REFERENCES Nutricionista (id_nutricionista)
+    ON DELETE NO ACTION;
+ 
+ALTER TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Contrato_Cliente_Nutricionista_PlanoAlimentar_3
+    FOREIGN KEY (fk_PlanoAlimentar_id_plano)
+    REFERENCES PlanoAlimentar (id_plano)
+    ON DELETE NO ACTION;
