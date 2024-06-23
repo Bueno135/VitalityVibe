@@ -20,6 +20,7 @@
 
 <?php
         include '/xampp/htdocs/Projeto/bd/connection.php';
+        include '/xampp/htdocs/Projeto/bd/protect.php';
         session_start();
 
         if (!isset($_SESSION['id'])) {

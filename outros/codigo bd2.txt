@@ -64,7 +64,9 @@ CREATE TABLE Mensagem (
     opcao_conversa VARCHAR(255),
     outro_opcao VARCHAR(255),
     mensagem VARCHAR(100)
-    data_envio DATE
+    data_envio DATE,
+    lida VARCHAR(30),
+    motivo VARCHAR(100),
     fk_Cliente_ID_Cliente INT, 
     fk_Nutricionista_id_nutricionista INT
 );
