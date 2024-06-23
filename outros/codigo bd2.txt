@@ -63,7 +63,7 @@ CREATE TABLE Mensagem (
     id_mensagem INT AUTO_INCREMENT PRIMARY KEY,
     opcao_conversa VARCHAR(255),
     outro_opcao VARCHAR(255),
-    mensagem VARCHAR(100)
+    mensagem VARCHAR(100),
     data_envio DATE,
     lida VARCHAR(30),
     motivo VARCHAR(100),
