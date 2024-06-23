@@ -31,7 +31,7 @@ $nutricionistaID = $_SESSION['id'];
     <div class="flex items-center">
         <div class="relative">
             <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
-                <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
+                <i class="fas fa-user-circle fa-lg text-white"></i> <span class="text-white"><?php echo $_SESSION['nome']; ?></span>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
                 <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo ucwords($_SESSION['nome']); ?></p>
@@ -80,7 +80,7 @@ $nutricionistaID = $_SESSION['id'];
 
                             // Consulta para obter os alimentos do plano alimentar
                             $sqlAlimentos = "SELECT nome_ingrediente, proteinas, carboidratos, calorias, gordura
-                                             FROM planoalimentaringrediente 
+                                             FROM planoalimentar
                                              WHERE fk_plano_alimentar_id = ?";
                             if ($stmtAlimentos = $conn->prepare($sqlAlimentos)) {
                                 $stmtAlimentos->bind_param("i", $idPlano);

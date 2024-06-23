@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmtInsert->bind_param("ssssssssssssss", $nome, $email, $senha, $cpf, $dt_nasc, $sexo, $cep, $telefone, $problema_saude, $alergias, $peso, $altura, $objetivo, $med_controlado);
 
     if ($stmtInsert->execute()) {
-        header("Location: /Projeto/login/entrarcliente.php");
+        header("Location: /Projeto/login/entrar.php");
         exit();
     } else {
         echo "Erro ao cadastrar usuário: " . $stmtInsert->error;

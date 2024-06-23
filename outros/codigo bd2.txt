@@ -1,7 +1,7 @@
 /* Lógico_1: */
 
 CREATE TABLE Cliente (
-    ID_Cliente INT PRIMARY KEY,
+    ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
     email VARCHAR(100),
     cpf VARCHAR(21),
@@ -14,13 +14,14 @@ CREATE TABLE Cliente (
     sexo VARCHAR(10),
     freq_atv_fisica VARCHAR(100),
     alergias VARCHAR(100),
+    objetivo VARCHAR(100),
     problema_saude VARCHAR(100),
     med_controlado VARCHAR(100),
     UNIQUE (ID_Cliente, cpf, email)
 );
 
 CREATE TABLE Nutricionista (
-    id_nutricionista INT PRIMARY KEY,
+    id_nutricionista INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100),
     cpf VARCHAR(21),
     email VARCHAR(100),
@@ -35,12 +36,12 @@ CREATE TABLE Nutricionista (
 );
 
 CREATE TABLE Especialidade (
-    id_especialidade INT PRIMARY KEY UNIQUE,
+    id_especialidade INT AUTO_INCREMENT PRIMARY KEY UNIQUE,
     nome_especialidade VARCHAR(100)
 );
 
 CREATE TABLE PlanoAlimentar (
-    id_plano INT PRIMARY KEY UNIQUE,
+    id_plano INT AUTO_INCREMENT PRIMARY KEY UNIQUE,
     nome_pratos VARCHAR(255),
     nome_dieta VARCHAR(255),
     refeicao VARCHAR(100),
@@ -50,6 +51,7 @@ CREATE TABLE PlanoAlimentar (
 );
 
 CREATE TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar (
+    id_contrato INT AUTO_INCREMENT PRIMARY KEY UNIQUE,
     fk_Cliente_ID_Cliente INT,
     fk_Nutricionista_id_nutricionista INT,
     fk_PlanoAlimentar_id_plano INT,

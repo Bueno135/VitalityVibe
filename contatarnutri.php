@@ -21,11 +21,11 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
     <h1 class="text-3xl font-bold text-left text-blue-600 logo"><a href="/Projeto/tela.php">VitalityVibe</a></h1>
     <div class="flex items-center">
         <button id="notificationDropdown" onclick="noti()" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
-            <i class="fas fa-bell fa-lg"></i>
+            <i class="fas fa-bell fa-lg text-white"></i>
         </button>
         <div class="relative">
             <button id="profileDropdown" class="text-gray-600 hover:text-blue-600 mr-4 focus:outline-none">
-                <i class="fas fa-user-circle fa-lg"></i> <?php echo $_SESSION['nome']; ?>
+                <i class="fas fa-user-circle fa-lg text-white"></i> <span class="text-white"><?php echo $_SESSION['nome']; ?></span>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
                 <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
