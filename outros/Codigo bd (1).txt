@@ -39,15 +39,15 @@ CREATE TABLE Prato (
     modo_preparo VARCHAR(255)
 );
 
-CREATE TABLE Ingredientes (
+CREATE TABLE PlanoAlimentarIngrediente (
     id_ingrediente INT PRIMARY KEY UNIQUE AUTO_INCREMENT,
+    nome_ingrediente VARCHAR(255),
     gordura FLOAT,
-    proteina FLOAT,
+    proteinas FLOAT,
     carboidratos FLOAT,
     unidade_medida FLOAT,
     calorias FLOAT,
     fk_CategoriaAlimentar_id_categoria INT,
-    nome VARCHAR(100)
 );
 
 CREATE TABLE Especialidade (

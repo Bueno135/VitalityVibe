@@ -53,7 +53,7 @@ $nutricionistaID = $_SESSION['id'];
                 <h3>Dietas criadas:</h3>
                 <?php
                 // Consulta o banco de dados para obter as dietas do contrato do nutricionista
-                $sql = "SELECT p.id_plano, p.nome_dieta, p.descricao
+                $sql = "SELECT p.id_plano, p.nome_dieta, p.descricao, p.quantidade, p.refeicao
                         FROM contrato_cliente_nutricionista_planoalimentar ccnp
                         JOIN planoalimentar p ON ccnp.fk_PlanoAlimentar_id_plano = p.id_plano
                         WHERE ccnp.fk_Nutricionista_ID_Nutricionista = ?";
@@ -69,12 +69,17 @@ $nutricionistaID = $_SESSION['id'];
                             $idPlano = $row['id_plano'];
                             $nomeDieta = $row['nome_dieta'];
                             $descricao = $row['descricao'];
+                            $quantidade = $row['quantidade'];
+                            $refeicao = $row['refeicao'];
+
                             echo "<div class='dieta'>";
                             echo "<p><strong>Nome da Dieta:</strong> $nomeDieta</p>";
                             echo "<p><strong>Descrição:</strong> $descricao</p>";
+                            echo "<p><strong>Quantidade:</strong> $quantidade g/ml</p>";
+                            echo "<p><strong>Refeição:</strong> $refeicao</p>";
 
                             // Consulta para obter os alimentos do plano alimentar
-                            $sqlAlimentos = "SELECT nome_ingrediente, proteinas, carboidratos, calorias, quantidade, refeicao 
+                            $sqlAlimentos = "SELECT nome_ingrediente, proteinas, carboidratos, calorias, gordura
                                              FROM planoalimentaringrediente 
                                              WHERE fk_plano_alimentar_id = ?";
                             if ($stmtAlimentos = $conn->prepare($sqlAlimentos)) {
@@ -89,9 +94,7 @@ $nutricionistaID = $_SESSION['id'];
                                         $proteinas = $rowAlimento['proteinas'];
                                         $carboidratos = $rowAlimento['carboidratos'];
                                         $calorias = $rowAlimento['calorias'];
-                                        $quantidade = $rowAlimento['quantidade'];
-                                        $refeicao = $rowAlimento['refeicao'];
-                                        echo "<li><strong>Ingrediente:</strong> $nomeIngrediente - <strong>Proteínas:</strong> $proteinas g - <strong>Carboidratos:</strong> $carboidratos g - <strong>Calorias:</strong> $calorias kcal - <strong>Quantidade:</strong> $quantidade g/ml - <strong>Refeição:</strong> $refeicao</li>";
+                                        echo "<li><strong>Ingrediente:</strong> $nomeIngrediente - <strong>Proteínas:</strong> $proteinas g - <strong>Carboidratos:</strong> $carboidratos g - <strong>Calorias:</strong> $calorias kcal</li>";
                                     }
                                     echo "</ul>";
                                 } else {
@@ -149,21 +152,44 @@ $nutricionistaID = $_SESSION['id'];
         </div>
 
         <div>
-            <h5 class="uppercase mb-2 font-bold">Mais</h5>
-            <ul>
-                <li><a href="#dicas-saude" class="hover:text-blue-400">Dicas de Saúde</a></li>
-                <li><a href="#receitas-saudaveis" class="hover:text-blue-400">Parceiros de Saúde</a></li>
-                <li><a href="#faq" class="hover:text-blue-400">Perguntas Frequentes</a></li>
+            <h5 class="uppercase mb-2 font-bold">Redes Sociais</h5>
+            <ul class="flex justify-center md:justify-start">
+                <li><a href="#" class="hover:text-blue-400 mx-2"><i class="fab fa-facebook"></i></a></li>
+                <li><a href="#" class="hover:text-blue-400 mx-2"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#" class="hover:text-blue-400 mx-2"><i class="fab fa-instagram"></i></a></li>
+                <li><a href="#" class="hover:text-blue-400 mx-2"><i class="fab fa-linkedin"></i></a></li>
             </ul>
         </div>
     </div>
-
-    <div class="footer-info">
-        <p>&copy; 2024 VitalityVibe. Todos os direitos reservados.</p>
+    <div class="bg-gray-900 text-gray-400 text-center p-4">
+        © 2023 VitalityVibe. Todos os direitos reservados.
     </div>
 </footer>
-<script src="/Projeto/js/botaoperfil.js"></script>
-<script src="/Projeto/js/menususpenso.js"></script>
+
+<script>
+    document.getElementById("profileDropdown").addEventListener("click", function() {
+        var profileInfo = document.getElementById("profileInfo");
+        if (profileInfo.classList.contains("hidden")) {
+            profileInfo.classList.remove("hidden");
+        } else {
+            profileInfo.classList.add("hidden");
+        }
+    });
+
+    document.addEventListener("click", function(event) {
+        var profileInfo = document.getElementById("profileInfo");
+        if (!profileInfo.contains(event.target) && !event.target.matches("#profileDropdown")) {
+            profileInfo.classList.add("hidden");
+        }
+    });
+
+    function deslogar() {
+        window.location.href = '/Projeto/bd/logout.php';
+    }
+
+    function editarperfilnutri() {
+        window.location.href = '/Projeto/html/editarnutriform.php';
+    }
+</script>
 </body>
 </html>
-
