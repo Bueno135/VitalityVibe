@@ -53,9 +53,10 @@ $nutricionistaID = $_SESSION['id'];
                 <h3>Dietas criadas:</h3>
                 <?php
                 // Consulta o banco de dados para obter as dietas do contrato do nutricionista
-                $sql = "SELECT p.id_plano, p.nome_dieta, p.descricao, p.quantidade, p.refeicao
+                $sql = "SELECT ccnp.fk_Cliente_ID_Cliente, c.nome AS nome, p.id_plano, p.nome_dieta, p.nome_pratos, p.refeicao, p.observacoes
                         FROM contrato_cliente_nutricionista_planoalimentar ccnp
                         JOIN planoalimentar p ON ccnp.fk_PlanoAlimentar_id_plano = p.id_plano
+                        JOIN cliente c ON ccnp.fk_Cliente_ID_Cliente = c.ID_Cliente
                         WHERE ccnp.fk_Nutricionista_ID_Nutricionista = ?";
                 
                 if ($stmt = $conn->prepare($sql)) {
@@ -67,44 +68,19 @@ $nutricionistaID = $_SESSION['id'];
                         // Exibir as dietas do contrato
                         while($row = $result->fetch_assoc()) {
                             $idPlano = $row['id_plano'];
+                            $nomeCliente = $row['nome'];
                             $nomeDieta = $row['nome_dieta'];
-                            $descricao = $row['descricao'];
-                            $quantidade = $row['quantidade'];
+                            $nomePratos = $row['nome_pratos'];
+                            $observacoes = $row['observacoes'];
                             $refeicao = $row['refeicao'];
 
                             echo "<div class='dieta'>";
+                            echo "<p><strong>Para o cliente:</strong> $nomeCliente</p>";
                             echo "<p><strong>Nome da Dieta:</strong> $nomeDieta</p>";
-                            echo "<p><strong>Descrição:</strong> $descricao</p>";
-                            echo "<p><strong>Quantidade:</strong> $quantidade g/ml</p>";
+                            echo "<p><strong>Pratos:</strong> $nomePratos</p>";
                             echo "<p><strong>Refeição:</strong> $refeicao</p>";
-
-                            // Consulta para obter os alimentos do plano alimentar
-                            $sqlAlimentos = "SELECT nome_ingrediente, proteinas, carboidratos, calorias, gordura
-                                             FROM planoalimentar
-                                             WHERE fk_plano_alimentar_id = ?";
-                            if ($stmtAlimentos = $conn->prepare($sqlAlimentos)) {
-                                $stmtAlimentos->bind_param("i", $idPlano);
-                                $stmtAlimentos->execute();
-                                $resultAlimentos = $stmtAlimentos->get_result();
-
-                                if ($resultAlimentos->num_rows > 0) {
-                                    echo "<ul>";
-                                    while ($rowAlimento = $resultAlimentos->fetch_assoc()) {
-                                        $nomeIngrediente = $rowAlimento['nome_ingrediente'];
-                                        $proteinas = $rowAlimento['proteinas'];
-                                        $carboidratos = $rowAlimento['carboidratos'];
-                                        $calorias = $rowAlimento['calorias'];
-                                        echo "<li><strong>Ingrediente:</strong> $nomeIngrediente - <strong>Proteínas:</strong> $proteinas g - <strong>Carboidratos:</strong> $carboidratos g - <strong>Calorias:</strong> $calorias kcal</li>";
-                                    }
-                                    echo "</ul>";
-                                } else {
-                                    echo "<p>Nenhum alimento encontrado para esta dieta.</p>";
-                                }
-
-                                $stmtAlimentos->close();
-                            } else {
-                                echo "Erro na preparação da consulta de alimentos: " . $conn->error;
-                            }
+                            echo "<p><strong>Observações:</strong> $observacoes</p>";
+                            echo "</div>";
 
                             echo "</div>";
                         }

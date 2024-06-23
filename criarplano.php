@@ -22,45 +22,6 @@ if (isset($_GET['ID_Cliente'])) {
     exit; // Para a execução do script
 }
 
-// Adiciona um var_dump para verificar os dados recebidos pelo POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    var_dump($_POST);
-
-    // Captura e valida os dados
-    $nomeDieta = $_POST["nome_dieta"] ?? '';
-    $nomeAlimento = $_POST["nomeAlimento"] ?? '';
-    $proteinasAlimento = $_POST["proteinasAlimento"] ?? 0;
-    $carboidratosAlimento = $_POST["carboidratosAlimento"] ?? 0;
-    $caloriasAlimento = $_POST["caloriasAlimento"] ?? 0;
-    $quantidadeAlimento = $_POST["quantidadeAlimento"] ?? 0;
-    $horarioAlimento = $_POST["horarioAlimento"] ?? '00:00:00';
-    $refeicao = $_POST["refeicao"] ?? '';
-
-    // Insere os dados no banco de dados
-    $sql = "INSERT INTO PlanoAlimentar (nome_dieta, horario, descricao, refeicao) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $nomeDieta, $horarioAlimento, $nomeAlimento, $refeicao);
-
-    if($stmt->execute()){
-        $planoID = $stmt->insert_id;
-
-        $sqlIngrediente = "INSERT INTO PlanoAlimentarIngrediente (fk_plano_alimentar_id, nome_ingrediente, proteinas, carboidratos, calorias, quantidade, refeicao) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmtIngrediente = $conn->prepare($sqlIngrediente);
-        $stmtIngrediente->bind_param("isdddis", $planoID, $nomeAlimento, $proteinasAlimento, $carboidratosAlimento, $caloriasAlimento, $quantidadeAlimento, $refeicao);
-
-        if($stmtIngrediente->execute()){
-            echo "Plano alimentar e ingredientes inseridos com sucesso.";
-        } else {
-            echo "Erro ao inserir ingredientes: " . $stmtIngrediente->error;
-        }
-
-        $stmtIngrediente->close();
-    } else {
-        echo "Erro ao inserir plano alimentar: " . $stmt->error;
-    }
-
-    $stmt->close();
-}
 ?>
 
 <!DOCTYPE html>
@@ -101,48 +62,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <section class="my-1 p-10">
         <div class="max-w-lg mx-auto dieta-box">
             <h1>Criar Dieta para o Cliente <?php echo $nomeCliente; ?></h1>
-            
-            <!-- Formulário para adicionar alimento -->
-            <form class="form-adicionar" id="formAdicionar" method="POST" action="">
-                <!-- Adicione um input hidden para enviar o ID do cliente -->
-                <input type="hidden" name="clienteID" value="<?php echo $clienteID; ?>">
-                <div class="form-group">
-                    <label for="nomePlano" class="block text-gray-700 font-bold mb-2">Nome do plano alimentar:</label>
-                    <input type="text" id="nome_dieta" name="nome_dieta" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="form-group">
-                    <label for="nomeAlimento" class="block text-gray-700 font-bold mb-2">Nome do Alimento:</label>
-                    <input type="text" id="nomeAlimento" name="nomeAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="form-group">
-                    <label for="proteinasAlimento" class="block text-gray-700 font-bold mb-2">Proteínas (g):</label>
-                    <input type="number" id="proteinasAlimento" name="proteinasAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="form-group">
-                    <label for="carboidratosAlimento" class="block text-gray-700 font-bold mb-2">Carboidratos (g):</label>
-                    <input type="number" id="carboidratosAlimento" name="carboidratosAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="form-group">
-                    <label for="caloriasAlimento" class="block text-gray-700 font-bold mb-2">Calorias:</label>
-                    <input type="number" id="caloriasAlimento" name="caloriasAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="form-group">
-                    <label for="quantidadeAlimento" class="block text-gray-700 font-bold mb-2">Quantidade (g/ml):</label>
-                    <input type="number" id="quantidadeAlimento" name="quantidadeAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="form-group">
-                    <label for="horarioAlimento" class="block text-gray-700 font-bold mb-2">Horário:</label>
-                    <input type="time" id="horarioAlimento" name="horarioAlimento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                </div>
-                <div class="form-group">
-                    <label for="refeicao" class="block text-gray-700 font-bold mb-2">Refeição:</label>
-                    <select id="refeicao" name="refeicao" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <option value="Café da Manhã">Café da Manhã</option>
-                        <option value="Almoço">Almoço</option>
-                        <option value="Café da Tarde">Café da Tarde</option>
-                        <option value="Jantar">Jantar</option>
-                    </select>
-                </div>
+                <form class="form-adicionar" id="formAdicionar" method="POST" action="/Projeto/bd/salvar_dieta.php">
+                    <input type="hidden" name="clienteID" value="<?php echo $clienteID; ?>">
+                    <div class="form-group">
+                        <label for="nomePlano" class="block text-gray-700 font-bold mb-2">Nome do plano alimentar:</label>
+                        <input type="text" id="nome_dieta" name="nome_dieta" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="form-group">
+                        <label for="nomeAlimento" class="block text-gray-700 font-bold mb-2">Nome do Alimento:</label>
+                        <input type="text" id="nomeAlimento" name="alimentos[0][nomeAlimento]" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="form-group">
+                        <label for="refeicao" class="block text-gray-700 font-bold mb-2">Refeição:</label>
+                        <select id="refeicao" name="alimentos[0][refeicao]" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="Café da Manhã">Café da Manhã</option>
+                            <option value="Almoço">Almoço</option>
+                            <option value="Café da Tarde">Café da Tarde</option>
+                            <option value="Jantar">Jantar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="diaSemana" class="block text-gray-700 font-bold mb-2">Dia da Semana:</label>
+                        <input type="text" id="diaSemana" name="alimentos[0][diaSemana]" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="form-group">
+                        <label for="horarioAlimento" class="block text-gray-700 font-bold mb-2">Horário:</label>
+                        <input type="time" id="horarioAlimento" name="alimentos[0][horarioAlimento]" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="form-group">
+                        <label for="observacoes" class="block text-gray-700 font-bold mb-2">Observações:</label>
+                        <textarea id="observacoes" name="alimentos[0][observacoes]" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                    </div>
                 <!-- Adicione mais campos conforme necessário -->
                 <button type="button" id="btnAdicionar" class="btn-adicionar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Adicionar Alimento</button>
                 <hr>
@@ -159,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <footer class="bg-gray-800 text-white text-center md:text-left">
     <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
         <div>
-            <h5 class="uppercase mb-2 font-bold">Links Rápidos</h5>
+            <h5 class="uppercase mb-2 font-bold text-white">Links Rápidos</h5>
             <ul>
                 <li><a href="#sobre" class="hover:text-blue-400">Sobre</a></li>
                 <li><a href="#features" class="hover:text-blue-400">Recursos</a></li>
@@ -204,20 +154,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnAdicionar').addEventListener('click', function() {
     // Coleta os valores dos campos do formulário
     const nomeAlimento = document.getElementById('nomeAlimento').value;
-    const proteinasAlimento = document.getElementById('proteinasAlimento').value;
-    const carboidratosAlimento = document.getElementById('carboidratosAlimento').value;
-    const caloriasAlimento = document.getElementById('caloriasAlimento').value;
-    const quantidadeAlimento = document.getElementById('quantidadeAlimento').value;
-    const refeicao = document.getElementById('refeicao').value; // Nova linha para obter o valor da refeição
+    const refeicao = document.getElementById('refeicao').value;
+    const diaSemana = document.getElementById('diaSemana').value;
+    const horarioAlimento = document.getElementById('horarioAlimento').value;
+    const observacoes = document.getElementById('observacoes').value;
 
     // Cria um objeto representando o alimento
     const alimento = {
         nome: nomeAlimento,
-        proteinas: proteinasAlimento,
-        carboidratos: carboidratosAlimento,
-        calorias: caloriasAlimento,
-        quantidade: quantidadeAlimento,
-        refeicao: refeicao // Alterado para incluir a refeição
+        refeicao: refeicao,
+        diaSemana: diaSemana,
+        horarioAlimento: horarioAlimento,
+        observacoes: observacoes,
     };
 
     // Adiciona o alimento à lista de alimentos
@@ -238,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const li = document.createElement('li');
             li.classList.add('mb-2', 'flex', 'justify-between');
             li.innerHTML = `
-                <span>${alimento.nome} - ${alimento.quantidade}g/ml - ${alimento.refeicao}</span>
+                <span>${alimento.nome} - ${alimento.refeicao}</span>
                 <button class="btn-remover text-red-500 hover:text-red-700" data-nome="${alimento.nome}">Remover</button>
             `;
             alimentoList.appendChild(li);

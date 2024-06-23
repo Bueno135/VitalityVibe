@@ -13,8 +13,8 @@ CREATE TABLE Cliente (
     peso VARCHAR(10),
     sexo VARCHAR(10),
     freq_atv_fisica VARCHAR(100),
-    alergias VARCHAR(100),
     objetivo VARCHAR(100),
+    alergias VARCHAR(100),
     problema_saude VARCHAR(100),
     med_controlado VARCHAR(100),
     UNIQUE (ID_Cliente, cpf, email)
@@ -36,27 +36,37 @@ CREATE TABLE Nutricionista (
 );
 
 CREATE TABLE Especialidade (
-    id_especialidade INT AUTO_INCREMENT PRIMARY KEY UNIQUE,
+    id_especialidade INT AUTO_INCREMENT PRIMARY KEY ,
     nome_especialidade VARCHAR(100)
 );
 
 CREATE TABLE PlanoAlimentar (
-    id_plano INT AUTO_INCREMENT PRIMARY KEY UNIQUE,
+    id_plano INT AUTO_INCREMENT PRIMARY KEY,
     nome_pratos VARCHAR(255),
     nome_dieta VARCHAR(255),
     refeicao VARCHAR(100),
-    dia_semana DATE,
+    dia_semana VARCHAR(255),
     horario TIME,
     observacoes VARCHAR(255)
 );
 
 CREATE TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar (
-    id_contrato INT AUTO_INCREMENT PRIMARY KEY UNIQUE,
+    id_contrato INT AUTO_INCREMENT PRIMARY KEY, 
     fk_Cliente_ID_Cliente INT,
     fk_Nutricionista_id_nutricionista INT,
     fk_PlanoAlimentar_id_plano INT,
     dt_inic DATE,
     dt_fim DATE
+);
+
+CREATE TABLE Mensagem (
+    id_mensagem INT AUTO_INCREMENT PRIMARY KEY,
+    opcao_conversa VARCHAR(255),
+    outro_opcao VARCHAR(255),
+    mensagem VARCHAR(100)
+    data_envio DATE
+    fk_Cliente_ID_Cliente INT, 
+    fk_Nutricionista_id_nutricionista INT
 );
  
 ALTER TABLE Nutricionista ADD CONSTRAINT FK_Nutricionista_2
@@ -78,3 +88,22 @@ ALTER TABLE Contrato_Cliente_Nutricionista_PlanoAlimentar ADD CONSTRAINT FK_Cont
     FOREIGN KEY (fk_PlanoAlimentar_id_plano)
     REFERENCES PlanoAlimentar (id_plano)
     ON DELETE NO ACTION;
+ 
+ALTER TABLE Mensagem ADD CONSTRAINT FK_Mensagem_1
+    FOREIGN KEY (fk_Cliente_ID_Cliente)
+    REFERENCES Cliente (ID_Cliente);
+    
+ALTER TABLE Mensagem ADD CONSTRAINT FK_Mensagem_2
+    FOREIGN KEY (fk_Nutricionista_id_nutricionista)
+    REFERENCES Nutricionista (id_nutricionista);
+
+INSERT INTO Especialidade (nome_especialidade)
+VALUES 
+('Perda de Peso'), 
+('Ganho de Peso'), 
+('Melhora na Saúde'), 
+('Melhora na Performace Atlética'), 
+('Melhora em Condições Específicas'), 
+('Melhoria dos Hábitos Alimentares'), 
+('Construir um Controle de Distúrbios Alimentares'), 
+('Outros');

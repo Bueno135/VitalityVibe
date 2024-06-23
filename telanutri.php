@@ -1,6 +1,7 @@
 <?php
 include '/xampp/htdocs/Projeto/bd/connection.php';
 include '/xampp/htdocs/Projeto/bd/protect.php';
+$_SESSION['user_type'] = 'nutricionista';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -25,11 +26,16 @@ include '/xampp/htdocs/Projeto/bd/protect.php';
                 <i class="fas fa-user-circle fa-lg text-white"></i> <span class="text-white"><?php echo $_SESSION['nome']; ?></span>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
-                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <span class="text-white"><?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></span></p>
                 <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
                 <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
-                <button id="editarperfil" onclick="editarperfilnutri()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
+                <button id="editarperfil" onclick="editarperfil()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
+                <form id="deleteProfileForm" action="delete_profile.php" method="POST" class="block w-full text-left">
+                    <input type="hidden" name="user_type" value="<?php echo $_SESSION['user_type']; ?>">
+                    <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-500 hover:text-white" onclick="return confirm('Tem certeza que deseja excluir seu perfil?')">Excluir perfil</button>
+                </form>
             </div>
+
         </div>
     </div>
 </header>
