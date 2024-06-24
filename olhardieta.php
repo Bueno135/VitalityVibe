@@ -6,15 +6,14 @@ session_start();
 if (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
     $clienteID = $_SESSION['id'];
 
-    // Consulta o banco de dados para obter as dietas associadas ao cliente
-    $sql = "
+    // Consulta o banco de dados para obter as dietas associadas ao cliente usando prepared statements
+    $stmt = $conn->prepare("
         SELECT 
             c.id_contrato, 
             n.nome AS nome_nutricionista, 
             p.nome_dieta AS planoalimentar, 
             p.nome_pratos,
-            p.observacao
-            
+            p.observacoes
         FROM 
             contrato_cliente_nutricionista_planoalimentar c
         JOIN 
@@ -22,8 +21,10 @@ if (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
         JOIN 
             planoalimentar p ON c.fk_PlanoAlimentar_id_plano = p.id_plano
         WHERE 
-            c.fk_cliente_id_cliente = $clienteID";
-    $result = $conn->query($sql);
+            c.fk_cliente_id_cliente = ?");
+    $stmt->bind_param("i", $clienteID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 } else {
     echo "ID de cliente inválido.";
     exit; // Para a execução do script
@@ -50,11 +51,11 @@ if (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
         </button>
         <div class="relative">
             <button id="profileDropdown" class="text-gray-600 hover:text-white-600 mr-4 focus:outline-none">
-                <i class="fas fa-user-circle fa-lg text-white"></i> <span class="text-white"><?php echo $_SESSION['nome']; ?></span>
+                <i class="fas fa-user-circle fa-lg text-white"></i> <span class="text-white"><?php echo htmlspecialchars($_SESSION['nome']); ?></span>
             </button>
             <div id="profileInfo" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden">
-                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo $_SESSION['nome'] = ucwords($_SESSION['nome']); ?></p>
-                <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo $_SESSION['email']; ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Nome: <?php echo htmlspecialchars(ucwords($_SESSION['nome'])); ?></p>
+                <p class="block px-4 py-2 text-sm text-gray-700">Email: <?php echo htmlspecialchars($_SESSION['email']); ?></p>
                 <button id="openProfileInfo" onclick="deslogar()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Deslogar</button>
                 <button id="editarperfil" onclick="editarperfil()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Editar perfil</button>
             </div>
@@ -71,11 +72,11 @@ if (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
             if (isset($result) && $result->num_rows > 0) {
                 echo "<ul>";
                 while ($row = $result->fetch_assoc()) {
-                    $nomeNutricionista = $row['nome_nutricionista'];
-                    $planoalimentar = $row['planoalimentar'];
-                    $pratos = $row['nome_pratos'];
-                    $observacao = $row['observacao'];
-                    echo "<li><strong>Nutricionista:</strong> $nomeNutricionista <br> <strong>Dieta:</strong> $planoalimentar <p><strong>Pratos: </strong> $pratos </p> <p><strong>Descrição:</strong> $observacao</p></li>";
+                    $nomeNutricionista = htmlspecialchars($row['nome_nutricionista']);
+                    $planoalimentar = htmlspecialchars($row['planoalimentar']);
+                    $pratos = htmlspecialchars($row['nome_pratos']);
+                    $observacoes = htmlspecialchars($row['observacoes']);
+                    echo "<li><strong>Nutricionista:</strong> $nomeNutricionista <br> <strong>Dieta:</strong> $planoalimentar <p><strong>Pratos: </strong> $pratos </p> <p><strong>Descrição:</strong> $observacoes</p></li>";
                 }
                 echo "</ul>";
             } else {
@@ -108,7 +109,7 @@ if (isset($_SESSION['id']) && is_numeric($_SESSION['id'])) {
         <div>
             <h5 class="uppercase mb-2 font-bold">Contato</h5>
             <ul>
-                <li><a href="mailto:info@clevereats.com" class="hover:text-blue-400">info@vitalityvibe.com</a></li>
+                <li><a href="mailto:info@vitalityvibe.com" class="hover:text-blue-400">info@vitalityvibe.com</a></li>
                 <li><a href="tel:+123456789" class="hover:text-blue-400">+1 234 567 89</a></li>
             </ul>
         </div>
