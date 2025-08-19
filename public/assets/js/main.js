@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{const m=document.querySelector('[data-menu]');const b=document.querySelector('[data-menu-btn]');if(b&&m){b.addEventListener('click',()=>m.classList.toggle('hidden'));}});
